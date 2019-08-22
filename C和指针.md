@@ -284,11 +284,11 @@ int fun(){
 
 **首先要知道的几个点：**
 
-*声明可以有多次；定义只能有一次！！！
+* 声明可以有多次；定义只能有一次！！！
 
-*全局区域的 extern int a;是声明，extern int a =1;是定义，int a;是定义
+* 全局区域的 extern int a;是声明，extern int a =1;是定义，int a;是定义
 
-*#include xxx.h 是把里面的文件“嵌入”
+* #include xxx.h 是把里面的文件“嵌入”
 
 
 所以：
