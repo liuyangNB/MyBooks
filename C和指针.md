@@ -997,8 +997,3 @@ char *strcat(char *dest, const char *src);
 >
 > 返回目的地址的指针的拷贝
 
-
-
-this is a test graph
-
-![1566481444995](assets/1566481444995.png)
