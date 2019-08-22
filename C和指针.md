@@ -997,3 +997,51 @@ char *strcat(char *dest, const char *src);
 >
 > 返回目的地址的指针的拷贝
 
+### 9.3.4字符串比较strcmp
+
+int strcmp(char const* s1, char const* s2);
+
+s1-s2 = 0 是相等；-1是小于；1是大于。字符串比较。
+
+## 9.4长度受限的字符串比较（相对安全？）
+
+strncpy//src.length<cnt正常，空余的空间填上NUL，src.length >=cnt;(说明加上NUl是超过cnt)，这样就溢出
+
+```cpp
+char buff[SIZE];
+...
+strncpy(buffer,name,SIZE);
+buffer[SIZE-1]='\0';//这句是为了保证字符串是NUL结尾的！！！
+```
+
+
+
+strncat//总是在字符串末尾加上NUL
+
+strncmp
+
+引入了目的字符串大小这个概念，（snprintf引入了截断）。
+
+## 9.5字符串查找
+
+### 9.5.1查找一个字符
+
+char* strchr(char const* str, int c);
+
+> 该函数返回在字符串 str 中第一次出现字符 c 的位置，如果未找到该字符则返回 NULL。
+
+char *strrchr(const char *str, char c);
+
+> 该函数返回在字符串 str 中最后一次出现字符 c 的位置，如果未找到该字符则返回 NULL。
+
+### 9.5.2查找任何一个字符（某个出现就算是）
+
+#include <string.h>
+
+char * strpbrk( const char *s1, const char *s2);//区分大小写
+
+### 9.5.3查找子串
+
+#include <string.h>
+
+char* strstr(char const* s1, char const* s2);//KMP算法
