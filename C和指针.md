@@ -282,6 +282,46 @@ int fun(){
 }
 ```
 
+```首先要知道的几个点```：
+
+声明可以有多次；定义只能有一次！！！
+
+全局区域的 extern int a;是声明，extern int a =1;是定义，int a;是定义
+
+#include xxx.h 是把里面的文件“嵌入”
+
+
+
+所以：
+
+```cpp
+/***fun.h****/
+#ifndef _FUN_H
+#define _FUN_H
+extern int a;//声明一个变量，
+//int a;//这样的话就变成定义了，多个.c文件包含的话就变成重定义了
+#endif
+
+/***fun.c*/
+#include "fun.h"//包含了.h的声明
+int a;//这里定义1次
+
+/**main.c**/
+#include<iostream>
+#include"fun.h"//里面包含了声明
+using namespace std;
+//extern int a;如果没有
+//int a=2;这里不能再定义了
+int main()
+{
+a=1;
+//cout<<mymax(a,b);
+cout<<a;
+}
+
+```
+
+
 ## 3.7存储类型
 
 有三个地方可以用于存储变量：普通内存、运行时堆栈、硬件寄存器。
