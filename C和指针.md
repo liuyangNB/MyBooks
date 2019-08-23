@@ -1045,3 +1045,126 @@ char * strpbrk( const char *s1, const char *s2);//区分大小写
 #include <string.h>
 
 char* strstr(char const* s1, char const* s2);//KMP算法
+
+## 9.6高级字符串查找
+
+### 9.6.1查找一个字符串前缀
+
+#include <string.h>
+
+size_t strspn (const char *s,const char * accept);//前缀匹配长度
+
+> strspn()从参数s 字符串的开头计算连续的字符，而这些字符都完全是accept 所指字符串中的字符。简单的说，若strspn()返回的数值为n，则代表字符串s 开头连续有n 个字符都是属于字符串accept内的字符。
+>
+> 返回值返回字符串s开头连续包含字符串accept内的字符数目。
+
+size_t strcspn (const char *s,const char * accept);//求补，和后面不匹配的长度
+
+### 9.6.2查找标记
+
+char *strtok(char\* s, const char *delim);
+
+```cpp
+int main () {
+   char str[80] = "This is - www.runoob.com - website";
+   const char s[2] = "-";
+   char *token;
+   
+   /* 获取第一个子字符串 */
+   token = strtok(str, s);
+   
+   /* 继续获取其他的子字符串 */
+   while( token != NULL ) {
+      printf( "%s\n", token );
+    
+      token = strtok(NULL, s);//NULL是指接着上一个字符串查询
+   }
+   
+   return(0);
+}
+```
+
+## 9.8字符操作
+
+ctype.h头文件里的
+
+int isalnum(int c)	判断是否为数字或字母
+**int isalpha(int c)**	判断是否是字母
+int iscntrl(int c)	判断是否为控制字符
+**int isdigit(int c)**	判断是否为数字
+int isgraph(int c)	判断是否为打印可显示字符
+**int islower(int c)**	判断是否为小写
+int isprint(int c)	判断是否为打印仅占一个显示位的字符
+int ispunct(int c)	判断是否位标点
+int isspace(int c)	判断是否为空格
+**int isupper(int c)**	判断是否为大写
+int isxdigit(int c)	判断是否为16进制数
+**int tolower(int c)**	转化为小写
+**int toupper(int c)**	转化为大写
+
+## 9.9内存操作
+
+void* memset(void *_Dst,int _Val,size_t_Size);
+
+第一个参数是要设置的内存地址，第二个是要设置的值，第三个是初始化的内存大小
+
+
+
+void* memcpy(buf2, buf1, sizeof(buf1));
+
+将buf1的内存内容全部拷贝到buf2，拷贝大小sizeof(buf1)
+
+在使用内存拷贝时，一定要确保内存没有重叠区域
+
+**以上这些函数大多是有危险的，在菊厂实习期间就是把这些函数改成安全函数，所以要深入去了解安全函数以及为什么是安全的？真的是安全的么？**然后似乎还有**线程安全**什么的？？？
+
+
+
+# 第十章 结构和联合
+
+## 10.1结构体基础知识
+
+struct{...} x;//A a;
+
+struc A{...} a;// A a,b;
+
+typedef struc TAG{...} NEW_NAME;
+
+### 10.1.3访问方式
+
+直接访问： .
+
+间接访问：->
+
+### 10.1.5结构的自引用
+
+```cpp
+struc A{
+	int a;
+    struct A a_1;//这种自引用类型是错的，a_1里面有自己的a_1,重复循环
+}
+
+struc A{
+	int a;
+    struct A* a_1;//这种ok
+}
+
+
+警告陷阱：
+typedef struct{
+	int a;
+	A* b;//失败，因为SELF_REF是后面才创建的，差两行也是后面
+}A;
+
+typedef struct A_TAG{
+    int a;
+    struct A_TAG* b;//ok
+}A;
+```
+
+
+
+
+
+
+
