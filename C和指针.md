@@ -1162,9 +1162,138 @@ typedef struct A_TAG{
 }A;
 ```
 
+##  10.3 结构体的存储分配
+
+考虑字节对齐的事情，#pragma pack(1)
+
+引入字节对齐是为了提高总线效率（实验室读取报文顺序则不能对齐，因为报文进来就没对齐）
+
+对齐的机构体如果用sizeof(a);就会加入空的位置；就会引入错误；如果要用某个成员的实际位置就要用offsetof宏（定义于stddef.h) offsetof(type,mumber);
+
+> offsetof(struct A,member_a);
+
+##  10.4作为函数参数的结构体
+
+参数值传递是要复制的，要消耗资源的，有时候用引用或者指针比较好，如果不能改变参数结构体那就加上const。
+
+自己注意
+
+## 10.5位段
+
+有时候为了细化内存的分配，压缩存储信息
+
+```cpp
+struct node
+{
+    unsigned int a:4;     //位段a，占4位
+    unsigned int  :0;     //无名位段，占0位
+    unsigned int b:4;     //位段b，占4位
+    int c:32;             //位段c，占32位
+    int  :6;              //无名位段，占6位
+};
+```
+
+注意点挺多，用到再查资料吧。
+
+## 10.6联合
+
+共用一段内存空间
+
+```cpp
+union{
+    float f;
+    int i;
+}fi;
+```
+
+union的应用
+
+　　设想用C语言实现这样一个功能。我需要用单片机读取一个监控温度的i2c slave的寄存器数据。这个寄存器是12位有效位寄存器。读出来之后我们要通过数据手册给定的公式计算成实际温度（设想这个公式为 temp = reg_val *10）。我们怎么实现呢？要知道，i2c的数据传输是按照byte传送的，也就是说，你只能用char类型结束数据，说白了，每个时序你只能接收8个bit的数据。所以12个bit需要读两次，用两个char类型变量或一个char类型数据接收。
+
+读出寄存器数据（这个不在这篇文章的讨论范围内）
+将读出的数据转换成可计算的数据类型（两个char类型转换成一个short或int或float类型）
+根据公式计算
+
+```cpp
+//不用union实现的函数
+int fun( void )
+{
+    int tmp_value = 0; 
+    char reg_val[2] = {0,0}; 
+     .... 
+    i2c.read(addr<<1, reg_val, 2); 
+    tmp_value = (reg_val[1]<<8 | reg_val[0]); 
+
+    return tmp_value*10; 
+}
+
+//用union的
+union REG_VAL { 
+    int value; 
+    char buf[2]; 
+}reg_val; 
+
+int fun( void )
+{ 
+    int tmp_value = 0; 
+    char reg_val[2] = {0,0}; 
+    .... 
+    i2c.read(addr<<1, reg_val.buf, 2);
+
+    return reg_val.value*10; 
+}
+```
+
+不用union的函数也可以用sprintf实现，那就更麻烦了。
+
+　　可以看到虽然在这里用union的代码比不用union的多了几行，但是i2c sensor如果多的话，那就会少很多，而且i2c sensor的寄存器有效位数不是一样的，这个用两个char类型就解决了，但是其他的可能需要用三个，所以用最上面定义的union变量可以很好的实现，不需要考虑各种转换问题。
+
+　　union还是很有用处的，所以不要忽视它了。
+
+# 第十一章 动态分配内存
+
+void* malloc(size_t size);(堆区)
+
+void free(void \*pointer);
+
+```cpp
+int arr[n];
+p=(int *)malloc(n*sizeof(int));
+```
 
 
 
+```cpp
+short *p;
+newmem=(short *)calloc(1000，sizeof(short)); 
+```
 
+第一个參数在这里所说的是所须要开辟的内存单元数量。第二个參数是每一个单元的字节的大小
 
+void* realloc(void* ptr, size_t new_size);
 
+realloc（）函数用来改动一个原先已经分配的内存的大小。使用这个函数，你能够让一块内存增大还是缩小。当扩大时。这块内存原先的内容会依旧保留，新添加的加入到原先的后面。缩小时，该内存的尾部部分内存去掉，剩余保留。
+
+注意：对于realloc（）函数。假设原先的内存无法改动。这时候realloc（）函数再会分配一块内存。而且把原先那块内存的内容拷贝到上面去。
+
+## 11.5常见的动态分配内存错误
+
+1、忘记检查事情的空间是否成功
+
+> 《C和指针》P224有讲怎么用#define 来规避这个情况
+
+2、操作内存超出分配的内存边界
+
+free要很小心，某一块内存申请后，其指针被复制到各个程序，你无法保证你使用某一个指针时候，这块内存是不是被其他指针free了。
+
+# 第十二章 使用结构和指针（链表）
+
+```cpp
+typedef struct NODE{
+    struct NODE *next;
+    int value;
+    //struct NODE* pre;
+}
+```
+
+要会链表的插入、反转、排序。
