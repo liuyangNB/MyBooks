@@ -2050,4 +2050,35 @@ echo:
 
 # 4 Processor Architecture（略）
 
-# 5Optimizing Program Performance
+# 5 Optimizing Program Performance
+
+## 5.1 Capabilities and Limitations of Optimizing Compilers 476
+
+### 5.2 Expressing Program Performance 480
+
+### 5.3 Program Example 482
+
+### 5.4 Eliminating Loop Inefficiencies 486
+
+### 5.5 Reducing Procedure Calls 490
+
+### 5.6 Eliminating Unneeded Memory References 491
+
+### 5.7 Understanding Modern Processors 496
+
+### 5.8 Loop Unrolling 509
+
+### 5.9 Enhancing Parallelism 513
+
+### 5.10 Summary of Results for Optimizing Combining Code 524
+
+### 5.11 Some Limiting Factors 525
+
+### 5.12 Understanding Memory Performance 531
+
+### 5.13 Life in the Real World: Performance Improvement Techniques 539
+
+### 5.14 Identifying and Eliminating Performance Bottlenecks 540
+
+### 5.15 Summary 547 
+
