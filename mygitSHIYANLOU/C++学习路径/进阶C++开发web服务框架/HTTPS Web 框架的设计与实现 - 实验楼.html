@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://www.shiyanlou.com/courses/568/labs/1985/document -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style class="vjs-styles-defaults">
+      .video-js {
+        width: 300px;
+        height: 150px;
+      }
+
+      .vjs-fluid {
+        padding-top: 56.25%
+      }
+    </style>
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="o-transform">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+        <meta name="csrf-token" content="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.Dqyqyw.x_DsnXMdPgwaa7OiWHqk_Pa6hN8">
+        
+            
+                <title>HTTPS Web 框架的设计与实现 - 实验楼</title>
+            
+        
+
+        
+        <meta content="实验楼是国内领先的IT在线编程及在线实训学习平台，专业导师提供精选的实践项目，创新的技术使得学习者无需配置繁琐的本地环境，随时在线流畅使用。以就业为导向，提供编程、运维、测试、云计算、大数据、数据库等全面的IT技术动手实践环境，提供Linux、Python、Java、C语言、Node.js、Hadoop、PHP、Docker、Git、R、SQL、MongoDB、Redis、Swift、Spark等千门热门课程。" name="description">
+        <meta content="实验楼,IT培训,IT教育,编程,在线编程,Linux,Linux教程,Linux操作系统,Python,Python教程,Python基础教程,Java,Java编程,C语言,大数据,Node.js,Hadoop,PHP,Docker,Git,R,SQL,MongoDB,Redis,Swift,Spark,在线实验,IT在线教育,编程入门,项目训练,项目实践,webIDE,软件开发" name="keywords">
+        
+        <meta content="实验楼，琛石科技" name="author">
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://static.shiyanlou.com/favicon.ico">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/fontawesome-all.min.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/font-awesome.min.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap.min.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap-switch.min.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap-tour.min.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap-table.min.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/katex.min.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/video-js.min.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/monokai-sublime.min.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/calendar-heatmap.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/styles.css">
+        <link rel="stylesheet" href="./HTTPS Web 框架的设计与实现 - 实验楼_files/syl-styles.css">
+
+        
+<style>
+    .layout-fullscreen {
+        margin-top: 0;
+    }
+    .labdoc-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 18px;
+        color: #666;
+        background: #fff;
+        font-size: 16px;
+        border-bottom: solid 1px #eee;
+        z-index: 10;
+    }
+    .labdoc-header a {
+        color: #666;
+    }
+    .labdoc-header a:hover,
+    .labdoc-header a:focus {
+        color: #08bf91;;
+        text-decoration: none;
+    }
+    .labdoc-nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 20%;
+        height: calc(100% - 60px);
+        padding: 0 10px;
+        background-color: #f7f7f7;
+        background-image: url(https://static.shiyanlou.com/img/logo-water-mark.png);
+        background-repeat: no-repeat;
+        background-position: 50% calc(100% - 20px);
+        overflow: auto;
+    }
+    .labdoc-nav-content {
+        margin-left: 10px;
+    }
+    .labdoc-nav h2 {
+        padding: 5px 0;
+        font-size: 16px;
+    }
+    .labdoc-nav h3 {
+        padding: 5px 0;
+        margin-left: 20px;
+        font-size: 14px;
+    }
+    .labdoc-nav h2 a,
+    .labdoc-nav h3 a {
+        color: #666;
+        text-decoration: none;
+    }
+    .labdoc-nav h2:hover a,
+    .labdoc-nav h2:focus a,
+    .labdoc-nav h3:hover a,
+    .labdoc-nav h3:focus a,
+    .labdoc-nav h2.active a,
+    .labdoc-nav h3.active a {
+        color: #08bf91;
+        text-decoration: none;
+    }
+    .labdoc-content-container {
+        float: right;
+        width: 100%;
+        padding: 0;
+        margin-top: 60px;
+    }
+    .labdoc-content {
+        padding: 0 10px 20px;
+        background: #fff;
+    }
+    .labdoc-copyright {
+        margin-top: 30px;
+        color: #999;
+        font-size: 12px;
+        font-style:italic;
+    }
+    .lab-btns {
+        display: none;
+        position: fixed;
+        top: 30%;
+        right: 10px;
+        width: 56px;
+        text-align: center;
+        z-index: 10;
+    }
+    .lab-btns div {
+        margin-bottom: 4px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.20);
+    }
+    .lab-btns a {
+        display: block;
+        padding: 0 2px;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .lab-btns a:hover,
+    .lab-btns a:focus {
+        text-decoration: none;
+    }
+
+    .lab-btns img {
+        display: inline-block;
+        border-radius: 5px;
+    }
+    .lab-btns a img {
+        padding: 11px 0;
+    }
+    .lab-btns span {
+        display: none;
+        color: #08bf91;
+    }
+    .lab-btns a:hover img {
+        display: none;
+    }
+    .lab-btns a:hover span {
+        display: block;
+        width: 52px;
+        height: 52px;
+        padding-top: 8px;
+        text-align: center;
+    }
+    .labinfo {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 20%;
+        padding: 5px 20px;
+        background: cornsilk;
+        z-index: 10;
+    }
+    .labinfo-header {
+        margin-bottom: 20px;
+    }
+    .labinfo-body div {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+    .labinfo-body div {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+    .labinfo-body a {
+        margin: 10px 0;
+    }
+    .left-time a {
+        position: relative;
+        bottom: 1px;
+        padding: 4px 10px;
+        margin-left: 4px;
+        color: #fff;
+        background: #f66;
+        font-size: 14px;
+    }
+    .left-time a:hover,
+    .left-time a:focus {
+        color: #fff;
+    }
+    .labdoc-page,
+    .labdoc-page:focus,
+    .labdoc-page:hover {
+        padding: 20px;
+        color: #08bf91;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .course-warning {
+        width: 40%;
+        margin: 10px auto;
+        font-size: 18px;
+        text-align: center;
+    }
+    @media (min-width: 768px) {
+        .labdoc-nav,
+        .lab-btns {
+            display: block;
+        }
+        .labdoc-content-container {
+            width: 80%;
+        }
+        .labdoc-content {
+            padding: 0 100px 20px;
+        }
+    }
+</style>
+
+
+        
+        
+    <style type="text/css" abt="234"></style><style id="ace_editor.css">.ace_editor {position: relative;overflow: hidden;font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;direction: ltr;text-align: left;}.ace_scroller {position: absolute;overflow: hidden;top: 0;bottom: 0;background-color: inherit;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;cursor: text;}.ace_content {position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;min-width: 100%;}.ace_dragging .ace_scroller:before{position: absolute;top: 0;left: 0;right: 0;bottom: 0;content: '';background: rgba(250, 250, 250, 0.01);z-index: 1000;}.ace_dragging.ace_dark .ace_scroller:before{background: rgba(0, 0, 0, 0.01);}.ace_selecting, .ace_selecting * {cursor: text !important;}.ace_gutter {position: absolute;overflow : hidden;width: auto;top: 0;bottom: 0;left: 0;cursor: default;z-index: 4;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}.ace_gutter-active-line {position: absolute;left: 0;right: 0;}.ace_scroller.ace_scroll-left {box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;}.ace_gutter-cell {padding-left: 19px;padding-right: 6px;background-repeat: no-repeat;}.ace_gutter-cell.ace_error {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: 2px center;}.ace_gutter-cell.ace_warning {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");background-position: 2px center;}.ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");background-position: 2px center;}.ace_dark .ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");}.ace_scrollbar {position: absolute;right: 0;bottom: 0;z-index: 6;}.ace_scrollbar-inner {position: absolute;cursor: text;left: 0;top: 0;}.ace_scrollbar-v{overflow-x: hidden;overflow-y: scroll;top: 0;}.ace_scrollbar-h {overflow-x: scroll;overflow-y: hidden;left: 0;}.ace_print-margin {position: absolute;height: 100%;}.ace_text-input {position: absolute;z-index: 0;width: 0.5em;height: 1em;opacity: 0;background: transparent;-moz-appearance: none;appearance: none;border: none;resize: none;outline: none;overflow: hidden;font: inherit;padding: 0 1px;margin: 0 -1px;text-indent: -1em;-ms-user-select: text;-moz-user-select: text;-webkit-user-select: text;user-select: text;white-space: pre!important;}.ace_text-input.ace_composition {background: inherit;color: inherit;z-index: 1000;opacity: 1;text-indent: 0;}.ace_layer {z-index: 1;position: absolute;overflow: hidden;word-wrap: normal;white-space: pre;height: 100%;width: 100%;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;pointer-events: none;}.ace_gutter-layer {position: relative;width: auto;text-align: right;pointer-events: auto;}.ace_text-layer {font: inherit !important;}.ace_cjk {display: inline-block;text-align: center;}.ace_cursor-layer {z-index: 4;}.ace_cursor {z-index: 4;position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;border-left: 2px solid;transform: translatez(0);}.ace_slim-cursors .ace_cursor {border-left-width: 1px;}.ace_overwrite-cursors .ace_cursor {border-left-width: 0;border-bottom: 1px solid;}.ace_hidden-cursors .ace_cursor {opacity: 0.2;}.ace_smooth-blinking .ace_cursor {-webkit-transition: opacity 0.18s;transition: opacity 0.18s;}.ace_editor.ace_multiselect .ace_cursor {border-left-width: 1px;}.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {position: absolute;z-index: 3;}.ace_marker-layer .ace_selection {position: absolute;z-index: 5;}.ace_marker-layer .ace_bracket {position: absolute;z-index: 6;}.ace_marker-layer .ace_active-line {position: absolute;z-index: 2;}.ace_marker-layer .ace_selected-word {position: absolute;z-index: 4;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}.ace_line .ace_fold {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;display: inline-block;height: 11px;margin-top: -2px;vertical-align: middle;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");background-repeat: no-repeat, repeat-x;background-position: center center, top left;color: transparent;border: 1px solid black;border-radius: 2px;cursor: pointer;pointer-events: auto;}.ace_dark .ace_fold {}.ace_fold:hover{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");}.ace_tooltip {background-color: #FFF;background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));border: 1px solid gray;border-radius: 1px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);color: black;max-width: 100%;padding: 3px 4px;position: fixed;z-index: 999999;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;cursor: default;white-space: pre;word-wrap: break-word;line-height: normal;font-style: normal;font-weight: normal;letter-spacing: normal;pointer-events: none;}.ace_folding-enabled > .ace_gutter-cell {padding-right: 13px;}.ace_fold-widget {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;margin: 0 -12px 0 1px;display: none;width: 11px;vertical-align: top;background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: center;border-radius: 3px;border: 1px solid transparent;cursor: pointer;}.ace_folding-enabled .ace_fold-widget {display: inline-block;   }.ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");}.ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");}.ace_fold-widget:hover {border: 1px solid rgba(0, 0, 0, 0.3);background-color: rgba(255, 255, 255, 0.2);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);}.ace_fold-widget:active {border: 1px solid rgba(0, 0, 0, 0.4);background-color: rgba(0, 0, 0, 0.05);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);}.ace_dark .ace_fold-widget {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");}.ace_dark .ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget:hover {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);background-color: rgba(255, 255, 255, 0.1);}.ace_dark .ace_fold-widget:active {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);}.ace_fold-widget.ace_invalid {background-color: #FFB4B4;border-color: #DE5555;}.ace_fade-fold-widgets .ace_fold-widget {-webkit-transition: opacity 0.4s ease 0.05s;transition: opacity 0.4s ease 0.05s;opacity: 0;}.ace_fade-fold-widgets:hover .ace_fold-widget {-webkit-transition: opacity 0.05s ease 0.05s;transition: opacity 0.05s ease 0.05s;opacity:1;}.ace_underline {text-decoration: underline;}.ace_bold {font-weight: bold;}.ace_nobold .ace_bold {font-weight: normal;}.ace_italic {font-style: italic;}.ace_error-marker {background-color: rgba(255, 0, 0,0.2);position: absolute;z-index: 9;}.ace_highlight-marker {background-color: rgba(255, 255, 0,0.2);position: absolute;z-index: 8;}.ace_br1 {border-top-left-radius    : 3px;}.ace_br2 {border-top-right-radius   : 3px;}.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}.ace_br4 {border-bottom-right-radius: 3px;}.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}.ace_br8 {border-bottom-left-radius : 3px;}.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
+/*# sourceURL=ace/css/ace_editor.css */</style><style id="ace-tm">.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}
+/*# sourceURL=ace/css/ace-tm */</style><style>    .error_widget_wrapper {        background: inherit;        color: inherit;        border:none    }    .error_widget {        border-top: solid 2px;        border-bottom: solid 2px;        margin: 5px 0;        padding: 10px 40px;        white-space: pre-wrap;    }    .error_widget.ace_error, .error_widget_arrow.ace_error{        border-color: #ff5a5a    }    .error_widget.ace_warning, .error_widget_arrow.ace_warning{        border-color: #F1D817    }    .error_widget.ace_info, .error_widget_arrow.ace_info{        border-color: #5a5a5a    }    .error_widget.ace_ok, .error_widget_arrow.ace_ok{        border-color: #5aaa5a    }    .error_widget_arrow {        position: absolute;        border: solid 5px;        border-top-color: transparent!important;        border-right-color: transparent!important;        border-left-color: transparent!important;        top: -5px;    }</style><style type="text/css">
+.sidebox-my-contest-history[data-v-530b5260] {
+  overflow: hidden;
+}
+.sidebox-my-contest-record[data-v-530b5260] {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.sidebox-my-contest-record .pull-left[data-v-530b5260] {
+    width: 39%;
+    margin-right: 1%;
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebox-my-contest-record .pull-right[data-v-530b5260] {
+    width: 60%;
+}
+.sidebox-my-contest-record .challenge-meta-status[data-v-530b5260] {
+    position: relative;
+    bottom: 1px;
+}
+.sidebox-record-time[data-v-530b5260] {
+  display: inline-block;
+  margin-left: 4px;
+  color: #666;
+  font-size: 14px;
+}
+.sidebox-footer[data-v-530b5260] {
+  text-align: right;
+}
+.sidebox-footer a[data-v-530b5260] {
+    font-size: 14px;
+}
+</style><style type="text/css">
+.fade-enter-active[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  opacity: 0;
+}
+.header-message[data-v-07a2dd56] {
+  position: relative;
+}
+.header-message > a[data-v-07a2dd56] {
+  position: relative;
+  padding-top: 23px !important;
+}
+.header-message > a .icon[data-v-07a2dd56] {
+    width: 22px;
+}
+.popover[data-v-07a2dd56] {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: -66px;
+  width: 180px;
+  background: #fff;
+}
+.popover .msg-content[data-v-07a2dd56] {
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+.popover .msg-content a[data-v-07a2dd56] {
+      color: #f66;
+}
+.popover .msg-content a[data-v-07a2dd56]:focus, .popover .msg-content a[data-v-07a2dd56]:hover {
+        text-decoration: none;
+}
+.mark[data-v-07a2dd56] {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  padding: 0 5px;
+  color: #fff;
+  background: #f66;
+  font-size: 12px;
+  border-radius: 10px;
+  line-height: 16px;
+}
+@media (max-width: 768px) {
+.mark[data-v-07a2dd56] {
+    top: 14px;
+    right: calc(50% - 8px);
+}
+}
+</style><style type="text/css">
+.hidden[data-v-815c5224] {
+  display: none;
+}
+.show[data-v-815c5224] {
+  display: block;
+}
+.fade-enter-active[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  transition: opacity 0.5s;
+}
+.fade-enter[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  opacity: 0;
+}
+.header-userbox a[data-v-815c5224] {
+  display: block;
+  padding: 11px 0 11px 10px !important;
+}
+.header-avatar[data-v-815c5224] {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.vip-icon[data-v-815c5224] {
+  position: absolute;
+  bottom: 5px;
+  right: calc(50% - 30px);
+  width: 20px;
+  height: 20px;
+}
+@media (min-width: 768px) {
+.vip-icon[data-v-815c5224] {
+    right: 0;
+}
+}
+.user[data-v-815c5224] {
+  display: block;
+  position: absolute;
+  top: 60px;
+  left: -140px;
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 4px 1px #ccc;
+  z-index: 999 !important;
+}
+.user[data-v-815c5224]:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 220px;
+    height: 50px;
+}
+.user.popover > .arrow[data-v-815c5224] {
+    left: 63%;
+}
+.user-info[data-v-815c5224] {
+  overflow: hidden;
+}
+.user-info a[data-v-815c5224] {
+    float: left;
+    padding: 0 !important;
+}
+.user-info a img[data-v-815c5224] {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+}
+.username[data-v-815c5224] {
+  position: relative;
+}
+.username > img[data-v-815c5224] {
+    width: 20px;
+    position: absolute;
+    left: -30px;
+    bottom: 5px;
+}
+.username > span[data-v-815c5224] {
+    display: inline-block;
+    max-width: 150px;
+    color: #666;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.username > span.user-level[data-v-815c5224] {
+      color: #fec42d;
+      font-size: 14px;
+      font-weight: 700;
+}
+.username > p[data-v-815c5224] {
+    color: #a4a4a4;
+    font-size: 12px;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150px;
+    text-overflow: ellipsis;
+}
+.start-experiment[data-v-815c5224] {
+  margin-bottom: 10px;
+}
+.start-experiment > a[data-v-815c5224] {
+    display: inline-block;
+    width: 100%;
+    padding: 8px 0 !important;
+    margin: 10px 0;
+    background-color: #08bf91;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+.start-experiment > a[data-v-815c5224]:hover, .start-experiment > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #fff;
+}
+.marked-words[data-v-815c5224] {
+  width: 100%;
+  color: #a4a4a4 !important;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  position: absolute;
+  top: 130px;
+  left: 0;
+}
+.marked-words > a[data-v-815c5224] {
+    color: #a4a4a4 !important;
+    font-size: 12px;
+    padding: 0 !important;
+}
+.marked-words > a[data-v-815c5224]:hover, .marked-words > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #a4a4a4;
+}
+.user-links a[data-v-815c5224] {
+  padding: 4px 0 !important;
+  margin-top: 15px;
+  color: #3a3a3a;
+  text-align: center;
+  border: solid 1px #ccc;
+  border-radius: 20px;
+}
+.user-links a.member-index[data-v-815c5224] {
+    color: #f66;
+    border-color: #f66;
+}
+.user-links a[data-v-815c5224]:hover {
+    text-decoration: none;
+}
+.user-links .log-out[data-v-815c5224] {
+  padding-top: 20px;
+}
+.user-links .log-out a[data-v-815c5224] {
+    border: none;
+    padding: 0 !important;
+    color: #a4a4a4;
+    text-align: right;
+}
+</style><style type="text/css">
+.header-learn-info[data-v-33ac7940] {
+  float: right;
+  width: 100%;
+  padding: 23.5px 10px;
+  margin: 0;
+  position: relative;
+}
+.header-learn-info > span[data-v-33ac7940] {
+    font-size: 16px;
+    color: #666;
+}
+.header-learn-info > span img[data-v-33ac7940] {
+      transform: rotate(-90deg);
+}
+.header-learn-info > span[data-v-33ac7940]:hover {
+      cursor: pointer;
+}
+.home-page[data-v-33ac7940] {
+  color: #666;
+}
+.home-page[data-v-33ac7940]:hover {
+    text-decoration: none;
+    color: #08bf91;
+}
+@media (min-width: 768px) {
+.header-learn-info[data-v-33ac7940] {
+    width: auto;
+}
+}
+@media (max-width: 1200px) {
+.header-learn-info[data-v-33ac7940] {
+    display: none;
+}
+}
+.fade-enter-active[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  opacity: 0;
+}
+.learninfo-box[data-v-33ac7940] {
+  display: block;
+  width: 223px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  padding: 20px;
+  left: 35px;
+  background: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  border: none;
+}
+.learninfo-box .lab-running > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .lab-running .lab-running-name[data-v-33ac7940] {
+    font-size: 14px;
+    padding: 10px 0;
+}
+.learninfo-box .lab-running .lab-running-name > span[data-v-33ac7940] {
+      max-width: 60%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+}
+.learninfo-box .lab-running .lab-running-name .lab-continue[data-v-33ac7940] {
+      background: #08bf91;
+      font-size: 12px;
+      color: #fff;
+      border: none;
+      padding: 2px 12px;
+      margin-top: -1px;
+}
+.learninfo-box .learn-records > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .learn-records .records-list[data-v-33ac7940] {
+    margin-top: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940] {
+      display: inline-block;
+      font-size: 14px;
+      color: #666;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940]:hover {
+        text-decoration: none;
+        background-color: #f5f5f5;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940] {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940]:hover {
+      text-decoration: none;
+}
+@media (min-width: 768px) {
+.learninfo-box[data-v-33ac7940] {
+    left: -30px;
+    margin-bottom: 0;
+}
+}
+</style><style type="text/css">
+.input-group[data-v-68b3bbad] {
+  position: relative;
+}
+ul[data-v-68b3bbad] {
+  position: absolute;
+  top: 33px;
+  z-index: 100;
+  width: calc(100% - 46px);
+  padding: 0;
+  color: #7f7f7f;
+  background: #fff;
+  font-size: 14px;
+  border: solid 1px #ccc;
+  list-style: none;
+}
+ul li[data-v-68b3bbad] {
+    padding: 5px 11px;
+    cursor: pointer;
+}
+ul li.active[data-v-68b3bbad] {
+      background: #eee;
+}
+</style><style type="text/css">
+.side-new-contest .sidebox-body[data-v-7d67fa2d] {
+  overflow: hidden;
+}
+.side-new-contest .sidebox-body span[data-v-7d67fa2d] {
+    position: relative;
+    top: 4px;
+    color: #3a3a3a;
+    font-size: 14px;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d] {
+    padding: 2px 10px;
+    color: #08bf91;
+    font-size: 14px;
+    border: solid 1px #08bf91;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:hover, .side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:focus {
+      color: #fff;
+      background: #09bf91;
+}
+</style><style type="text/css">
+a[data-v-9b3c8994] {
+    display: inline-block;
+    vertical-align: middle;
+}
+@media (max-width: 768px) {
+a[data-v-9b3c8994] {
+        display: none;
+}
+}
+.fa[data-v-9b3c8994] {
+    padding: 4px;
+    color: #274a59;
+    background: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.fa[data-v-9b3c8994]:hover {
+    color: #ec5353;
+}
+.pull-left[data-v-9b3c8994] {
+    margin-left: 10px;
+}
+
+/*# sourceURL=/home/shiyanlou/shiyanlou/simplecloud/app/src/base/components/weibo.vue?211347e4 */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3NoaXlhbmxvdS9zaGl5YW5sb3Uvc2ltcGxlY2xvdWQvYXBwL3NyYy9iYXNlL2NvbXBvbmVudHMvd2VpYm8udnVlPzIxMTM0N2U0Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFtQ0E7SUFDQSxzQkFBQTtJQUNBLHVCQUFBO0NBQ0E7QUFDQTtBQUNBO1FBQ0EsY0FBQTtDQUNBO0NBQ0E7QUFDQTtJQUNBLGFBQUE7SUFDQSxlQUFBO0lBQ0EsaUJBQUE7SUFDQSxnQkFBQTtJQUNBLG1CQUFBO0NBQ0E7QUFDQTtJQUNBLGVBQUE7Q0FDQTtBQUNBO0lBQ0Esa0JBQUE7Q0FDQSIsImZpbGUiOiJ3ZWliby52dWUiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XG48YSA6aHJlZj1cImhyZWZcIiA6Y2xhc3M9XCJ7ICdidG4gYnRuLXByaW1hcnknOiBpc0J0biAsICdwdWxsLWxlZnQnOiBpc0xlZnR9XCIgdGFyZ2V0PVwiX2JsYW5rXCI+XG4gICAgPHNwYW4gdi1pZj1cImlzQnRuXCI+5YiG5Lqr5Yiw5b6u5Y2aPC9zcGFuPlxuICAgIDxpbWcgOnNyYz1cImljb25cIiBhbHQ9XCJcIj5cbjwvYT5cbjwvdGVtcGxhdGU+XG5cbjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gICAgcHJvcHM6IFsnaXNCdG4nLCAncGF0aCcsICd0aXRsZScsICdwaWMnLCAnaWNvbicsICdpc0xlZnQnLCAndXJsJ10sXG4gICAgZGF0YSgpIHtcbiAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgIGhyZWY6ICcnLFxuICAgICAgICAgICAgcGFyYW1zOiB7XG4gICAgICAgICAgICAgICAgdGl0bGU6IHRoaXMudGl0bGUsXG4gICAgICAgICAgICAgICAgYXBwa2V5OiAnMTM0MzcxMzA1MycsXG4gICAgICAgICAgICAgICAgcGljOiAodGhpcy5waWMgJiYgdGhpcy5waWMubGVuZ3RoKSA/IHRoaXMucGljIDogWydodHRwczovL3N0YXRpYy5zaGl5YW5sb3UuY29tL2ltZy9sb2dvLWJhc2UucG5nJ10sXG4gICAgICAgICAgICAgICAgc2VhcmNoUGljOiBmYWxzZSxcbiAgICAgICAgICAgICAgICB1cmw6IHRoaXMudXJsXG4gICAgICAgICAgICB9LFxuICAgICAgICAgICAgd2VpYm9Vcmw6IHRoaXMudXJsID8gYGh0dHA6Ly9zZXJ2aWNlLndlaWJvLmNvbS9zaGFyZS9zaGFyZS5waHA/dXJsPSR7dGhpcy51cmx9IGA6IGBodHRwOi8vc2VydmljZS53ZWliby5jb20vc2hhcmUvc2hhcmUucGhwP3VybD1odHRwczovL3d3dy5zaGl5YW5sb3UuY29tYCxcbiAgICAgICAgfTtcbiAgICB9LFxuICAgIG1vdW50ZWQoKSB7XG4gICAgICAgIHRoaXMuaHJlZiA9IGAke3RoaXMud2VpYm9Vcmx9JHt0aGlzLnBhdGh9YFxuICAgICAgICAgICAgKyBgJnRpdGxlPSR7ZW5jb2RlVVJJQ29tcG9uZW50KHRoaXMucGFyYW1zLnRpdGxlKX1gXG4gICAgICAgICAgICArIGAmYXBwa2V5PSR7dGhpcy5wYXJhbXMuYXBwa2V5fWBcbiAgICAgICAgICAgICsgYCZwaWM9JHt0aGlzLnBhcmFtcy5waWMuam9pbignfHwnKX1gXG4gICAgICAgICAgICArIGAmc2VhcmNoUGljPSR7dGhpcy5wYXJhbXMuc2VhcmNoUGljfWA7XG4gICAgICAgIHRoaXMuaHJlZiA9IGVuY29kZVVSSSh0aGlzLmhyZWYpXG4gICAgfVxufVxuPC9zY3JpcHQ+XG5cbjxzdHlsZSBzY29wZWQ+XG5hIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjhweCkge1xuICAgIGEge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cbn1cbi5mYSB7XG4gICAgcGFkZGluZzogNHB4O1xuICAgIGNvbG9yOiAjMjc0YTU5O1xuICAgIGJhY2tncm91bmQ6ICNmZmY7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbn1cbi5mYTpob3ZlciB7XG4gICAgY29sb3I6ICNlYzUzNTM7XG59XG4ucHVsbC1sZWZ0IHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbn1cbjwvc3R5bGU+XG5cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style><style type="text/css">
+.navbar-form[data-v-72bea96c] {
+  float: left !important;
+  padding: 10px 0;
+  margin: 8px 10px;
+}
+.form-group[data-v-72bea96c] {
+  position: relative;
+}
+label[data-v-72bea96c] {
+  display: inline;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: #3a3a3a;
+  font-size: 16px;
+}
+.form-control[data-v-72bea96c] {
+  width: 200px;
+  border-radius: 20px;
+}
+.search-autocomplete[data-v-72bea96c] {
+  position: absolute;
+  top: 35px;
+  left: 1px;
+  width: 195px;
+  padding: 4px;
+  border: solid 1px #ddd;
+  border-top: none;
+  background: #fff;
+  z-index: 1000;
+}
+.search-autocomplete a[data-v-72bea96c] {
+    display: block;
+    padding: 6px 8px;
+    color: #4c5157;
+    font-size: 13px;
+}
+.search-autocomplete a[data-v-72bea96c]:hover, .search-autocomplete a[data-v-72bea96c]:focus {
+      color: #fff;
+      background: #0c9;
+      text-decoration: none;
+}
+</style><script>//remove 17173 video ad
+doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+//remove baidu search ad
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+            all = document.body.querySelectorAll('.result.c-container[id="1"]');
+            //if(all.length == 1) return;
+            for(var i = 0; i < all.length; i++){
+                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
+                    all[i].style.display= "none";all[i].style.visibility='hidden';
+                }
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
+    };
+}
+//remove sohu video ad
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//remove 56.com video ad
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//fore iqiyi enable html5 player function
+if (document.URL.indexOf("iqiyi.com") >= 0){
+    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
+        document.cookie='player_forcedType=h5_VOD'
+        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
+            console.log('no reload')
+        }else{
+            location.reload()
+            localStorage.reloadTime = Date.now();
+        }
+    }
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+
+    <body>
+        <div style="height:0;width:0;visibility:hidden">
+            <img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/weixin_logo.png" alt="">
+        </div>
+        
+            
+        
+
+        
+
+
+        <div class="content-box">
+        
+<style>
+.layout-fullscreen {
+    margin-top: -20px;
+}
+</style>
+<div class="layout layout-fullscreen">
+    <div class="container">
+        
+        
+    </div>
+    
+<div class="lab-btns">
+    
+        
+
+        
+            
+        
+
+        
+            
+        
+
+        
+        <div>
+            <img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/best-study-way.png">
+            <a class=" member-vm lab-item-start  " data-mobile-url="/courses/568/labs/1985/document" data-url="/courses/start/1985" data-next="/courses/running">
+                <img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/labdoc-start.png">
+                
+                    <span>开始<br>实验</span>
+                
+            </a>
+        </div>
+    
+    <div>
+        <a data-toggle="modal" href="https://www.shiyanlou.com/courses/568/labs/1985/document#askquestion">
+            <img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/labdoc-question.png">
+            <span>我要<br>提问</span>
+        </a>
+    </div>
+    <div>
+        <a class="commit-error">
+            <img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/labdoc-jiucuo.png">
+            <span>我要<br>纠错</span>
+        </a>
+    </div>
+</div>
+<div class="labdoc-header">
+    <a href="https://www.shiyanlou.com/courses/568">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        C++ 开发 Web 服务框架
+    </a>
+    
+</div>
+<div class="labdoc-nav">
+    <div class="labdoc-nav-content">
+                <h2 class="">
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#labdoc-header-0">一、概述</a>
+                </h2>
+            
+                <h2 class="active">
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#labdoc-header-1">二、编译环境提示</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#labdoc-header-2">三、实现 HTTPS 框架</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#labdoc-header-3">四、开发 HTTPS 服务器</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#labdoc-header-4">五、创建证书文件</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#labdoc-header-5">六、总结</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#labdoc-header-6">七、参考资料</a>
+                </h2>
+            </div>
+    
+</div>
+<div class="labdoc-content-container">
+    <div class="markdown-body labdoc-content" id="labdoc-content"><div><h1 id="https-web-">HTTPS 的原理及其 Web 框架的设计与实现</h1>
+<h2 id="labdoc-header-0">一、概述</h2>
+<h4 id="-">项目介绍</h4>
+<p>服务器开发中 Web 服务是一个基本的代码单元，将服务端的请求和响应部分的逻辑抽象出来形成框架，能够做到最高级别的框架级代码复用。本次项目将综合使用 C++11 及 Boost 中的 Asio 实现 HTTP 和 HTTPS 的服务器框架。</p><h4 id="-">项目涉及的知识点</h4>
+<ul>
+<li>C++基本知识<ul>
+<li>面向对象</li>
+<li>模板</li>
+<li>命名空间</li>
+<li>常用 IO 库</li>
+</ul>
+</li>
+<li>C++11 相关<ul>
+<li>lambda expression</li>
+<li>std::shared_ptr</li>
+<li>std::make_shared</li>
+<li>std::unordered_map</li>
+<li>std::regex</li>
+<li>std::smatch</li>
+<li>std::regex_match</li>
+<li>std::function</li>
+<li>std::thread</li>
+</ul>
+</li>
+<li>Boost Asio 相关<ul>
+<li>boost::asio::io_service</li>
+<li>boost::asio::ip::tcp::socket</li>
+<li>boost::asio::ip::tcp::v4()</li>
+<li>boost::asio::ip::tcp::endpoint</li>
+<li>boost::asio::ip::tcp::acceptor</li>
+<li>boost::asio::streambuf</li>
+<li>boost::asio::async_read</li>
+<li>boost::asio::async_read_until</li>
+<li>boost::asio::async_write</li>
+<li>boost::asio::transfer_exactly</li>
+<li>boost::asio::ssl::stream</li>
+<li>boost::asio::ssl::stream_base::server</li>
+<li>boost::asio::ssl::context</li>
+<li>boost::asio::ssl::context::sslv23</li>
+<li>boost::asio::ssl::context::pem</li>
+<li>boost::system::error_code</li>
+</ul>
+</li>
+</ul>
+<h2 id="labdoc-header-1">二、编译环境提示</h2>
+<p>本次实验中的代码使用了 C++11 标准库中的正则表达式库，在 g++ 4.9 之前， regex 库并不支持 ECMAScript 的正则语法，因此需要将 g++ 版本升级至 4.9 以上。</p><pre><code class="hljs cpp"><span class="hljs-comment">// 下面的这段代码可以测试你的编译器对正则表达式的支持情况</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;regex&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>
+</span>{
+    <span class="hljs-built_in">std</span>::<span class="hljs-function">regex <span class="hljs-title">r1</span><span class="hljs-params">(<span class="hljs-string">"S"</span>)</span></span>;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"S works.\n"</span>);
+    <span class="hljs-built_in">std</span>::<span class="hljs-function">regex <span class="hljs-title">r2</span><span class="hljs-params">(<span class="hljs-string">"."</span>)</span></span>;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">". works.\n"</span>);
+    <span class="hljs-built_in">std</span>::<span class="hljs-function">regex <span class="hljs-title">r3</span><span class="hljs-params">(<span class="hljs-string">".+"</span>)</span></span>;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">".+ works.\n"</span>);
+    <span class="hljs-built_in">std</span>::<span class="hljs-function">regex <span class="hljs-title">r4</span><span class="hljs-params">(<span class="hljs-string">"[0-9]"</span>)</span></span>;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"[0-9] works.\n"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre><p>如果你的运行结果遇到了下图所示的错误，说明你确实需要升级你的 g++ 了：</p><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm" alt="1-2-1"></p><p>使用 <code>g++ -v</code> 可以查看到当前编译器版本：</p><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(1)" alt="1-2-2"></p><blockquote>
+<p>如果你最后一行中的 <code>gcc version</code> 显示的是 <code>4.8.x</code>，那么你需要手动将编译器版本升级至 <code>4.9</code> 以上，方法如下：</p><pre><code class="hljs bash"><span class="hljs-comment"># 安装 add-apt-repository 工具</span>
+sudo apt-get install software-properties-common
+<span class="hljs-comment"># 增加源</span>
+sudo add-apt-repository ppa<span class="hljs-function">:ubuntu-toolchain-r</span>/test
+<span class="hljs-comment"># 更新源</span>
+sudo apt-get update
+<span class="hljs-comment"># 更新安装</span>
+sudo apt-get upgrade
+<span class="hljs-comment"># 安装 gcc/g++ 4.9</span>
+sudo apt-get install gcc-4.9 g++-4.9
+<span class="hljs-comment"># 更新链接</span>
+sudo updatedb
+sudo ldconfig
+sudo update-alternatives <span class="hljs-params">--install</span> <span class="hljs-string">/usr/bin/gcc</span> gcc <span class="hljs-string">/usr/bin/gcc-4.8</span> 48 \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/g</span>++ g++ <span class="hljs-string">/usr/bin/g</span>++-4.8 \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-ar</span> gcc-ar <span class="hljs-string">/usr/bin/gcc-ar-4.8</span> \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-nm</span> gcc-nm <span class="hljs-string">/usr/bin/gcc-nm-4.8</span> \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-ranlib</span> gcc-ranlib <span class="hljs-string">/usr/bin/gcc-ranlib-4.8</span>
+sudo update-alternatives <span class="hljs-params">--install</span> <span class="hljs-string">/usr/bin/gcc</span> gcc <span class="hljs-string">/usr/bin/gcc-4.9</span> 49 \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/g</span>++ g++ <span class="hljs-string">/usr/bin/g</span>++-4.9 \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-ar</span> gcc-ar <span class="hljs-string">/usr/bin/gcc-ar-4.9</span> \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-nm</span> gcc-nm <span class="hljs-string">/usr/bin/gcc-nm-4.9</span> \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-ranlib</span> gcc-ranlib <span class="hljs-string">/usr/bin/gcc-ranlib-4.9</span>
+</code></pre></blockquote>
+<h2 id="labdoc-header-2">三、实现 HTTPS 框架</h2>
+<p>在上一节实验中，我们已经实现了 HTTP 的框架，利用这个框架，我们便能更加方便的进行框架级的复用。Boost Asio 包含了一个类及类模板用于对基本的 SSL 进行支持，这个类使我们实现 HTTPS 服务器成为可能。从实现上来看，我们只需要对已经存在的流再进行一层加密封装，比如加密 TCP Socket。这个过程异常的简单，我们只需稍加利用即可实现整个HTTPS 的框架，在 <code>web_server</code> 文件夹下新建 <code>server_https.hpp</code> 文件：</p><pre><code class="hljs cpp"><span class="hljs-comment">//</span>
+<span class="hljs-comment">// server_https.hpp</span>
+<span class="hljs-comment">// web_server</span>
+<span class="hljs-comment">// created by changkun at shiyanlou.com</span>
+<span class="hljs-comment">//</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">ifndef</span> SERVER_HTTPS_HPP</span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span>    SERVER_HTTPS_HPP</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"server_http.hpp"</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;boost/asio/ssl.hpp&gt;</span></span>
+
+<span class="hljs-keyword">namespace</span> ShiyanlouWeb {
+
+    <span class="hljs-comment">// 定义 HTTPS 类型</span>
+    <span class="hljs-keyword">typedef</span> boost::asio::ssl::stream&lt;boost::asio::ip::tcp::socket&gt; HTTPS;
+
+    <span class="hljs-comment">// 定义 HTTPS 服务, 模板类型为 HTTPS</span>
+    <span class="hljs-keyword">template</span>&lt;&gt;
+    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Server</span>&lt;HTTPS&gt; :</span> <span class="hljs-keyword">public</span> ServerBase&lt;HTTPS&gt; {
+    <span class="hljs-keyword">public</span>:
+        <span class="hljs-comment">// 一个 HTTPS 的服务器比 HTTP 服务器多增加了两个参数，一个是证书文件，另一个是私钥文件</span>
+        Server(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">short</span> port, <span class="hljs-keyword">size_t</span> num_threads,
+               <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; cert_file, <span class="hljs-keyword">const</span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span>&amp; private_key_file) :
+          ServerBase&lt;HTTPS&gt;::ServerBase(port, num_threads),
+          context(boost::asio::ssl::context::sslv23) {
+            <span class="hljs-comment">// 使用证书文件</span>
+            context.use_certificate_chain_file(cert_file);
+            <span class="hljs-comment">// 使私钥文件, 相比之下需要多传入一个参数来指明文件的格式</span>
+            context.use_private_key_file(private_key_file, boost::asio::ssl::context::pem);
+        }
+
+    <span class="hljs-keyword">private</span>:
+        <span class="hljs-comment">// 和 HTTP 服务器相比，需要多定义一个 ssl context 对象</span>
+        boost::asio::ssl::context context;
+
+        <span class="hljs-comment">// HTTPS 服务器和 HTTP 服务器相比</span>
+        <span class="hljs-comment">// 其区别在于对 socket 对象的构造方式有所不同</span>
+        <span class="hljs-comment">// HTTPS 会在 socket 这一步中对 IO 流进行加密</span>
+        <span class="hljs-comment">// 因此实现的 accept() 方法需要对 socket 用 ssl context 初始化</span>
+        <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">accept</span><span class="hljs-params">()</span> </span>{
+            <span class="hljs-comment">// 为当前连接创建一个新的 socket</span>
+            <span class="hljs-comment">// Shared_ptr 用于传递临时对象给匿名函数</span>
+            <span class="hljs-comment">// socket 类型会被推导为: std::shared_ptr&lt;HTTPS&gt;</span>
+            <span class="hljs-keyword">auto</span> socket = <span class="hljs-built_in">std</span>::make_shared&lt;HTTPS&gt;(m_io_service, context);
+
+            acceptor.async_accept(
+                (*socket).lowest_layer(),
+                [<span class="hljs-keyword">this</span>, socket](<span class="hljs-keyword">const</span> boost::system::error_code&amp; ec) {
+                    <span class="hljs-comment">// 立即启动并接受一个新连接</span>
+                    accept();
+
+                    <span class="hljs-comment">// 处理错误</span>
+                    <span class="hljs-keyword">if</span>(!ec) {
+                        (*socket).async_handshake(boost::asio::ssl::stream_base::server,
+                            [<span class="hljs-keyword">this</span>, socket](<span class="hljs-keyword">const</span> boost::system::error_code&amp; ec) {
+                            <span class="hljs-keyword">if</span>(!ec) process_request_and_respond(socket);
+                        });
+                    }
+            });
+        }
+    };
+}
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span>    <span class="hljs-comment">/* SERVER_HTTPS_HPP */</span></span>
+</code></pre><p>在上面整个过程中，我们仅仅只是重新实现了 <code>accept()</code> 方法，将启用一个 HTTPS 服务器需要的两个文件传递给了 Boost Asio，就完成了整个服务器框架。</p><checker style="display: none">[{"name":"check if server_https.hpp exist","script":"#!/bin/bash\nls /home/shiyanlou/web_server/server_https.hpp \n","error":"我们发现你还没有创建 web_server/server_https.hpp 文件"}]</checker><h2 id="labdoc-header-3">四、开发 HTTPS 服务器</h2>
+<p>我们已经在上一节实验中写过了 <code>handler.hpp</code>，这个文件中实现了服务器资源的访问和处理逻辑。而这部分逻辑，本质上是独立于服务器类型而存在的，因此我们根本不需要在进行任何开发，只需将 <code>main_http.cpp</code> 中的服务器类型修改就能获得一个完整的 HTTPS 服务器，在 <code>web_server</code> 文件夹下新建 <code>main_https.cpp</code> 文件：</p><pre><code class="hljs cpp"><span class="hljs-comment">//</span>
+<span class="hljs-comment">// main_https.cpp</span>
+<span class="hljs-comment">// web_server</span>
+<span class="hljs-comment">// created by changkun at shiyanlou.com</span>
+<span class="hljs-comment">//</span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"server_https.hpp"</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">"handler.hpp"</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> ShiyanlouWeb;
+
+<span class="hljs-keyword">int</span> main() {
+    <span class="hljs-comment">//HTTPS 服务运行在 12345 端口，并启用四个线程</span>
+    <span class="hljs-built_in">Server</span>&lt;HTTPS&gt; server(<span class="hljs-number">12345</span>, <span class="hljs-number">4</span>, <span class="hljs-string">"server.crt"</span>, <span class="hljs-string">"server.key"</span>);
+    start_server&lt;<span class="hljs-built_in">Server</span>&lt;HTTPS&gt;&gt;(server);
+    <span class="hljs-built_in">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre><p>在这个服务器上，我们额外传入了 HTTPS 服务器需要的证书和秘钥文件。</p><p>为了编译我们的 HTTPS 服务器，在 <code>Makefile</code> 中增加对 HTTPS 服务器的编译选项：</p><pre><code class="hljs makefile"><span class="hljs-comment">#</span>
+<span class="hljs-comment"># Makefile</span>
+<span class="hljs-comment"># web_server</span>
+<span class="hljs-comment">#</span>
+<span class="hljs-comment"># created by changkun at shiyanlou.com</span>
+<span class="hljs-comment">#</span>
+
+CXX = g++
+EXEC_HTTP = server_http
+EXEC_HTTPS = server_https
+
+SOURCE_HTTP = main_http.cpp
+SOURCE_HTTPS = main_https.cpp
+
+OBJECTS_HTTP = main_http.o
+OBJECTS_HTTPS =  main_https.o
+
+LDFLAGS_COMMON = -std=c++11 -O3 -pthread -lboost_system
+LDFLAGS_HTTP =
+LDFLAGS_HTTPS = -lssl -lcrypto
+
+LPATH_COMMON = -I/usr/<span class="hljs-keyword">include</span>/boost
+LPATH_HTTP =
+LPATH_HTTPS = -I/usr/<span class="hljs-keyword">include</span>/openssl
+
+LLIB_COMMON = -L/usr/lib
+
+<span class="hljs-section">all:</span>
+    make http
+    make https
+
+<span class="hljs-section">http:</span>
+    <span class="hljs-variable">$(CXX)</span> <span class="hljs-variable">$(SOURCE_HTTP)</span> <span class="hljs-variable">$(LDFLAGS_COMMON)</span> <span class="hljs-variable">$(LDFLAGS_HTTP)</span> <span class="hljs-variable">$(LPATH_COMMON)</span> <span class="hljs-variable">$(LPATH_HTTP)</span> <span class="hljs-variable">$(LLIB_COMMON)</span> <span class="hljs-variable">$(LLIB_HTTP)</span> -o <span class="hljs-variable">$(EXEC_HTTP)</span>
+<span class="hljs-section">https:</span>
+    <span class="hljs-variable">$(CXX)</span> <span class="hljs-variable">$(SOURCE_HTTPS)</span> <span class="hljs-variable">$(LDFLAGS_COMMON)</span> <span class="hljs-variable">$(LDFLAGS_HTTPS)</span> <span class="hljs-variable">$(LPATH_COMMON)</span> <span class="hljs-variable">$(LPATH_HTTPS)</span> <span class="hljs-variable">$(LLIB_COMMON)</span> <span class="hljs-variable">$(LLIB_HTTPS)</span> -o <span class="hljs-variable">$(EXEC_HTTPS)</span>
+
+<span class="hljs-section">clean:</span>
+    rm -f <span class="hljs-variable">$(EXEC_HTTP)</span> <span class="hljs-variable">$(EXEC_HTTPS)</span> *.o
+</code></pre><p>这时，我们的整个目录树为：</p><pre><code class="hljs ">├── Makefile
+├── handler<span class="hljs-selector-class">.hpp</span>
+├── main_http<span class="hljs-selector-class">.cpp</span>
+├── main_https<span class="hljs-selector-class">.cpp</span>
+├── server_base<span class="hljs-selector-class">.hpp</span>
+├── server_http<span class="hljs-selector-class">.hpp</span>
+├── server_https<span class="hljs-selector-class">.hpp</span>
+└── www
+    └── index.html
+</code></pre><p>现在，我们可以：</p><ol>
+<li>使用 <code>make</code> 一次性编译 http 和 https 服务器;</li>
+<li>使用 <code>make http</code> 单独编译 http 服务器;</li>
+<li>使用 <code>make https</code> 单独编译 https 服务器.</li>
+</ol>
+<p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(2)" alt="3-4-1"></p><p>完成了编译后还不够，我们还需要对创建 HTTPS 服务器所需的证书。</p><checker style="display: none">[{"name":"check if main_https.cpp exist","script":"#!/bin/bash\nls /home/shiyanlou/web_server/main_https.cpp\n","error":"我们发现你还没有创建 web_server/main_https.cpp 文件"}]</checker><h2 id="labdoc-header-4">五、创建证书文件</h2>
+<h4 id="-">第一步：生成私钥</h4>
+<p><code>openssl</code> 工具包提供了一个生成 RSA 私钥和 CSR(Certificate Signing Request) 文件的工具。这使得我们可以将其用于生成自签名的证书，从而用于供给 HTTPS 服务器使用。</p><p>首先，就是要生成 RSA 私钥。我们生成一个 1024 位的 RSA 秘钥，并使用三重 DES 加密方式，并按照 PEM 格式存储（在库中我们指定了私钥的格式是<code>boost::asio::ssl::context::pem</code>）：</p><pre><code class="hljs bash">openssl genrsa -des3 -out server.<span class="hljs-type">key</span> <span class="hljs-number">1024</span>
+</code></pre><p>如图所示，在产生 <code>server.key</code> 时，我们还被要求设置密码，这个密码保护了当别人尝试访问这个私钥时，需要提供密码（作为演示，不妨设置成 <code>123456</code>）：</p><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(3)" alt="3-5-1"></p><p>完成后，可以看到产生了 <code>server.key</code> 这个文件。</p><h4 id="-csr">第二步：生成 CSR</h4>
+<p>私钥生成后，就可以据此生成一个 CSR 文件了：</p><pre><code class="hljs bash">openssl req -<span class="hljs-keyword">new</span> -key <span class="hljs-keyword">server</span>.key -out <span class="hljs-keyword">server</span>.csr
+</code></pre><p>在生成 CSR 文件的过程中，会被要求输入刚才我们设置的保护密码，同时还需要输入一些相关的信息，例如这个证书会被用在哪个域名下。最后会要求设置一个 challenge passwrod，通常不去设置这个密码。如图：</p><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(4)" alt="3-5-2"></p><h4 id="-">第三步：从秘钥中移除密码</h4>
+<p>如果证书有密码，那么每次使用证书时都讲需要输入一次密码，这不是很方便，况且，秘钥证书位于我们服务器上，不太容易被泄露，因此我们可以将秘钥中的密码移除，首先我们先保存一份秘钥的备份：</p><pre><code class="hljs ">cp server<span class="hljs-selector-class">.key</span> server<span class="hljs-selector-class">.key</span><span class="hljs-selector-class">.old</span>
+openssl rsa -<span class="hljs-keyword">in</span> server<span class="hljs-selector-class">.key</span><span class="hljs-selector-class">.old</span> -out server.key
+</code></pre><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(5)" alt="3-5-3"></p><h4 id="-">第四步：生成自签名证书</h4>
+<p>最后，生成一个自签名的证书，并设置证书的过期时间为一年：</p><pre><code class="hljs ">openssl x509 -req -days <span class="hljs-number">365</span> -<span class="hljs-keyword">in</span> server<span class="hljs-selector-class">.csr</span> -signkey server<span class="hljs-selector-class">.key</span> -out server.crt
+</code></pre><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(6)" alt="3-5-4"></p><p>至此，我们便完成了所有的步骤，现在我们可以运行服务器：</p><pre><code class="hljs "><span class="hljs-string">./server_https</span>
+</code></pre><p>然后在浏览器中访问现在这个运行在 <code>12345</code> 端口的 https 服务器了，输入：<code>https://localhost:12345</code></p><p>这时，我们会看到浏览器正在告诉我们这个链接不安全。</p><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(7)" alt="3-5-5"></p><p>这是由于我们的证书是自签名的产生的原因。一般情况下，自签名的 SSL 证书可以随意的签发，没有第三方监督的审核，并不能收到浏览器的信任。这就非常容易造成伪造证书的中间人攻击，从而导致劫持 SSL 加密流量。</p><p>我们刚才在创建证书的时候，指定了这个证书会被用于 <code>shiyanlou.com</code> 这个域名，而实际上我们在访问时，访问的 URL 是 <code>localhost</code>，这时浏览器识别到这个不同，也就阻止了这次连接。</p><p>为了测试，我们可以将本次连接添加新人列表中，增加一个安全例外：</p><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(8)" alt="3-5-6"></p><p>这样我们就能看到使用 HTTPS 访问到的资源内容了：</p><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(9)" alt="3-5-7"></p><p>可惜的是，我们依然不能做到像『正经』厂商一样，让那一把小锁变成绿色：</p><p><img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/wm(10)" alt="3-5-8"></p><p>原因就如同之前我们所提到的那样，SSL 证书受到第三方监管，浏览器信任的证书一般来自国外的几个指明 SSL 证书签发商，而这种证书的签发往往需要向签发商支付一定的费用，虽然也有诸如 <code>StartSSL</code> 这样的提供免费 SSL 证书的签发商，但由于我们没有域名进行测试，这里就不再赘述了。</p><h2 id="labdoc-header-5">六、总结</h2>
+<p>经过本次项目，我们走过了很多艰难的历程。首先，我们基于 C++11 和 Boost Asio 的诸多特性，开发了一个 HTTP 服务器的 Web 框架，为了测试我们的框架，我们编写了自己的 HTTP 服务器。</p><p>我们的设计非常巧妙，在完成 HTTP 服务器 Web 框架和相关测试代码后，进一步扩展为 HTTPS 时，只使用了极少的代码量便完成了整个框架的开发。</p><p>我们的开发的框架一共包含三个文件：</p><ol>
+<li><code>server_base.hpp</code></li>
+<li><code>server_http.hpp</code></li>
+<li><code>server_https.hpp</code></li>
+</ol>
+<p>而我们基于这个框架，开发了简易的 http 和 https 的 web 服务器，但我们依然复用了服务器实际逻辑的代码，写在了 <code>handler.hpp</code>
+之中。此外，我们基于这套框架实现的 http 和 https 服务器在本质上，只有一行代码的不同：</p><pre><code class="hljs cpp"><span class="hljs-comment">// http server:</span>
+Server&lt;HTTP&gt; server(<span class="hljs-number">12345</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// https server:</span>
+Server&lt;HTTPS&gt; server(<span class="hljs-number">12345</span>, <span class="hljs-number">4</span>, <span class="hljs-string">"server.crt"</span>, <span class="hljs-string">"server.key"</span>);
+</code></pre><p>作为参考，这里附上本次项目中全部的代码：</p><pre><code class="hljs ">wget http:<span class="hljs-regexp">//</span>labfile.oss.aliyuncs.com<span class="hljs-regexp">/courses/</span><span class="hljs-number">568</span><span class="hljs-regexp">/web_server.zip</span>
+</code></pre><p>值得一提的是，里面没有包含 SSL 证书，你需要自己手动创建它们。</p><h2 id="labdoc-header-6">七、参考资料</h2>
+<ul>
+<li><a href="http://en.cppreference.com/w/cpp/compiler_support" target="_blank">C++ 11/14/17 标准在各编译器下支持情况</a></li>
+<li><a href="http://en.cppreference.com/w/Main_Page" target="_blank">C++ 标准库文档</a></li>
+<li><a href="http://www.akadia.com/services/ssh_test_certificate.html" target="_blank">创建自签名 SSL 证书</a></li>
+</ul>
+</div><div class="labdoc-copyright">*本课程内容，由作者授权实验楼发布，未经允许，禁止转载、下载及非法传播。</div></div>
+    
+    
+    <a class="pull-left labdoc-page" href="https://www.shiyanlou.com/courses/568/labs/1984/document">
+        上一节：HTTP Web 框架的设计与实现
+    </a>
+    
+    
+</div>
+
+</div>
+
+
+        
+        
+
+        
+        
+        </div>
+
+        <div class="modal fade" id="flash-message" tabindex="-1" role="dialog">
+            <div class="modal-dialog" rolw="document">
+            </div>
+        </div>
+        <div class="modal fade" id="modal-message" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">注意</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary confirm" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="new-loading new-loading-modal" id="new-loading-modal">
+            <div class="loading-wrapper">
+                <p class="loading-icon-lion">
+                    <img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/icon_loading.png" alt="">
+                </p>
+                <div class="progress">
+                    <div class="progress-bar load-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                        <span class="sr-only">0% Complete</span>
+                    </div>
+                </div>
+              <p class="loading-txt">
+                    加载中，精彩就在后面...
+              </p>
+              <p class="progress-reload">
+                  <a href="javascript:;" type="button" class="btn-progress-reload" title="">卡住了？点击重试</a>
+              </p>
+            </div>
+        </div>
+
+        
+<div class="modal fade" id="start-newlab">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始新实验</h3>
+			</div>
+			<div class="modal-body">
+                <p>一个实验正在进行，是否停止它，开始新实验？</p>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-newlab-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="start-evaluation-course">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始评估课实验</h3>
+			</div>
+			<div class="modal-body">
+                <div>
+                    <p>为了让评估结果更加准确，请注意以下操作：</p>
+                    <ul>
+                        <li>完成实验后点击「停止实验」按钮</li>
+                        <li>将代码提交到代码库</li>
+                        <li>尽可能详尽的撰写实验报告</li>
+                        <li>尽可能在实验操作的关键步骤截图</li>
+                        <li>尽可能减少无用操作</li>
+                        <li>尽可能高效的利用内存/CPU资源</li>
+                    </ul>
+                    <p>评估课还在不断完善中，我们真挚希望你能通过我们提供的这个平台，找到更好的发展机会。</p>
+                </div>
+                <br>
+                <div class="start-newlab"></div>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="vip-startlab-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4>请选择想使用的环境</h4>
+			</div>
+			<div class="modal-body">
+                <div class="start-newlab"></div>
+                
+                <div class="use-saved-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 oldvm">已保存的环境</button>
+                    <small class="last-saved-vm">
+                        最近保存：开发环境和剖析第一个 C 语言
+                    </small>
+                </div>
+                
+                <div class="use-tmp-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 newvm">该实验默认环境</button>
+                </div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade askquestion-modal" id="askquestion" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">发帖</h4>
+            </div>
+            <div class="modal-body words-ctrl">
+                <form class="form-horizontal" action="https://www.shiyanlou.com/questions/">
+                    <input name="_csrf_token" type="hidden" value="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.Dqyqyw.x_DsnXMdPgwaa7OiWHqk_Pa6hN8">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">标题</label>
+                        <div class="col-md-10">
+                            <input type="text" name="title" min="5" max="100" class="form-control syl-input" placeholder="至少输入5个字" value="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">描述</label>
+                        <div class="col-md-10">
+                              
+<div class="tabpanel mkeditor">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#mkeditor-editor" role="tab" data-toggle="tab">编辑</a>
+        </li>
+        <li role="presentation">
+            <a class="mkeditor-btn-view" href="https://www.shiyanlou.com/courses/568/labs/1985/document#mkeditor-viewer" role="tab" data-toggle="tab">预览</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active mkeditor-editor" id="mkeditor-editor" role="tabpanel">
+            
+            <div class="btn-group" role="group">
+            
+                <button type="button" class="btn btn-default mkeditor-btn-bold">
+                    <i class="fa fa-bold"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-italic">
+                    <i class="fa fa-italic"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-link">
+                    <i class="fa fa-link"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-quote">
+                    <i class="fa fa-quote-left"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-code">
+                    <i class="fa fa-code"></i>
+                </button>
+                <button type="button" style="display: none;position: relative;outline: 0;" class="btn btn-default question-btn-img">
+                    <i class="fa fa-image"></i>
+                    <div class="img-btn-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div type="button" class="btn btn-default screenshot-btn">
+                                    <i class="fa fa-cut"></i> 截取实验桌面
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="btn btn-default upload-image-btn">
+                                    <i class="fa fa-upload"></i> 上传本地图片
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <button id="mkeditor-pickfile" type="button" class="btn btn-default mkeditor-btn-img" style="z-index: 1;">
+                    <i class="fa fa-image"></i>
+                </button>
+                
+                <button type="button" class="btn btn-default mkeditor-btn-listol">
+                    <i class="fa fa-list-ol"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-listul">
+                    <i class="fa fa-list-ul"></i>
+                </button>
+            <div id="html5_1cq8llmtpvk7t4oens1chv70s3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;"><input id="html5_1cq8llmtpvk7t4oens1chv70s3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept=""></div></div>
+            <div class="btn-group pull-right" role="group">
+                <a style="font-size:12px; color:#666; text-decoration:underline;" href="https://www.shiyanlou.com/questions/764" target="_blank">
+                    <i class="fa fa-question-circle"></i>Markdown 语法
+                </a>
+            </div>
+            <textarea name="content" class="form-control syl-input content" min="0" max="20000" placeholder="推荐使用 Markdown 语法，至少输入 5 个字"></textarea>
+            <div class="help-block"></div>
+        </div>
+        <div class="tab-pane mkeditor-viewer markdown-body" id="mkeditor-viewer" role="tabpanel">
+            <div></div>
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none;">
+                        <label class="col-md-2 control-label">板块</label>
+                        <div class="col-md-10">
+                            <div class="q-types" data-type="">
+                            </div>
+                        </div>
+                    </div>
+                      
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span class="bottom-link" style="display:none;color:#999;background:#FFFFFF;font-size:14px;;border:none;float:left;padding-left:0;">
+                    😀 若纠错被确认，您将得到 3 个实验豆作为奖励
+                    <a type="button" href="https://www.shiyanlou.com/questions/16351" target="_blank" style="color:#00CC99;">
+                        了解详情
+                    </a>
+                </span>
+                <button type="button" class="btn syl-btn-default no-bg" data-dismiss="modal">取消</button>
+                <button type="button" class="submit-question btn syl-btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        
+        
+        
+        
+        
+
+        
+        <div class="modal fade" id="invite-user" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">邀请好友，双方都可获赠实验豆！</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="form-label">
+                            分享专属链接给好友，或粘贴到QQ群/微博/论坛，好友注册后，您和好友将分别获赠3个实验豆！
+                        </div>
+                        <input type="text" id="bstext" class="form-invite" value="https://www.shiyanlou.com/register?inviter=NTY0MzE5NjY5MzY4">
+                        
+                        <div id="msg-modal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade invite-vip-modal" id="invite-vip-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <img src="./HTTPS Web 框架的设计与实现 - 实验楼_files/invite-vip-title.png" style="width:100%;">
+                    </div>
+                    <div class="modal-body">
+                        <div class="invite-vip-content">好友输入你的邀请码开通会员后，您将获赠30天标准会员兑换卡一张，多邀多得。好友可享受30元优惠！</div>
+                        <div class="invite-vip-code">
+                            您的专属邀请码：<span>8862XMF</span>
+                            <input style="position:fixed;left:10000px" type="text" id="copy-input" value="输入我的邀请码加入实验楼会员，可享受30元优惠！邀请码：8862XMF。3000多个编程实验在线实践，开始学习：https://www.shiyanlou.com/vip">
+                            <button class="btn btn-primary invite-vip-copy" data-clipboard-target="#copy-input">复制</button>
+                            <div class="invite-vip-copied">
+                                复制成功！
+                            </div>
+                        </div>
+                        <div class="invite-vip-share">
+                            <span>或分享到</span>
+                            <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#" class="invite-vip-weibo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#F47166"></circle>
+                                        <path fill="#FFF" d="M11.811 18C8.601 18 6 16.403 6 14.434c0-1.97 3.897-5.08 5.387-5.08.626 0 1.852.444.994 1.848-.06.098 1.935-.816 3.026-.215 1.091.602 0 1.568 0 1.676 0 .107 2.19.107 2.19 1.77 0 1.97-2.576 3.567-5.786 3.567zm5.019-7.872c.678.58.391 1.611.391 1.611a.353.353 0 0 1-.338.28h-.22c-.161 0-.247-.119-.2-.264 0 0 .277-.639-.085-1.047-.361-.408-1.098-.314-1.098-.314a.268.268 0 0 1-.282-.263v-.057c0-.159.124-.294.276-.315 0 0 .879-.211 1.556.369zm1.265-1.16c1.242 1.117.843 3.088.843 3.088-.024.22-.244.413-.48.413h-.14c-.235 0-.397-.185-.36-.414 0 0 .317-1.24-.428-2.257-.745-1.017-2.495-.844-2.495-.844a.405.405 0 0 1-.412-.407v-.111c0-.237.185-.424.412-.429 0 0 1.818-.156 3.06.961zm-5.861 8.437c2.05-.288 3.568-1.55 3.39-2.817-.178-1.268-1.985-2.062-4.035-1.774-2.05.288-3.569 1.55-3.39 2.817.178 1.268 1.984 2.062 4.035 1.774zm-.367-.448c-1.22.237-2.36-.354-2.549-1.32-.188-.967.649-1.943 1.868-2.18 1.22-.237 2.361.354 2.549 1.32.188.967-.649 1.943-1.868 2.18zm-.243-2.166c.207 0 .375-.16.375-.357a.366.366 0 0 0-.375-.357.366.366 0 0 0-.375.357c0 .197.168.357.375.357zm-.72 1.079c.376-.175.579-.534.454-.802-.125-.268-.53-.343-.906-.168-.375.175-.578.534-.453.802.125.267.53.343.905.168z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a href="https://www.shiyanlou.com/courses/568/labs/1985/document#" class="invite-vip-qq">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#76C1FF"></circle>
+                                        <path fill="#FFF" d="M8.293 11.189c-.061.17.028.277 0 .924-.008.174-.718.962-1 1.78-.279.812-.317 1.66.114 1.993.432.334.833-1.109.886-.9.022.092.051.188.085.286.138.393.37.828.706 1.235.068.083-.416.234-.706.756s.083 1.471 1.526 1.471c1.861 0 2.278-.692 2.315-.689.14.011.149 0 .296 0 .18 0 .105.016.272 0 .09-.008.995.829 2.247.69 2.134-.238 1.808-.994 1.64-1.472-.175-.498-.793-.731-.766-.763.512-.598.593-.964.766-1.513.071-.226.566 1.24.948.9.159-.143.476-.736.159-1.994-.318-1.257-.933-1.544-.92-1.78.029-.49.012-.835-.011-.924-.113-.432-.35-.337-.35-.432 0-2.49-1.77-4.507-3.953-4.507s-3.953 2.018-3.953 4.507c0 .197-.165.051-.301.432z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a class="qq-zone invite-vip-qzone" href="https://www.shiyanlou.com/courses/568/labs/1985/document#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path fill="#FFDB59" d="M12.5 0C19.403 0 25 5.597 25 12.5S19.403 25 12.5 25 0 19.403 0 12.5 5.597 0 12.5 0"></path>
+                                        <path fill="#FFF" d="M12.5 17.417s-4.606 2.785-4.89 2.558c-.285-.228.934-5.418.934-5.418S4.419 11.14 4.588 10.72c.17-.42 5.468-.79 5.468-.79S12.023 5 12.5 5c.477 0 2.445 4.93 2.445 4.93s5.322.372 5.468.79c.145.417-3.956 3.837-3.956 3.837s.05.332.11.579c.004.017-1.916.06-3.489 0-.825-.03-1.82-.184-1.82-.184l4.553-3.23s-1.646-.295-3.31-.354c-1.824-.065-3.69.11-3.957.177-.168.042 1.178.038 2.714.176 1.076.098 2.491.355 2.491.355L9.196 15.45s1.95.117 3.698.105c1.969-.013 3.746-.256 3.757-.21.343 1.477.975 4.392.74 4.63-.32.325-4.89-2.557-4.89-2.557"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        <div id="base-data" data-flash="false" data-is-login="true" data-jwt-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NTY2OTMiLCJpc3MiOiJzaGl5YW5sb3U6d2ViOmFwcCIsInVuYW1lIjoiXHU2NTcwXHU2MzZlXHU1MjA2XHU2NzkwXHU1ZTA4IiwiaXNfYWRtaW4iOmZhbHNlLCJleHAiOjE1NDAxMjMzMzksImlhdCI6MTU0MDAzNjkzOX0.bWn_e9L1rsi6zmUAroWoG5KhFzU10tk6Kjpmi_Q3KiE" data-user-id="656693" data-is-jwt="true" data-socket-url="wss://comet.shiyanlou.com" data-msg-user="" data-msg-system="" data-invite-code="8862XMF"></div>
+
+        <!-- 不带 CSS 的库 -->
+        <script async="" src="./HTTPS Web 框架的设计与实现 - 实验楼_files/analytics.js.下载"></script><script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/polyfill.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/manifest.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/vendor.js.下载"></script>
+
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/jquery.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/jquery.form.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/jquery.menu-aim.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/jquery.qrcode.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/html2canvas.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/jspdf.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/clipboard.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/qiniu.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/plupload.full.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/echarts.min.js.下载"></script>
+        <!-- 不带 CSS 的库 end -->
+
+        <!-- 带有 CSS 的库 -->
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap-switch.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap-tour.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap-table.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap-table-zh-CN.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/bootstrap-table-filter-control.min.js.下载"></script>
+
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/ace.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/video.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/videojs-flash.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/katex.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/highlight.min.js.下载"></script>
+        <!-- 带有 CSS 的库 end -->
+
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/d3.min.js.下载"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/moment.min.js.下载" charset="utf-8"></script>
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/calendar-heatmap.js.下载"></script>
+
+        <script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/raven.min.js.下载" crossorigin="anonymous"></script>
+        <script>
+            Raven.config('https://7748db6c507a45cca1ba53ccb7dc0d51@sentry.shiyanlou.com/5', {
+                whitelistUrls: [/console/, /running/]
+            }).install();
+        </script>
+
+        
+        
+
+        
+<div id="jinja-data" data-qiniu-token-url="/api/qiniu/token" data-labid="1985" data-is-authenticated="true" data-tencent-labid="[877]" data-course-detail="/courses/568" data-left-time="0" data-course-id="568" data-userlab-id="None" data-question-form="/questions/meta" data-start-newlab-url="/courses/clear" data-courses-doc="/courses/labs/1985/document"></div>
+<script src="./HTTPS Web 框架的设计与实现 - 实验楼_files/labDoc.js.下载"></script><div class="showTimeOut" style="display: none; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background: rgba(0, 0, 0, 0.8); text-align: center; z-index: 1600;"><i class="fa fa-spinner fa-pulse" style="margin-top: 326.8px; color: rgb(255, 255, 255); font-size: 35px;"></i></div>
+
+
+
+        
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-89338452-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+</body></html>

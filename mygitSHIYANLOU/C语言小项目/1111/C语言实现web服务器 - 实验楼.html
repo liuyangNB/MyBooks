@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://www.shiyanlou.com/courses/1053/labs/5306/document -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style class="vjs-styles-defaults">
+      .video-js {
+        width: 300px;
+        height: 150px;
+      }
+
+      .vjs-fluid {
+        padding-top: 56.25%
+      }
+    </style>
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="o-transform">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+        <meta name="csrf-token" content="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqzIRg.x7JRKkMnE0gnXNvQI9qfBg_R8n0">
+        
+            
+                <title>C语言实现web服务器 - 实验楼</title>
+            
+        
+
+        
+        <meta content="实验楼是国内领先的IT在线编程及在线实训学习平台，专业导师提供精选的实践项目，创新的技术使得学习者无需配置繁琐的本地环境，随时在线流畅使用。以就业为导向，提供编程、运维、测试、云计算、大数据、数据库等全面的IT技术动手实践环境，提供Linux、Python、Java、C语言、Node.js、Hadoop、PHP、Docker、Git、R、SQL、MongoDB、Redis、Swift、Spark等千门热门课程。" name="description">
+        <meta content="实验楼,IT培训,IT教育,编程,在线编程,Linux,Linux教程,Linux操作系统,Python,Python教程,Python基础教程,Java,Java编程,C语言,大数据,Node.js,Hadoop,PHP,Docker,Git,R,SQL,MongoDB,Redis,Swift,Spark,在线实验,IT在线教育,编程入门,项目训练,项目实践,webIDE,软件开发" name="keywords">
+        
+        <meta content="实验楼，琛石科技" name="author">
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://static.shiyanlou.com/favicon.ico">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/fontawesome-all.min.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/font-awesome.min.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/bootstrap.min.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/bootstrap-switch.min.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/bootstrap-tour.min.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/bootstrap-table.min.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/katex.min.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/video-js.min.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/monokai-sublime.min.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/calendar-heatmap.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/styles.css">
+        <link rel="stylesheet" href="./C语言实现web服务器 - 实验楼_files/syl-styles.css">
+
+        
+<style>
+    .layout-fullscreen {
+        margin-top: 0;
+    }
+    .labdoc-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 18px;
+        color: #666;
+        background: #fff;
+        font-size: 16px;
+        border-bottom: solid 1px #eee;
+        z-index: 10;
+    }
+    .labdoc-header a {
+        color: #666;
+    }
+    .labdoc-header a:hover,
+    .labdoc-header a:focus {
+        color: #08bf91;;
+        text-decoration: none;
+    }
+    .labdoc-nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 20%;
+        height: calc(100% - 60px);
+        padding: 0 10px;
+        background-color: #f7f7f7;
+        background-image: url(https://static.shiyanlou.com/img/logo-water-mark.png);
+        background-repeat: no-repeat;
+        background-position: 50% calc(100% - 20px);
+        overflow: auto;
+    }
+    .labdoc-nav-content {
+        margin-left: 10px;
+    }
+    .labdoc-nav h2 {
+        padding: 5px 0;
+        font-size: 16px;
+    }
+    .labdoc-nav h3 {
+        padding: 5px 0;
+        margin-left: 20px;
+        font-size: 14px;
+    }
+    .labdoc-nav h2 a,
+    .labdoc-nav h3 a {
+        color: #666;
+        text-decoration: none;
+    }
+    .labdoc-nav h2:hover a,
+    .labdoc-nav h2:focus a,
+    .labdoc-nav h3:hover a,
+    .labdoc-nav h3:focus a,
+    .labdoc-nav h2.active a,
+    .labdoc-nav h3.active a {
+        color: #08bf91;
+        text-decoration: none;
+    }
+    .labdoc-content-container {
+        float: right;
+        width: 100%;
+        padding: 0;
+        margin-top: 60px;
+    }
+    .labdoc-content {
+        padding: 0 10px 20px;
+        background: #fff;
+    }
+    .labdoc-copyright {
+        margin-top: 30px;
+        color: #999;
+        font-size: 12px;
+        font-style:italic;
+    }
+    .lab-btns {
+        display: none;
+        position: fixed;
+        top: 30%;
+        right: 10px;
+        width: 56px;
+        text-align: center;
+        z-index: 10;
+    }
+    .lab-btns div {
+        margin-bottom: 4px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.20);
+    }
+    .lab-btns a {
+        display: block;
+        padding: 0 2px;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .lab-btns a:hover,
+    .lab-btns a:focus {
+        text-decoration: none;
+    }
+
+    .lab-btns img {
+        display: inline-block;
+        border-radius: 5px;
+    }
+    .lab-btns a img {
+        padding: 11px 0;
+    }
+    .lab-btns span {
+        display: none;
+        color: #08bf91;
+    }
+    .lab-btns a:hover img {
+        display: none;
+    }
+    .lab-btns a:hover span {
+        display: block;
+        width: 52px;
+        height: 52px;
+        padding-top: 8px;
+        text-align: center;
+    }
+    .labinfo {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 20%;
+        padding: 5px 20px;
+        background: cornsilk;
+        z-index: 10;
+    }
+    .labinfo-header {
+        margin-bottom: 20px;
+    }
+    .labinfo-body div {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+    .labinfo-body div {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+    .labinfo-body a {
+        margin: 10px 0;
+    }
+    .left-time a {
+        position: relative;
+        bottom: 1px;
+        padding: 4px 10px;
+        margin-left: 4px;
+        color: #fff;
+        background: #f66;
+        font-size: 14px;
+    }
+    .left-time a:hover,
+    .left-time a:focus {
+        color: #fff;
+    }
+    .labdoc-page,
+    .labdoc-page:focus,
+    .labdoc-page:hover {
+        padding: 20px;
+        color: #08bf91;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .course-warning {
+        width: 40%;
+        margin: 10px auto;
+        font-size: 18px;
+        text-align: center;
+    }
+    @media (min-width: 768px) {
+        .labdoc-nav,
+        .lab-btns {
+            display: block;
+        }
+        .labdoc-content-container {
+            width: 80%;
+        }
+        .labdoc-content {
+            padding: 0 100px 20px;
+        }
+    }
+</style>
+
+
+        
+        
+    <style type="text/css" abt="234"></style><style id="ace_editor.css">.ace_editor {position: relative;overflow: hidden;font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;direction: ltr;text-align: left;}.ace_scroller {position: absolute;overflow: hidden;top: 0;bottom: 0;background-color: inherit;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;cursor: text;}.ace_content {position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;min-width: 100%;}.ace_dragging .ace_scroller:before{position: absolute;top: 0;left: 0;right: 0;bottom: 0;content: '';background: rgba(250, 250, 250, 0.01);z-index: 1000;}.ace_dragging.ace_dark .ace_scroller:before{background: rgba(0, 0, 0, 0.01);}.ace_selecting, .ace_selecting * {cursor: text !important;}.ace_gutter {position: absolute;overflow : hidden;width: auto;top: 0;bottom: 0;left: 0;cursor: default;z-index: 4;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}.ace_gutter-active-line {position: absolute;left: 0;right: 0;}.ace_scroller.ace_scroll-left {box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;}.ace_gutter-cell {padding-left: 19px;padding-right: 6px;background-repeat: no-repeat;}.ace_gutter-cell.ace_error {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: 2px center;}.ace_gutter-cell.ace_warning {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");background-position: 2px center;}.ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");background-position: 2px center;}.ace_dark .ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");}.ace_scrollbar {position: absolute;right: 0;bottom: 0;z-index: 6;}.ace_scrollbar-inner {position: absolute;cursor: text;left: 0;top: 0;}.ace_scrollbar-v{overflow-x: hidden;overflow-y: scroll;top: 0;}.ace_scrollbar-h {overflow-x: scroll;overflow-y: hidden;left: 0;}.ace_print-margin {position: absolute;height: 100%;}.ace_text-input {position: absolute;z-index: 0;width: 0.5em;height: 1em;opacity: 0;background: transparent;-moz-appearance: none;appearance: none;border: none;resize: none;outline: none;overflow: hidden;font: inherit;padding: 0 1px;margin: 0 -1px;text-indent: -1em;-ms-user-select: text;-moz-user-select: text;-webkit-user-select: text;user-select: text;white-space: pre!important;}.ace_text-input.ace_composition {background: inherit;color: inherit;z-index: 1000;opacity: 1;text-indent: 0;}.ace_layer {z-index: 1;position: absolute;overflow: hidden;word-wrap: normal;white-space: pre;height: 100%;width: 100%;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;pointer-events: none;}.ace_gutter-layer {position: relative;width: auto;text-align: right;pointer-events: auto;}.ace_text-layer {font: inherit !important;}.ace_cjk {display: inline-block;text-align: center;}.ace_cursor-layer {z-index: 4;}.ace_cursor {z-index: 4;position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;border-left: 2px solid;transform: translatez(0);}.ace_slim-cursors .ace_cursor {border-left-width: 1px;}.ace_overwrite-cursors .ace_cursor {border-left-width: 0;border-bottom: 1px solid;}.ace_hidden-cursors .ace_cursor {opacity: 0.2;}.ace_smooth-blinking .ace_cursor {-webkit-transition: opacity 0.18s;transition: opacity 0.18s;}.ace_editor.ace_multiselect .ace_cursor {border-left-width: 1px;}.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {position: absolute;z-index: 3;}.ace_marker-layer .ace_selection {position: absolute;z-index: 5;}.ace_marker-layer .ace_bracket {position: absolute;z-index: 6;}.ace_marker-layer .ace_active-line {position: absolute;z-index: 2;}.ace_marker-layer .ace_selected-word {position: absolute;z-index: 4;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}.ace_line .ace_fold {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;display: inline-block;height: 11px;margin-top: -2px;vertical-align: middle;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");background-repeat: no-repeat, repeat-x;background-position: center center, top left;color: transparent;border: 1px solid black;border-radius: 2px;cursor: pointer;pointer-events: auto;}.ace_dark .ace_fold {}.ace_fold:hover{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");}.ace_tooltip {background-color: #FFF;background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));border: 1px solid gray;border-radius: 1px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);color: black;max-width: 100%;padding: 3px 4px;position: fixed;z-index: 999999;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;cursor: default;white-space: pre;word-wrap: break-word;line-height: normal;font-style: normal;font-weight: normal;letter-spacing: normal;pointer-events: none;}.ace_folding-enabled > .ace_gutter-cell {padding-right: 13px;}.ace_fold-widget {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;margin: 0 -12px 0 1px;display: none;width: 11px;vertical-align: top;background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: center;border-radius: 3px;border: 1px solid transparent;cursor: pointer;}.ace_folding-enabled .ace_fold-widget {display: inline-block;   }.ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");}.ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");}.ace_fold-widget:hover {border: 1px solid rgba(0, 0, 0, 0.3);background-color: rgba(255, 255, 255, 0.2);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);}.ace_fold-widget:active {border: 1px solid rgba(0, 0, 0, 0.4);background-color: rgba(0, 0, 0, 0.05);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);}.ace_dark .ace_fold-widget {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");}.ace_dark .ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget:hover {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);background-color: rgba(255, 255, 255, 0.1);}.ace_dark .ace_fold-widget:active {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);}.ace_fold-widget.ace_invalid {background-color: #FFB4B4;border-color: #DE5555;}.ace_fade-fold-widgets .ace_fold-widget {-webkit-transition: opacity 0.4s ease 0.05s;transition: opacity 0.4s ease 0.05s;opacity: 0;}.ace_fade-fold-widgets:hover .ace_fold-widget {-webkit-transition: opacity 0.05s ease 0.05s;transition: opacity 0.05s ease 0.05s;opacity:1;}.ace_underline {text-decoration: underline;}.ace_bold {font-weight: bold;}.ace_nobold .ace_bold {font-weight: normal;}.ace_italic {font-style: italic;}.ace_error-marker {background-color: rgba(255, 0, 0,0.2);position: absolute;z-index: 9;}.ace_highlight-marker {background-color: rgba(255, 255, 0,0.2);position: absolute;z-index: 8;}.ace_br1 {border-top-left-radius    : 3px;}.ace_br2 {border-top-right-radius   : 3px;}.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}.ace_br4 {border-bottom-right-radius: 3px;}.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}.ace_br8 {border-bottom-left-radius : 3px;}.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
+/*# sourceURL=ace/css/ace_editor.css */</style><style id="ace-tm">.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}
+/*# sourceURL=ace/css/ace-tm */</style><style>    .error_widget_wrapper {        background: inherit;        color: inherit;        border:none    }    .error_widget {        border-top: solid 2px;        border-bottom: solid 2px;        margin: 5px 0;        padding: 10px 40px;        white-space: pre-wrap;    }    .error_widget.ace_error, .error_widget_arrow.ace_error{        border-color: #ff5a5a    }    .error_widget.ace_warning, .error_widget_arrow.ace_warning{        border-color: #F1D817    }    .error_widget.ace_info, .error_widget_arrow.ace_info{        border-color: #5a5a5a    }    .error_widget.ace_ok, .error_widget_arrow.ace_ok{        border-color: #5aaa5a    }    .error_widget_arrow {        position: absolute;        border: solid 5px;        border-top-color: transparent!important;        border-right-color: transparent!important;        border-left-color: transparent!important;        top: -5px;    }</style><style type="text/css">
+.sidebox-my-contest-history[data-v-530b5260] {
+  overflow: hidden;
+}
+.sidebox-my-contest-record[data-v-530b5260] {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.sidebox-my-contest-record .pull-left[data-v-530b5260] {
+    width: 39%;
+    margin-right: 1%;
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebox-my-contest-record .pull-right[data-v-530b5260] {
+    width: 60%;
+}
+.sidebox-my-contest-record .challenge-meta-status[data-v-530b5260] {
+    position: relative;
+    bottom: 1px;
+}
+.sidebox-record-time[data-v-530b5260] {
+  display: inline-block;
+  margin-left: 4px;
+  color: #666;
+  font-size: 14px;
+}
+.sidebox-footer[data-v-530b5260] {
+  text-align: right;
+}
+.sidebox-footer a[data-v-530b5260] {
+    font-size: 14px;
+}
+</style><style type="text/css">
+.fade-enter-active[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  opacity: 0;
+}
+.header-message[data-v-07a2dd56] {
+  position: relative;
+}
+.header-message > a[data-v-07a2dd56] {
+  position: relative;
+  padding-top: 23px !important;
+}
+.header-message > a .icon[data-v-07a2dd56] {
+    width: 22px;
+}
+.popover[data-v-07a2dd56] {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: -66px;
+  width: 180px;
+  background: #fff;
+}
+.popover .msg-content[data-v-07a2dd56] {
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+.popover .msg-content a[data-v-07a2dd56] {
+      color: #f66;
+}
+.popover .msg-content a[data-v-07a2dd56]:focus, .popover .msg-content a[data-v-07a2dd56]:hover {
+        text-decoration: none;
+}
+.mark[data-v-07a2dd56] {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  padding: 0 5px;
+  color: #fff;
+  background: #f66;
+  font-size: 12px;
+  border-radius: 10px;
+  line-height: 16px;
+}
+@media (max-width: 768px) {
+.mark[data-v-07a2dd56] {
+    top: 14px;
+    right: calc(50% - 8px);
+}
+}
+</style><style type="text/css">
+.hidden[data-v-815c5224] {
+  display: none;
+}
+.show[data-v-815c5224] {
+  display: block;
+}
+.fade-enter-active[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  transition: opacity 0.5s;
+}
+.fade-enter[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  opacity: 0;
+}
+.header-userbox a[data-v-815c5224] {
+  display: block;
+  padding: 11px 0 11px 10px !important;
+}
+.header-avatar[data-v-815c5224] {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.vip-icon[data-v-815c5224] {
+  position: absolute;
+  bottom: 5px;
+  right: calc(50% - 30px);
+  width: 20px;
+  height: 20px;
+}
+@media (min-width: 768px) {
+.vip-icon[data-v-815c5224] {
+    right: 0;
+}
+}
+.user[data-v-815c5224] {
+  display: block;
+  position: absolute;
+  top: 60px;
+  left: -140px;
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 4px 1px #ccc;
+  z-index: 999 !important;
+}
+.user[data-v-815c5224]:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 220px;
+    height: 50px;
+}
+.user.popover > .arrow[data-v-815c5224] {
+    left: 63%;
+}
+.user-info[data-v-815c5224] {
+  overflow: hidden;
+}
+.user-info a[data-v-815c5224] {
+    float: left;
+    padding: 0 !important;
+}
+.user-info a img[data-v-815c5224] {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+}
+.username[data-v-815c5224] {
+  position: relative;
+}
+.username > img[data-v-815c5224] {
+    width: 20px;
+    position: absolute;
+    left: -30px;
+    bottom: 5px;
+}
+.username > span[data-v-815c5224] {
+    display: inline-block;
+    max-width: 150px;
+    color: #666;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.username > span.user-level[data-v-815c5224] {
+      color: #fec42d;
+      font-size: 14px;
+      font-weight: 700;
+}
+.username > p[data-v-815c5224] {
+    color: #a4a4a4;
+    font-size: 12px;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150px;
+    text-overflow: ellipsis;
+}
+.start-experiment[data-v-815c5224] {
+  margin-bottom: 10px;
+}
+.start-experiment > a[data-v-815c5224] {
+    display: inline-block;
+    width: 100%;
+    padding: 8px 0 !important;
+    margin: 10px 0;
+    background-color: #08bf91;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+.start-experiment > a[data-v-815c5224]:hover, .start-experiment > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #fff;
+}
+.marked-words[data-v-815c5224] {
+  width: 100%;
+  color: #a4a4a4 !important;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  position: absolute;
+  top: 130px;
+  left: 0;
+}
+.marked-words > a[data-v-815c5224] {
+    color: #a4a4a4 !important;
+    font-size: 12px;
+    padding: 0 !important;
+}
+.marked-words > a[data-v-815c5224]:hover, .marked-words > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #a4a4a4;
+}
+.user-links a[data-v-815c5224] {
+  padding: 4px 0 !important;
+  margin-top: 15px;
+  color: #3a3a3a;
+  text-align: center;
+  border: solid 1px #ccc;
+  border-radius: 20px;
+}
+.user-links a.member-index[data-v-815c5224] {
+    color: #f66;
+    border-color: #f66;
+}
+.user-links a[data-v-815c5224]:hover {
+    text-decoration: none;
+}
+.user-links .log-out[data-v-815c5224] {
+  padding-top: 20px;
+}
+.user-links .log-out a[data-v-815c5224] {
+    border: none;
+    padding: 0 !important;
+    color: #a4a4a4;
+    text-align: right;
+}
+</style><style type="text/css">
+.header-learn-info[data-v-33ac7940] {
+  float: right;
+  width: 100%;
+  padding: 23.5px 10px;
+  margin: 0;
+  position: relative;
+}
+.header-learn-info > span[data-v-33ac7940] {
+    font-size: 16px;
+    color: #666;
+}
+.header-learn-info > span img[data-v-33ac7940] {
+      transform: rotate(-90deg);
+}
+.header-learn-info > span[data-v-33ac7940]:hover {
+      cursor: pointer;
+}
+.home-page[data-v-33ac7940] {
+  color: #666;
+}
+.home-page[data-v-33ac7940]:hover {
+    text-decoration: none;
+    color: #08bf91;
+}
+@media (min-width: 768px) {
+.header-learn-info[data-v-33ac7940] {
+    width: auto;
+}
+}
+@media (max-width: 1200px) {
+.header-learn-info[data-v-33ac7940] {
+    display: none;
+}
+}
+.fade-enter-active[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  opacity: 0;
+}
+.learninfo-box[data-v-33ac7940] {
+  display: block;
+  width: 223px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  padding: 20px;
+  left: 35px;
+  background: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  border: none;
+}
+.learninfo-box .lab-running > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .lab-running .lab-running-name[data-v-33ac7940] {
+    font-size: 14px;
+    padding: 10px 0;
+}
+.learninfo-box .lab-running .lab-running-name > span[data-v-33ac7940] {
+      max-width: 60%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+}
+.learninfo-box .lab-running .lab-running-name .lab-continue[data-v-33ac7940] {
+      background: #08bf91;
+      font-size: 12px;
+      color: #fff;
+      border: none;
+      padding: 2px 12px;
+      margin-top: -1px;
+}
+.learninfo-box .learn-records > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .learn-records .records-list[data-v-33ac7940] {
+    margin-top: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940] {
+      display: inline-block;
+      font-size: 14px;
+      color: #666;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940]:hover {
+        text-decoration: none;
+        background-color: #f5f5f5;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940] {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940]:hover {
+      text-decoration: none;
+}
+@media (min-width: 768px) {
+.learninfo-box[data-v-33ac7940] {
+    left: -30px;
+    margin-bottom: 0;
+}
+}
+</style><style type="text/css">
+.input-group[data-v-68b3bbad] {
+  position: relative;
+}
+ul[data-v-68b3bbad] {
+  position: absolute;
+  top: 33px;
+  z-index: 100;
+  width: calc(100% - 46px);
+  padding: 0;
+  color: #7f7f7f;
+  background: #fff;
+  font-size: 14px;
+  border: solid 1px #ccc;
+  list-style: none;
+}
+ul li[data-v-68b3bbad] {
+    padding: 5px 11px;
+    cursor: pointer;
+}
+ul li.active[data-v-68b3bbad] {
+      background: #eee;
+}
+</style><style type="text/css">
+.side-new-contest .sidebox-body[data-v-7d67fa2d] {
+  overflow: hidden;
+}
+.side-new-contest .sidebox-body span[data-v-7d67fa2d] {
+    position: relative;
+    top: 4px;
+    color: #3a3a3a;
+    font-size: 14px;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d] {
+    padding: 2px 10px;
+    color: #08bf91;
+    font-size: 14px;
+    border: solid 1px #08bf91;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:hover, .side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:focus {
+      color: #fff;
+      background: #09bf91;
+}
+</style><style type="text/css">
+a[data-v-9b3c8994] {
+    display: inline-block;
+    vertical-align: middle;
+}
+@media (max-width: 768px) {
+a[data-v-9b3c8994] {
+        display: none;
+}
+}
+.fa[data-v-9b3c8994] {
+    padding: 4px;
+    color: #274a59;
+    background: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.fa[data-v-9b3c8994]:hover {
+    color: #ec5353;
+}
+.pull-left[data-v-9b3c8994] {
+    margin-left: 10px;
+}
+
+/*# sourceURL=/home/shiyanlou/shiyanlou/simplecloud/app/src/base/components/weibo.vue?211347e4 */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3NoaXlhbmxvdS9zaGl5YW5sb3Uvc2ltcGxlY2xvdWQvYXBwL3NyYy9iYXNlL2NvbXBvbmVudHMvd2VpYm8udnVlPzIxMTM0N2U0Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFtQ0E7SUFDQSxzQkFBQTtJQUNBLHVCQUFBO0NBQ0E7QUFDQTtBQUNBO1FBQ0EsY0FBQTtDQUNBO0NBQ0E7QUFDQTtJQUNBLGFBQUE7SUFDQSxlQUFBO0lBQ0EsaUJBQUE7SUFDQSxnQkFBQTtJQUNBLG1CQUFBO0NBQ0E7QUFDQTtJQUNBLGVBQUE7Q0FDQTtBQUNBO0lBQ0Esa0JBQUE7Q0FDQSIsImZpbGUiOiJ3ZWliby52dWUiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XG48YSA6aHJlZj1cImhyZWZcIiA6Y2xhc3M9XCJ7ICdidG4gYnRuLXByaW1hcnknOiBpc0J0biAsICdwdWxsLWxlZnQnOiBpc0xlZnR9XCIgdGFyZ2V0PVwiX2JsYW5rXCI+XG4gICAgPHNwYW4gdi1pZj1cImlzQnRuXCI+5YiG5Lqr5Yiw5b6u5Y2aPC9zcGFuPlxuICAgIDxpbWcgOnNyYz1cImljb25cIiBhbHQ9XCJcIj5cbjwvYT5cbjwvdGVtcGxhdGU+XG5cbjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gICAgcHJvcHM6IFsnaXNCdG4nLCAncGF0aCcsICd0aXRsZScsICdwaWMnLCAnaWNvbicsICdpc0xlZnQnLCAndXJsJ10sXG4gICAgZGF0YSgpIHtcbiAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgIGhyZWY6ICcnLFxuICAgICAgICAgICAgcGFyYW1zOiB7XG4gICAgICAgICAgICAgICAgdGl0bGU6IHRoaXMudGl0bGUsXG4gICAgICAgICAgICAgICAgYXBwa2V5OiAnMTM0MzcxMzA1MycsXG4gICAgICAgICAgICAgICAgcGljOiAodGhpcy5waWMgJiYgdGhpcy5waWMubGVuZ3RoKSA/IHRoaXMucGljIDogWydodHRwczovL3N0YXRpYy5zaGl5YW5sb3UuY29tL2ltZy9sb2dvLWJhc2UucG5nJ10sXG4gICAgICAgICAgICAgICAgc2VhcmNoUGljOiBmYWxzZSxcbiAgICAgICAgICAgICAgICB1cmw6IHRoaXMudXJsXG4gICAgICAgICAgICB9LFxuICAgICAgICAgICAgd2VpYm9Vcmw6IHRoaXMudXJsID8gYGh0dHA6Ly9zZXJ2aWNlLndlaWJvLmNvbS9zaGFyZS9zaGFyZS5waHA/dXJsPSR7dGhpcy51cmx9IGA6IGBodHRwOi8vc2VydmljZS53ZWliby5jb20vc2hhcmUvc2hhcmUucGhwP3VybD1odHRwczovL3d3dy5zaGl5YW5sb3UuY29tYCxcbiAgICAgICAgfTtcbiAgICB9LFxuICAgIG1vdW50ZWQoKSB7XG4gICAgICAgIHRoaXMuaHJlZiA9IGAke3RoaXMud2VpYm9Vcmx9JHt0aGlzLnBhdGh9YFxuICAgICAgICAgICAgKyBgJnRpdGxlPSR7ZW5jb2RlVVJJQ29tcG9uZW50KHRoaXMucGFyYW1zLnRpdGxlKX1gXG4gICAgICAgICAgICArIGAmYXBwa2V5PSR7dGhpcy5wYXJhbXMuYXBwa2V5fWBcbiAgICAgICAgICAgICsgYCZwaWM9JHt0aGlzLnBhcmFtcy5waWMuam9pbignfHwnKX1gXG4gICAgICAgICAgICArIGAmc2VhcmNoUGljPSR7dGhpcy5wYXJhbXMuc2VhcmNoUGljfWA7XG4gICAgICAgIHRoaXMuaHJlZiA9IGVuY29kZVVSSSh0aGlzLmhyZWYpXG4gICAgfVxufVxuPC9zY3JpcHQ+XG5cbjxzdHlsZSBzY29wZWQ+XG5hIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjhweCkge1xuICAgIGEge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cbn1cbi5mYSB7XG4gICAgcGFkZGluZzogNHB4O1xuICAgIGNvbG9yOiAjMjc0YTU5O1xuICAgIGJhY2tncm91bmQ6ICNmZmY7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbn1cbi5mYTpob3ZlciB7XG4gICAgY29sb3I6ICNlYzUzNTM7XG59XG4ucHVsbC1sZWZ0IHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbn1cbjwvc3R5bGU+XG5cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style><style type="text/css">
+.navbar-form[data-v-72bea96c] {
+  float: left !important;
+  padding: 10px 0;
+  margin: 8px 10px;
+}
+.form-group[data-v-72bea96c] {
+  position: relative;
+}
+label[data-v-72bea96c] {
+  display: inline;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: #3a3a3a;
+  font-size: 16px;
+}
+.form-control[data-v-72bea96c] {
+  width: 200px;
+  border-radius: 20px;
+}
+.search-autocomplete[data-v-72bea96c] {
+  position: absolute;
+  top: 35px;
+  left: 1px;
+  width: 195px;
+  padding: 4px;
+  border: solid 1px #ddd;
+  border-top: none;
+  background: #fff;
+  z-index: 1000;
+}
+.search-autocomplete a[data-v-72bea96c] {
+    display: block;
+    padding: 6px 8px;
+    color: #4c5157;
+    font-size: 13px;
+}
+.search-autocomplete a[data-v-72bea96c]:hover, .search-autocomplete a[data-v-72bea96c]:focus {
+      color: #fff;
+      background: #0c9;
+      text-decoration: none;
+}
+</style><script>//remove 17173 video ad
+doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+//remove baidu search ad
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+            all = document.body.querySelectorAll('.result.c-container[id="1"]');
+            //if(all.length == 1) return;
+            for(var i = 0; i < all.length; i++){
+                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
+                    all[i].style.display= "none";all[i].style.visibility='hidden';
+                }
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
+    };
+}
+//remove sohu video ad
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//remove 56.com video ad
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//fore iqiyi enable html5 player function
+if (document.URL.indexOf("iqiyi.com") >= 0){
+    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
+        document.cookie='player_forcedType=h5_VOD'
+        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
+            console.log('no reload')
+        }else{
+            location.reload()
+            localStorage.reloadTime = Date.now();
+        }
+    }
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+
+    <body>
+        <div style="height:0;width:0;visibility:hidden">
+            <img src="./C语言实现web服务器 - 实验楼_files/weixin_logo.png" alt="">
+        </div>
+        
+            
+        
+
+        
+
+
+        <div class="content-box">
+        
+<style>
+.layout-fullscreen {
+    margin-top: -20px;
+}
+</style>
+<div class="layout layout-fullscreen">
+    <div class="container">
+        
+        
+    </div>
+    
+<div class="lab-btns">
+    
+        
+
+        
+            
+        
+
+        
+            
+        
+
+        
+        <div>
+            <img src="./C语言实现web服务器 - 实验楼_files/best-study-way.png">
+            <a class=" member-vm lab-item-start  " data-mobile-url="/courses/1053/labs/5306/document" data-url="/courses/start/5306" data-next="/courses/running">
+                <img src="./C语言实现web服务器 - 实验楼_files/labdoc-start.png">
+                
+                    <span>开始<br>实验</span>
+                
+            </a>
+        </div>
+    
+    <div>
+        <a data-toggle="modal" href="https://www.shiyanlou.com/courses/1053/labs/5306/document#askquestion">
+            <img src="./C语言实现web服务器 - 实验楼_files/labdoc-question.png">
+            <span>我要<br>提问</span>
+        </a>
+    </div>
+    <div>
+        <a class="commit-error">
+            <img src="./C语言实现web服务器 - 实验楼_files/labdoc-jiucuo.png">
+            <span>我要<br>纠错</span>
+        </a>
+    </div>
+</div>
+<div class="labdoc-header">
+    <a href="https://www.shiyanlou.com/courses/1053">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        C 语言实现 web 服务器
+    </a>
+    
+</div>
+<div class="labdoc-nav">
+    <div class="labdoc-nav-content">
+                <h2 class="active">
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-0">一、课程简介</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-1">二、实验步骤</a>
+                </h2>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-2">2.1 HTTP 协议</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-3">2.2 程序设计</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-4">2.3 代码结构</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-5">2.4 服务器管理模块</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-6">2.5 客户端管理模块</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-7">2.6 HTTP 请求管理模块</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-8">2.7 HTTP 响应管理模块</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-9">2.8 HTTP 消息头部管理模块</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-10">2.9 配置文件模块</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-11">2.10 日志记录模块</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-12">2.11 字符串管理模块</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-13">2.12 编译及运行</a>
+                </h3>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-14">三、实验总结</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#labdoc-header-15">四、实验扩展</a>
+                </h2>
+            </div>
+    
+</div>
+<div class="labdoc-content-container">
+    <div class="markdown-body labdoc-content" id="labdoc-content"><div><h1 id="c-web-">C 语言 Web 服务器</h1>
+<h2 id="labdoc-header-0">一、课程简介</h2>
+<h4 id="1-1-">1.1 实验简介</h4>
+<p>使用 C 语言实现一个 Web 服务器。实现过程中可以学习 C 语言 socket 网络编程，HTTP 协议，Linux 下程序开发等。</p><h4 id="1-2-">1.2 实验知识点</h4>
+<ul>
+<li>HTTP 协议基础</li>
+<li>基本的 Makefile 编写</li>
+<li>C 语言网络编程</li>
+<li>Linux 守护进程实现</li>
+<li>配置文件的实现方法</li>
+<li>日志系统的实现方法</li>
+</ul>
+<h4 id="1-3-">1.3 实验环境</h4>
+<ul>
+<li>Xfce 终端</li>
+<li>GCC</li>
+<li>Gedit</li>
+</ul>
+<h4 id="1-4-">1.4 适合人群</h4>
+<p>本课程适合有 C 语言基础，想做练手项目的同学，可以有效的学习 Web 服务器程序、C 语言的网络开发及 HTTP 协议基础的相关知识，做一些有趣的事情。</p><h4 id="1-5-">1.5 代码获取</h4>
+<p>你可以通过下面命令将本课程里的所有源代码下载到实验楼环境中，作为参照对比进行学习。</p><pre><code class="hljs bash"><span class="hljs-meta"><span class="hljs-comment"># 下载程序代码</span></span>
+wget http:<span class="hljs-comment">//labfile.oss.aliyuncs.com/courses/453/cwebserver.zip</span>
+
+<span class="hljs-meta"><span class="hljs-comment"># 解压代码</span></span>
+unzip -q cwebserver.zip <span class="hljs-_">-d</span> ./Code/
+
+<span class="hljs-meta"><span class="hljs-comment"># 进入代码文件夹查看</span></span>
+<span class="hljs-built_in">cd</span>  Code/cwebserver
+</code></pre><p><strong>请尽量按照实验步骤自己写出 C 语言程序，请确认文件夹保存在目录：“/home/shiyanlou/Code/” 下。</strong></p><ul>
+<li><p>本实验内含有多个文件夹以及不同类型的文件，这里给出相关文件的目录树状图供参考。</p><p><img src="./C语言实现web服务器 - 实验楼_files/wm" alt="1-1.5-1"></p></li>
+</ul>
+<p><em>本项目参考代码基于<a href="https://github.com/jhnl/webserver" target="_blank">https://github.com/jhnl/webserver</a>进行实现。采用GPL License。</em></p><h2 id="labdoc-header-1">二、实验步骤</h2>
+<p>大家平时上网时，浏览器中显示的 HTML 网页都是来源自 Web 服务器。本项目通过一个实例介绍如何实现一个简单的 Web 服务器。</p><p>本项目中实现的 Web 服务器需要支持下面几个功能：</p><blockquote>
+<ol>
+<li>支持多个客户端连接</li>
+<li>支持 HTTP 协议中的 GET，HEAD 两个方法</li>
+<li>支持通过浏览器访问多种类型的文件资源</li>
+<li>支持配置文件</li>
+<li>支持日志记录</li>
+</ol>
+</blockquote>
+<p>实现具备这些基本功能的 Web 服务器，我们首先需要了解 HTTP 协议。</p><h3 id="labdoc-header-2">2.1 HTTP 协议</h3>
+<p>HTTP 协议介绍的好文章非常多，这里只列出项目中需要的知识点，推荐大家系统学习 HTTP 协议，请阅读：</p><ul>
+<li><a href="http://kb.cnblogs.com/page/130970/" target="_blank">HTTP协议详解</a></li>
+</ul>
+<blockquote>
+<p>HTTP协议的一个主要特点就是客户端服务器模式，在上一个项目中我们有过介绍，基于 socket 的连接过程，如果大家没有印象可以去复习下。过程如下：</p><p>模型如下：</p><p><img src="./C语言实现web服务器 - 实验楼_files/wm(1)" alt="1-2.1-1"></p><p>解释如下：</p><p>服务器端：</p><ol>
+<li>socket 创建监听 socket</li>
+<li>bind 绑定服务器端口</li>
+<li>listen 监听客户端连接</li>
+<li>accept 接受连接</li>
+<li>recv/send 接收及发送数据</li>
+<li>close 关闭 socket</li>
+</ol>
+<p>客户端：</p><ol>
+<li>socket 创建监听socket</li>
+<li>connect 连接服务器</li>
+<li>recv/send 接收及发送数据</li>
+<li>close 关闭 socket</li>
+</ol>
+</blockquote>
+<p>其实实现 的Web 服务器是一个支持 HTTP 协议的 TCP 服务器。所以服务器启动过程仍然与上述过程相同，listen 后等待客户端的连接。连接后开始进行 HTTP 协议的通信，通过请求与响应来建立 Web 访问。</p><h4 id="2-1-1-http-">2.1.1 HTTP 的请求</h4>
+<p>HTTP 请求由客户端发给服务器端，分三部分组成，分别是：请求行、消息报头、请求正文。</p><p>请求方法（所有方法全为大写）有多种，各个方法的解释如下：</p><blockquote>
+<ul>
+<li>GET     请求获取 Request-URI 所标识的资源</li>
+<li>POST    在 Request-URI 所标识的资源后附加新的数据</li>
+<li>HEAD    请求获取由 Request-URI 所标识的资源的响应消息报头</li>
+<li>PUT     请求服务器存储一个资源，并用 Request-URI 作为其标识</li>
+<li>DELETE  请求服务器删除 Request-URI 所标识的资源</li>
+<li>TRACE   请求服务器回送收到的请求信息，主要用于测试或诊断</li>
+<li>CONNECT 保留将来使用</li>
+<li>OPTIONS 请求查询服务器的性能，或者查询与资源相关的选项和需求</li>
+</ul>
+</blockquote>
+<p>项目里暂时实现了 GET/HEAD/OPTION 的处理，有兴趣的可以根据这三个处理函数的示例实现其他的。</p><h4 id="2-1-2-http-">2.1.2 HTTP 的响应</h4>
+<p>在接收和解释请求消息后，服务器返回一个 HTTP 响应消息。HTTP 响应也是由三个部分组成，分别是：状态行、消息报头、响应正文。</p><p>状态行格式：<code>HTTP-Version Status-Code Reason-Phrase CRLF</code>，其中，HTTP-Version 表示服务器 HTTP 协议的版本；Status-Code 表示服务器发回的响应状态代码；Reason-Phrase 表示状态代码的文本描述。</p><blockquote>
+<p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p><ul>
+<li>1xx：指示信息--表示请求已接收，继续处理</li>
+<li>2xx：成功--表示请求已被成功接收、理解、接受</li>
+<li>3xx：重定向--要完成请求必须进行更进一步的操作</li>
+<li>4xx：客户端错误--请求有语法错误或请求无法实现</li>
+<li>5xx：服务器端错误--服务器未能实现合法的请求</li>
+</ul>
+</blockquote>
+<p>当客户端与 Web 服务器建立连接后就会通过发送请求接收服务器响应来进行通信。而服务器端如果要处理多个客户端的请求，可以通过 epoll 或 kqueue 等 IO 机制来获得读写的消息通知，也可以使用简单的创建新的进程处理客户端请求，本项目采用比较低效但简单的 fork() 新进程的方式来处理客户端连接和请求。</p><h3 id="labdoc-header-3">2.2 程序设计</h3>
+<p>根据上面的需求分析，设计所需的程序模块。</p><blockquote>
+<ol>
+<li>首先需要服务器管理模块，用来提供服务器的启动关闭主循环等支持。</li>
+<li>其次需要客户端管理，用来存储客户端的必要信息。</li>
+<li>再次，对于客户端和服务器之间的通信内容需要设置 HTTP 请求和响应模块来处理，HTTP 消息中需要包含的重要配置信息是 HTTP 头部，可以单独作为一个模块处理。</li>
+<li>最后，服务器还需要额外的配置管理和日志模块。</li>
+</ol>
+</blockquote>
+<p>上面的几个模块是 Web 服务器构成的主体。</p><p>综上项目中实现下面的模块：</p><blockquote>
+<ol>
+<li>服务器管理模块server.c</li>
+<li>客户端管理模块connection.c</li>
+<li>HTTP请求管理模块request.c</li>
+<li>HTTP响应管理模块response.c</li>
+<li>HTTP消息头部管理模块http_header.c</li>
+<li>配置文件模块config.c</li>
+<li>日志记录模块log.c</li>
+</ol>
+</blockquote>
+<p>由于在程序中需要大量构建各种消息，并且构建过程中需要合并字符串及数字等多种类型，所以为了实现的简单，我们需要设计一个类似 C++ 标准库中的 string 类的模块，因此额外添加了字符串管理模块。</p><h3 id="labdoc-header-4">2.3 代码结构</h3>
+<p>根据上述细化需求，我们先创建必要的程序文件。首先为要实现的程序命名为 <code>cwebserver</code>:</p><pre><code class="hljs bash"><span class="hljs-meta"><span class="hljs-comment">#</span></span><span class="bash"><span class="hljs-comment"> 进入到代码库自动生成的目录</span></span>
+<span class="hljs-meta"><span class="hljs-comment">#</span></span><span class="bash"><span class="hljs-comment"> 为了方便git提交代码请先开通代码库</span></span>
+<span class="hljs-built_in">cd</span> /home/shiyanlou/Code/shiyanlou_cs453
+<span class="hljs-meta">
+<span class="hljs-comment">#</span></span><span class="bash"><span class="hljs-comment"> 创建代码目录</span></span>
+mkdir cwebserver
+<span class="hljs-built_in">cd</span> cwebserver
+<span class="hljs-meta">
+<span class="hljs-comment">#</span></span><span class="bash"><span class="hljs-comment"> 为每个需要实现的类创建一个.h和一个.c文件</span></span>
+<span class="hljs-meta"><span class="hljs-comment">#</span></span><span class="bash"><span class="hljs-comment"> 并将源文件都放在src/目录下</span></span>
+mkdir src
+<span class="hljs-meta"><span class="hljs-comment">#</span></span><span class="bash"><span class="hljs-comment"> touch src/XXX.h src/XXX.c</span></span>
+<span class="hljs-meta"><span class="hljs-comment">#</span></span><span class="bash"><span class="hljs-comment"> 创建Makefile</span></span>
+touch src/Makefile
+<span class="hljs-meta">
+<span class="hljs-comment">#</span></span><span class="bash"><span class="hljs-comment"> 创建示例目录，该目录可以作为Web服务器的资源池</span></span>
+mkdir www/
+touch www/index.html www/404.html
+</code></pre><p>下面我们将开始实现需要的模块，建议大家按照以下步骤先自己实现，最后再对项目参考代码进行对照学习。</p><h3 id="labdoc-header-5">2.4 服务器管理模块</h3>
+<p>服务器管理模块对应的程序文件是 server.h 和 server.c。</p><p>服务器管理模块是程序的核心，功能包括服务器的启动和停止。并且我们把主函数也可以放到这个模块中，当服务器启动时需要支持配置参数与配置文件：</p><ol>
+<li>配置参数：端口号设置，是否以守护进程启动，是否使用日志文件，是否 chroot。</li>
+<li>配置文件：配置信息及加载见 2.9 配置管理模块。</li>
+</ol>
+<p>服务器的结构体需要涵盖上述的几项功能：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// 服务器结构体</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> {</span>
+    <span class="hljs-comment"><span class="hljs-comment">// 包含日志文件</span></span>
+    FILE *logfp;
+    <span class="hljs-comment"><span class="hljs-comment">// 监听的socket</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> sockfd;
+    <span class="hljs-comment"><span class="hljs-comment">// 监听的端口</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">short</span></span> port;
+    <span class="hljs-comment"><span class="hljs-comment">// 是否使用日志文件</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> use_logfile;
+    <span class="hljs-comment"><span class="hljs-comment">// 是否以守护进程的方式启动</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> is_daemon;
+    <span class="hljs-comment"><span class="hljs-comment">// 是否chroot</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> do_chroot;
+    <span class="hljs-comment"><span class="hljs-comment">// 配置信息</span></span>
+    config *conf;
+} server;
+</code></pre></blockquote>
+<p>根据需求，我们需要在服务器管理模块中实现的核心函数是启动 web 服务，这个函数实现流程：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-function"><span class="hljs-title">start_server</span><span class="hljs-params">()</span></span> {
+
+    <span class="hljs-comment"><span class="hljs-comment">// 1. 加载配置文件</span></span>
+
+    <span class="hljs-comment"><span class="hljs-comment">// 2. 设置端口号</span></span>
+
+    <span class="hljs-comment"><span class="hljs-comment">// 3. 判断是否设置chroot</span></span>
+
+    <span class="hljs-comment"><span class="hljs-comment">// 4. 打开日志文件</span></span>
+
+    <span class="hljs-comment"><span class="hljs-comment">// 5. 判断是否需要以守护进程方式启动</span></span>
+
+    <span class="hljs-comment"><span class="hljs-comment">// 6. 创建socket</span></span>
+
+    <span class="hljs-comment"><span class="hljs-comment">// 7. bind()绑定端口并listen()监听</span></span>
+
+    <span class="hljs-comment"><span class="hljs-comment">// 8. 进入主循环等待并处理客户端连接</span></span>
+    <span class="hljs-comment"><span class="hljs-comment">// 当有新的连接时创建客户端结构数据并fork()新的进程处理HTTP请求</span></span>
+    <span class="hljs-comment"><span class="hljs-comment">// 此处可以调用客户端管理模块的接口</span></span>
+
+}
+</code></pre></blockquote>
+<checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/server.c\n","error":"我们发现你没有创建文件 server.c"}]</checker><checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/server.h\n","error":"我们发现你没有创建文件 server.h"}]</checker><p>服务器停止时需要关闭日志文件，关闭服务器 socket 及释放所有分配的资源。</p><p>此外需要注意的是如何使用守护进程的方式启动一个 Linux 程序，原理是使用 fork() 创建进程，后台运行，关闭打开的所有描述符，处理相关信号等步骤，建议阅读并参考：</p><ul>
+<li><a href="http://www.cnblogs.com/ringwang/p/3528093.html" target="_blank">Linux C守护进程编写</a></li>
+</ul>
+<h3 id="labdoc-header-6">2.5 客户端管理模块</h3>
+<p>客户端模块对应的代码文件是 connection.h 及 connection.c。</p><p>客户端结构体需要支持连接 socket 及地址信息，HTTP 请求及 HTTP 响应，客户端的数据结构定义如下：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// 客户端连接结构体</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> {</span>
+    <span class="hljs-comment"><span class="hljs-comment">// 客户端连接的socket</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> sockfd;
+    <span class="hljs-comment"><span class="hljs-comment">// 状态码</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> status_code;
+    <span class="hljs-comment"><span class="hljs-comment">// 接收队列</span></span>
+    <span class="hljs-built_in"><span class="hljs-built_in">string</span></span> *recv_buf;
+    <span class="hljs-comment"><span class="hljs-comment">// HTTP请求</span></span>
+    http_request *request;
+    <span class="hljs-comment"><span class="hljs-comment">// HTTP响应</span></span>
+    http_response *response;
+    <span class="hljs-comment"><span class="hljs-comment">// 接收状态</span></span>
+    http_recv_state recv_state;
+    <span class="hljs-comment"><span class="hljs-comment">// 客户端地址信息</span></span>
+    <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">sockaddr_in</span> <span class="hljs-title">addr</span>;</span>
+    <span class="hljs-comment"><span class="hljs-comment">// 请求长度</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">size_t</span></span> request_len;
+    <span class="hljs-comment"><span class="hljs-comment">// 请求文件的真实路径</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> real_path[PATH_MAX];
+} connection;
+</code></pre></blockquote>
+<checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/connection.c\n","error":"我们发现你没有创建文件 connection.c"}]</checker><checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/connection.h\n","error":"我们发现你没有创建文件 connection.h"}]</checker><p>此外，需要支持的功能包括：</p><blockquote>
+<ol>
+<li>建立连接</li>
+<li>关闭连接</li>
+<li>处理请求消息</li>
+</ol>
+</blockquote>
+<h4 id="2-5-1-">2.5.1 建立连接</h4>
+<blockquote>
+<ol>
+<li>accept() 建立连接</li>
+<li>创建客户端数据结构并初始化所有数据项</li>
+</ol>
+</blockquote>
+<h4 id="2-5-2-">2.5.2 关闭连接</h4>
+<p>释放客户端中所有动态分配的数据内存，关闭连接 socket，释放客户端数据结构。</p><h4 id="2-5-3-">2.5.3 处理请求消息</h4>
+<p>在此处实现的 HTTP 请求处理函数流程如下：</p><blockquote>
+<ol>
+<li>从 socket 中读取数据并解析 HTTP 请求</li>
+<li>解析请求</li>
+<li>构建并发送响应</li>
+<li>记录请求日志</li>
+</ol>
+</blockquote>
+<h3 id="labdoc-header-7">2.6 HTTP 请求管理模块</h3>
+<p>HTTP 请求模块对应的代码文件是 request.h 及 request.c。</p><p>首先需要根据 HTTP 协议中的定义 HTTP 请求的数据结构：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// HTTP请求的方法</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-keyword"><span class="hljs-keyword">enum</span></span> {
+    HTTP_METHOD_UNKNOWN = <span class="hljs-number"><span class="hljs-number">-1</span></span>,
+    HTTP_METHOD_NOT_SUPPORTED = <span class="hljs-number"><span class="hljs-number">0</span></span>,
+    HTTP_METHOD_GET = <span class="hljs-number"><span class="hljs-number">1</span></span>,
+    HTTP_METHOD_HEAD = <span class="hljs-number"><span class="hljs-number">2</span></span>
+} http_method;
+
+<span class="hljs-comment"><span class="hljs-comment">// HTTP协议版本</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-keyword"><span class="hljs-keyword">enum</span></span> {
+    HTTP_VERSION_UNKNOWN,
+    HTTP_VERSION_09,
+    HTTP_VERSION_10,
+    HTTP_VERSION_11
+} http_version;
+
+
+<span class="hljs-comment"><span class="hljs-comment">// HTTP请求结构体，包含HTTP方法，版本，URI，HTTP头，内容长度</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> {</span>
+    http_method method;
+    http_version version;
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *method_raw;
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *version_raw;
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *uri;
+    http_headers *headers;
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> content_length;
+} http_request;
+</code></pre></blockquote>
+<checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/request.c\n","error":"我们发现你没有创建文件 request.c"}]</checker><checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/request.h\n","error":"我们发现你没有创建文件 request.h"}]</checker><p>这个模块中需要支持的功能围绕 HTTP 请求数据结构：</p><blockquote>
+<ol>
+<li>HTTP 请求创建与初始化</li>
+<li>HTTP 请求释放</li>
+<li>HTTP 请求合法性验证</li>
+<li>HTTP 请求解析</li>
+</ol>
+</blockquote>
+<p>这几个功能都可以根据 HTTP 协议实现，难度不大，需要注意的是 HTTP 请求解析过程中要解析出下述几方面内容：</p><blockquote>
+<ol>
+<li>HTTP 方法</li>
+<li>请求的URI</li>
+<li>访问的资源</li>
+<li>HTTP 版本</li>
+<li>HTTP 消息头部</li>
+</ol>
+</blockquote>
+<h3 id="labdoc-header-8">2.7 HTTP 响应管理模块</h3>
+<p>HTTP 响应模块对应的代码文件是 response.h 及 response.c。</p><p>首先需要根据 HTTP 协议中的定义 HTTP 响应的数据结构：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// HTTP响应结构体，包含内容长度，内容，HTTP头部</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> {</span>
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> content_length;
+    <span class="hljs-built_in"><span class="hljs-built_in">string</span></span> *entity_body;
+    http_headers *headers;
+} http_response;
+</code></pre></blockquote>
+<p>这个模块中需要支持的功能围绕 HTTP 响应结构体：</p><blockquote>
+<ol>
+<li>HTTP 响应创建与初始化</li>
+<li>HTTP 响应释放</li>
+<li>构建并发送 HTTP 响应</li>
+</ol>
+</blockquote>
+<p>HTTP 响应消息中的 Resource 除了包含文件数据以外，最重要的特点是具备 mimeType 标识，MIME (Multipurpose Internet Mail Extensions) 是描述消息内容类型的因特网标准。MIME 消息能包含文本、图像、音频、视频以及其他应用程序专用的数据。</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// 文件扩展名与MimeType数据结构</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> {</span>
+    <span class="hljs-comment"><span class="hljs-comment">// 文件扩展名</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *ext;
+    <span class="hljs-comment"><span class="hljs-comment">// Mime类型名</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *mime;
+} mime;
+
+<span class="hljs-comment"><span class="hljs-comment">// 目前支持的MimeType</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">static</span></span> mime mime_types[] = {
+    {<span class="hljs-string"><span class="hljs-string">".html"</span></span>, <span class="hljs-string"><span class="hljs-string">"text/html"</span></span>},
+    {<span class="hljs-string"><span class="hljs-string">".css"</span></span>, <span class="hljs-string"><span class="hljs-string">"text/css"</span></span>},
+    {<span class="hljs-string"><span class="hljs-string">".js"</span></span>, <span class="hljs-string"><span class="hljs-string">"application/javascript"</span></span>},
+    {<span class="hljs-string"><span class="hljs-string">".jpg"</span></span>, <span class="hljs-string"><span class="hljs-string">"image/jpg"</span></span>},
+    {<span class="hljs-string"><span class="hljs-string">".png"</span></span>, <span class="hljs-string"><span class="hljs-string">"image/png"</span></span>}
+};
+</code></pre></blockquote>
+<checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/response.c\n","error":"我们发现你没有创建文件 response.c"}]</checker><checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/response.h\n","error":"我们发现你没有创建文件 response.h"}]</checker><p>构建返回的状态码需要对应特定的出错页面，需要实现出错页面，并在程序中设定根据不同的状态码读取不同的出错页面。</p><p>根据请求的信息，Web 服务器需要读取目录下的文件并根据 MimeType 来构造响应消息。而文件的读取需要先判断文件是否存在以及是否可以读取。如果出错则返回适当的错误代码和提示。</p><h3 id="labdoc-header-9">2.8 HTTP 消息头部管理模块</h3>
+<p>HTTP 消息头部模块对应的代码文件是 http_header.h 及 http_header.c。</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// HTTP头部中使用的键值对</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> {</span>
+    <span class="hljs-built_in"><span class="hljs-built_in">string</span></span> *key;
+    <span class="hljs-built_in"><span class="hljs-built_in">string</span></span> *value;
+} keyvalue;
+
+<span class="hljs-comment"><span class="hljs-comment">// HTTP头部，包含若干个键值对</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> {</span>
+    keyvalue *ptr;
+    <span class="hljs-keyword"><span class="hljs-keyword">size_t</span></span> len;
+    <span class="hljs-keyword"><span class="hljs-keyword">size_t</span></span> size;
+} http_headers;
+</code></pre></blockquote>
+<checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/http_header.c\n","error":"我们发现你没有创建文件 http_header.c"}]</checker><checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/http_header.h\n","error":"我们发现你没有创建文件 http_header.h"}]</checker><p>HTTP 的头部实际就是一组键值对组成，因此头部管理函数包括：</p><blockquote>
+<ol>
+<li>HTTP 消息头部创建与初始化</li>
+<li>HTTP 消息头部释放</li>
+<li>HTTP 消息头部添加新的键值对</li>
+</ol>
+</blockquote>
+<p>注意在添加新的键值对时要判断头部分配的空间是否不足，不足的话需要重新 realloc 分配新的空间。</p><h3 id="labdoc-header-10">2.9 配置文件模块</h3>
+<p>配置文件模块对应的代码文件是 config.h 及 config.c。</p><p>首先定义配置文件的格式，项目可以采用键值对的方式，每个配置项目如下所示：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-attr">key</span> = value
+</code></pre></blockquote>
+<p>我们实现中暂时只支持端口号和服务器的 document-dir 两个配置项，文件内容举例：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-attr">port</span> = <span class="hljs-number"><span class="hljs-number">8080</span></span>
+<span class="hljs-attr">document-dir</span> = <span class="hljs-string"><span class="hljs-string">"www"</span></span>
+</code></pre></blockquote>
+<p>配置文件的结构体：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// 配置文件数据结构</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> {</span>
+    <span class="hljs-comment"><span class="hljs-comment">// 端口号</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">short</span></span> port;
+    <span class="hljs-comment"><span class="hljs-comment">// Web文件目录</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> doc_root[PATH_MAX];
+} config;
+</code></pre></blockquote>
+<p>配置文件的初始化，释放及加载配置函数声明：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// 初始化配置</span></span>
+<span class="hljs-function"><span class="hljs-function">config* </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">config_init</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 释放配置</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">config_free</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(config *conf)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 加载配置</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">config_load</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(config *conf, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *fn)</span></span></span></span>;
+</code></pre></blockquote>
+<checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/config.c\n","error":"我们发现你没有创建文件 config.c"}]</checker><checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/config.h\n","error":"我们发现你没有创建文件 config.h"}]</checker><p>配置文件加载模块的实现主要工作在文件内容的读取和解析，需要去除额外的空格，等于号及换行符号。并把解析出来的数据存入 <code>config</code> 数据结构中。</p><h3 id="labdoc-header-11">2.10 日志记录模块</h3>
+<p>日志记录模块对应的代码文件是 log.h 及 log.c。</p><p>在本模块中需要支持的记录内容包括 HTTP 请求，普通日志，错误信息三种，因此声明相关函数：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// 打开日志文件</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">log_open</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(server *serv, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *logfile)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 关闭日志文件</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">log_close</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(server *serv)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 记录HTTP请求</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">log_request</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(server *serv, connection *con)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 记录出错信息</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">log_error</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(server *serv, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *format, ...)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 记录日志信息</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">log_info</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(server *serv, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *format, ...)</span></span></span></span>;
+</code></pre></blockquote>
+<checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/log.c\n","error":"我们发现你没有创建文件 log.c"}]</checker><checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/log.h\n","error":"我们发现你没有创建文件 log.h"}]</checker><p>实现中需要使用标准的 Linux 系统日志的格式，具体可参考 apache 或 nginx 日志格式来记录 HTTP 请求的消息，类似：</p><blockquote>
+<pre><code class="hljs text"><span class="hljs-built_in">IP</span>，时间，访问方法，URI，版本，状态，内容长度
+</code></pre></blockquote>
+<h3 id="labdoc-header-12">2.11 字符串管理模块</h3>
+<p>字符串管理模块对应的代码文件是 stringutils.h 及 stringutils.c。</p><p>首先明确需求，这个字符串模块需要定义一个能够自动扩展并灵活拼接的字符串类型。</p><p>结构体声明如下：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// 定义C语言的字符串</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> {</span>
+    <span class="hljs-comment"><span class="hljs-comment">// 实际存储区域</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *ptr;
+    <span class="hljs-comment"><span class="hljs-comment">// 存储区域大小</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">size_t</span></span> size;
+    <span class="hljs-comment"><span class="hljs-comment">// 字符串长度</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">size_t</span></span> len;
+} <span class="hljs-built_in"><span class="hljs-built_in">string</span></span>;
+</code></pre></blockquote>
+<p>为了提供足够的灵活度，我们需要支持下面的所有操作：</p><blockquote>
+<pre><code class="hljs c cpp"><span class="hljs-comment"><span class="hljs-comment">// 初始化字符串</span></span>
+<span class="hljs-function"><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-built_in">string</span></span></span><span class="hljs-function">* </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_init</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 使用C语言char *初始化字符串</span></span>
+<span class="hljs-function"><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-built_in">string</span></span></span><span class="hljs-function">* </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_init_str</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *str)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 释放字符串分配的内存</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_free</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 重置字符串，将字符串清空，第一个字符设置为'\0'</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_reset</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 扩展字符串长度到new_len</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_extend</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">size_t</span></span></span></span><span class="hljs-function"><span class="hljs-params"> new_len)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 拷贝字符串，str_len为拷贝的长度</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_copy_len</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *str, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">size_t</span></span></span></span><span class="hljs-function"><span class="hljs-params"> str_len)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 拷贝字符串</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_copy</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *str)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 添加字符串s2到s末尾</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_append_string</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s, </span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s2)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 添加数字i到字符串末尾</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_append_int</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> i)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 添加str到字符串s末尾，添加的长度为str_len</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_append_len</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *str, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">size_t</span></span></span></span><span class="hljs-function"><span class="hljs-params"> str_len)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 添加str到字符串s末尾</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_append</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *str)</span></span></span></span>;
+
+<span class="hljs-comment"><span class="hljs-comment">// 添加字符ch到字符串s末尾</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">string_append_ch</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *s, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> ch)</span></span></span></span>;
+</code></pre></blockquote>
+<checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/stringutils.c\n","error":"我们发现你没有创建文件 stringutils.c"}]</checker><checker style="display: none">[{"name":"检查文件是否存在","script":"#!/bin/bash\nls /home/shiyanlou/Code/cwebserver/src/stringutils.h\n","error":"我们发现你没有创建文件 stringutils.h"}]</checker><p>上述函数实现中关键点是实际存储的区域当空间不足时需要 realloc 动态扩容。</p><p>当上述函数都完成后，我们在 server.c 中实现主函数，主函数中只需要调用服务器启动函数进入服务器主循环。下面我们完成编译所需的 Makefile 文件。</p><h3 id="labdoc-header-13">2.12 编译及运行</h3>
+<p>将你完成的文件保存为 <code>/home/shiyanlou/Code/cwebserver/src</code>，在同样的目录下我们编辑 Makefile 文件：</p><blockquote>
+<pre><code class="hljs bash"><span class="hljs-built_in">cd</span> <span class="hljs-meta-keyword">/home/</span>shiyanlou/Code<span class="hljs-meta-keyword">/cwebserver/</span>src
+vim Makefile
+</code></pre></blockquote>
+<p>Makefile 文件里的内容：</p><blockquote>
+<pre><code class="hljs makefile">CC = gcc
+LD = gcc
+CFLAGS = -g -Wall -std=gnu99
+LDFLAGS = -g
+RM = rm -f
+
+SRCS = server.c connection.c http_header.c request.c response.c stringutils.c config.c log.c
+OBJS = <span class="hljs-variable"><span class="hljs-variable">$(</span><span class="hljs-built_in"><span class="hljs-variable">addsuffix</span></span><span class="hljs-variable"> .o, $(</span><span class="hljs-built_in"><span class="hljs-variable">basename</span></span><span class="hljs-variable"> </span><span class="hljs-variable"><span class="hljs-variable">$(SRCS)</span></span>)</span>)
+PROG = web
+
+<span class="hljs-section">all: <span class="hljs-variable">$(PROG)</span></span>
+
+<span class="hljs-variable">$(PROG)</span>: <span class="hljs-variable">$(OBJS)</span>
+    <span class="hljs-variable">$(LD)</span> <span class="hljs-variable">$(LDFLAGS)</span> <span class="hljs-variable">$(OBJS)</span> -o <span class="hljs-variable">$(PROG)</span>
+
+<span class="hljs-section">%.o: %.c</span>
+    <span class="hljs-variable">$(CC)</span> <span class="hljs-variable">$(CFLAGS)</span> -c <span class="hljs-variable">$&lt;</span>
+
+<span class="hljs-meta"><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">.PHONY</span></span></span><span class="hljs-meta">: clean</span></span>
+<span class="hljs-section"><span class="hljs-section">clean:</span></span>
+    <span class="hljs-variable">$(RM)</span> <span class="hljs-variable">$(PROG)</span> <span class="hljs-variable">$(OBJS)</span>
+</code></pre></blockquote>
+<p>保存 Makefile 后，我们只需要在目录下执行 <code>make</code> 就可以生成可执行文件 <code>web</code>。</p><p>编译过程截图：</p><p><img src="./C语言实现web服务器 - 实验楼_files/wm(2)" alt="1-2.12-1"></p><p>Makefile 会把可执行文件放到了<code>cwebserver/src</code>目录下，因为 <code>cwebserver/www</code> 目录中存放在我们预先写的 index.html 及 404.html（文件内容可以随意写），同时我们增加配置文件 <code>cwebserver/web.conf</code> 包含端口号及 document-dir 的配置。为了让 web 服务器能够找到配置文件，我们需要在 <code>cwebserver/</code> 目录下执行 web 程序。</p><p>现在进入运行测试阶段，首先启动服务端：</p><pre><code class="hljs c cpp">cd <span class="hljs-regexp">/home/</span>shiyanlou<span class="hljs-regexp">/cwebserver/</span>
+.<span class="hljs-regexp">/src/</span>web
+</code></pre><p>运行截图如下：</p><p><img src="./C语言实现web服务器 - 实验楼_files/wm(3)" alt="1-2.12-2"></p><p>如果中间有任何问题，需要根据输出的错误信息查验下代码是否有 BUG。欢迎随时到实验楼问答提问。</p><h2 id="labdoc-header-14">三、实验总结</h2>
+<p>通过本节实验的学习，我们开发了 Web 服务器程序，学习了 C 语言的网络开发及 HTTP 协议基础。</p><h2 id="labdoc-header-15">四、实验扩展</h2>
+<p>本实验实现了一个 Web 服务器程序。基于本课节学习，大家可以在此代码基础上实现扩展：</p><blockquote>
+<ol>
+<li>支持更多的 HTTP 请求方法，例如 POST</li>
+<li>支持虚拟主机的功能</li>
+<li>使用 epoll IO 复用机制实现高性能的服务器</li>
+</ol>
+</blockquote>
+</div><div class="labdoc-copyright">*本课程内容，由作者授权实验楼发布，未经允许，禁止转载、下载及非法传播。</div></div>
+    
+    
+    
+</div>
+
+</div>
+
+
+        
+        
+
+        
+        
+        </div>
+
+        <div class="modal fade" id="flash-message" tabindex="-1" role="dialog">
+            <div class="modal-dialog" rolw="document">
+            </div>
+        </div>
+        <div class="modal fade" id="modal-message" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">注意</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary confirm" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="new-loading new-loading-modal" id="new-loading-modal">
+            <div class="loading-wrapper">
+                <p class="loading-icon-lion">
+                    <img src="./C语言实现web服务器 - 实验楼_files/icon_loading.png" alt="">
+                </p>
+                <div class="progress">
+                    <div class="progress-bar load-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                        <span class="sr-only">0% Complete</span>
+                    </div>
+                </div>
+              <p class="loading-txt">
+                    加载中，精彩就在后面...
+              </p>
+              <p class="progress-reload">
+                  <a href="javascript:;" type="button" class="btn-progress-reload" title="">卡住了？点击重试</a>
+              </p>
+            </div>
+        </div>
+
+        
+<div class="modal fade" id="start-newlab">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始新实验</h3>
+			</div>
+			<div class="modal-body">
+                <p>一个实验正在进行，是否停止它，开始新实验？</p>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-newlab-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="start-evaluation-course">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始评估课实验</h3>
+			</div>
+			<div class="modal-body">
+                <div>
+                    <p>为了让评估结果更加准确，请注意以下操作：</p>
+                    <ul>
+                        <li>完成实验后点击「停止实验」按钮</li>
+                        <li>将代码提交到代码库</li>
+                        <li>尽可能详尽的撰写实验报告</li>
+                        <li>尽可能在实验操作的关键步骤截图</li>
+                        <li>尽可能减少无用操作</li>
+                        <li>尽可能高效的利用内存/CPU资源</li>
+                    </ul>
+                    <p>评估课还在不断完善中，我们真挚希望你能通过我们提供的这个平台，找到更好的发展机会。</p>
+                </div>
+                <br>
+                <div class="start-newlab"></div>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="vip-startlab-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4>请选择想使用的环境</h4>
+			</div>
+			<div class="modal-body">
+                <div class="start-newlab"></div>
+                
+                <div class="use-saved-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 oldvm">已保存的环境</button>
+                    <small class="last-saved-vm">
+                        最近保存：Django简介
+                    </small>
+                </div>
+                
+                <div class="use-tmp-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 newvm">该实验默认环境</button>
+                </div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade askquestion-modal" id="askquestion" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">发帖</h4>
+            </div>
+            <div class="modal-body words-ctrl">
+                <form class="form-horizontal" action="https://www.shiyanlou.com/questions/">
+                    <input name="_csrf_token" type="hidden" value="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqzIRg.x7JRKkMnE0gnXNvQI9qfBg_R8n0">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">标题</label>
+                        <div class="col-md-10">
+                            <input type="text" name="title" min="5" max="100" class="form-control syl-input" placeholder="至少输入5个字" value="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">描述</label>
+                        <div class="col-md-10">
+                              
+<div class="tabpanel mkeditor">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#mkeditor-editor" role="tab" data-toggle="tab">编辑</a>
+        </li>
+        <li role="presentation">
+            <a class="mkeditor-btn-view" href="https://www.shiyanlou.com/courses/1053/labs/5306/document#mkeditor-viewer" role="tab" data-toggle="tab">预览</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active mkeditor-editor" id="mkeditor-editor" role="tabpanel">
+            
+            <div class="btn-group" role="group">
+            
+                <button type="button" class="btn btn-default mkeditor-btn-bold">
+                    <i class="fa fa-bold"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-italic">
+                    <i class="fa fa-italic"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-link">
+                    <i class="fa fa-link"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-quote">
+                    <i class="fa fa-quote-left"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-code">
+                    <i class="fa fa-code"></i>
+                </button>
+                <button type="button" style="display: none;position: relative;outline: 0;" class="btn btn-default question-btn-img">
+                    <i class="fa fa-image"></i>
+                    <div class="img-btn-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div type="button" class="btn btn-default screenshot-btn">
+                                    <i class="fa fa-cut"></i> 截取实验桌面
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="btn btn-default upload-image-btn">
+                                    <i class="fa fa-upload"></i> 上传本地图片
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <button id="mkeditor-pickfile" type="button" class="btn btn-default mkeditor-btn-img" style="z-index: 1;">
+                    <i class="fa fa-image"></i>
+                </button>
+                
+                <button type="button" class="btn btn-default mkeditor-btn-listol">
+                    <i class="fa fa-list-ol"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-listul">
+                    <i class="fa fa-list-ul"></i>
+                </button>
+            <div id="html5_1cq8ss0lq1mdi1ikp103o1kb51j893_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;"><input id="html5_1cq8ss0lq1mdi1ikp103o1kb51j893" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept=""></div></div>
+            <div class="btn-group pull-right" role="group">
+                <a style="font-size:12px; color:#666; text-decoration:underline;" href="https://www.shiyanlou.com/questions/764" target="_blank">
+                    <i class="fa fa-question-circle"></i>Markdown 语法
+                </a>
+            </div>
+            <textarea name="content" class="form-control syl-input content" min="0" max="20000" placeholder="推荐使用 Markdown 语法，至少输入 5 个字"></textarea>
+            <div class="help-block"></div>
+        </div>
+        <div class="tab-pane mkeditor-viewer markdown-body" id="mkeditor-viewer" role="tabpanel">
+            <div></div>
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none;">
+                        <label class="col-md-2 control-label">板块</label>
+                        <div class="col-md-10">
+                            <div class="q-types" data-type="">
+                            </div>
+                        </div>
+                    </div>
+                      
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span class="bottom-link" style="display:none;color:#999;background:#FFFFFF;font-size:14px;;border:none;float:left;padding-left:0;">
+                    😀 若纠错被确认，您将得到 3 个实验豆作为奖励
+                    <a type="button" href="https://www.shiyanlou.com/questions/16351" target="_blank" style="color:#00CC99;">
+                        了解详情
+                    </a>
+                </span>
+                <button type="button" class="btn syl-btn-default no-bg" data-dismiss="modal">取消</button>
+                <button type="button" class="submit-question btn syl-btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        
+        
+        
+        
+        
+
+        
+        <div class="modal fade" id="invite-user" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">邀请好友，双方都可获赠实验豆！</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="form-label">
+                            分享专属链接给好友，或粘贴到QQ群/微博/论坛，好友注册后，您和好友将分别获赠3个实验豆！
+                        </div>
+                        <input type="text" id="bstext" class="form-invite" value="https://www.shiyanlou.com/register?inviter=NTY0MzE5NjY5MzY4">
+                        
+                        <div id="msg-modal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade invite-vip-modal" id="invite-vip-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <img src="./C语言实现web服务器 - 实验楼_files/invite-vip-title.png" style="width:100%;">
+                    </div>
+                    <div class="modal-body">
+                        <div class="invite-vip-content">好友输入你的邀请码开通会员后，您将获赠30天标准会员兑换卡一张，多邀多得。好友可享受30元优惠！</div>
+                        <div class="invite-vip-code">
+                            您的专属邀请码：<span>8862XMF</span>
+                            <input style="position:fixed;left:10000px" type="text" id="copy-input" value="输入我的邀请码加入实验楼会员，可享受30元优惠！邀请码：8862XMF。3000多个编程实验在线实践，开始学习：https://www.shiyanlou.com/vip">
+                            <button class="btn btn-primary invite-vip-copy" data-clipboard-target="#copy-input">复制</button>
+                            <div class="invite-vip-copied">
+                                复制成功！
+                            </div>
+                        </div>
+                        <div class="invite-vip-share">
+                            <span>或分享到</span>
+                            <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#" class="invite-vip-weibo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#F47166"></circle>
+                                        <path fill="#FFF" d="M11.811 18C8.601 18 6 16.403 6 14.434c0-1.97 3.897-5.08 5.387-5.08.626 0 1.852.444.994 1.848-.06.098 1.935-.816 3.026-.215 1.091.602 0 1.568 0 1.676 0 .107 2.19.107 2.19 1.77 0 1.97-2.576 3.567-5.786 3.567zm5.019-7.872c.678.58.391 1.611.391 1.611a.353.353 0 0 1-.338.28h-.22c-.161 0-.247-.119-.2-.264 0 0 .277-.639-.085-1.047-.361-.408-1.098-.314-1.098-.314a.268.268 0 0 1-.282-.263v-.057c0-.159.124-.294.276-.315 0 0 .879-.211 1.556.369zm1.265-1.16c1.242 1.117.843 3.088.843 3.088-.024.22-.244.413-.48.413h-.14c-.235 0-.397-.185-.36-.414 0 0 .317-1.24-.428-2.257-.745-1.017-2.495-.844-2.495-.844a.405.405 0 0 1-.412-.407v-.111c0-.237.185-.424.412-.429 0 0 1.818-.156 3.06.961zm-5.861 8.437c2.05-.288 3.568-1.55 3.39-2.817-.178-1.268-1.985-2.062-4.035-1.774-2.05.288-3.569 1.55-3.39 2.817.178 1.268 1.984 2.062 4.035 1.774zm-.367-.448c-1.22.237-2.36-.354-2.549-1.32-.188-.967.649-1.943 1.868-2.18 1.22-.237 2.361.354 2.549 1.32.188.967-.649 1.943-1.868 2.18zm-.243-2.166c.207 0 .375-.16.375-.357a.366.366 0 0 0-.375-.357.366.366 0 0 0-.375.357c0 .197.168.357.375.357zm-.72 1.079c.376-.175.579-.534.454-.802-.125-.268-.53-.343-.906-.168-.375.175-.578.534-.453.802.125.267.53.343.905.168z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a href="https://www.shiyanlou.com/courses/1053/labs/5306/document#" class="invite-vip-qq">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#76C1FF"></circle>
+                                        <path fill="#FFF" d="M8.293 11.189c-.061.17.028.277 0 .924-.008.174-.718.962-1 1.78-.279.812-.317 1.66.114 1.993.432.334.833-1.109.886-.9.022.092.051.188.085.286.138.393.37.828.706 1.235.068.083-.416.234-.706.756s.083 1.471 1.526 1.471c1.861 0 2.278-.692 2.315-.689.14.011.149 0 .296 0 .18 0 .105.016.272 0 .09-.008.995.829 2.247.69 2.134-.238 1.808-.994 1.64-1.472-.175-.498-.793-.731-.766-.763.512-.598.593-.964.766-1.513.071-.226.566 1.24.948.9.159-.143.476-.736.159-1.994-.318-1.257-.933-1.544-.92-1.78.029-.49.012-.835-.011-.924-.113-.432-.35-.337-.35-.432 0-2.49-1.77-4.507-3.953-4.507s-3.953 2.018-3.953 4.507c0 .197-.165.051-.301.432z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a class="qq-zone invite-vip-qzone" href="https://www.shiyanlou.com/courses/1053/labs/5306/document#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path fill="#FFDB59" d="M12.5 0C19.403 0 25 5.597 25 12.5S19.403 25 12.5 25 0 19.403 0 12.5 5.597 0 12.5 0"></path>
+                                        <path fill="#FFF" d="M12.5 17.417s-4.606 2.785-4.89 2.558c-.285-.228.934-5.418.934-5.418S4.419 11.14 4.588 10.72c.17-.42 5.468-.79 5.468-.79S12.023 5 12.5 5c.477 0 2.445 4.93 2.445 4.93s5.322.372 5.468.79c.145.417-3.956 3.837-3.956 3.837s.05.332.11.579c.004.017-1.916.06-3.489 0-.825-.03-1.82-.184-1.82-.184l4.553-3.23s-1.646-.295-3.31-.354c-1.824-.065-3.69.11-3.957.177-.168.042 1.178.038 2.714.176 1.076.098 2.491.355 2.491.355L9.196 15.45s1.95.117 3.698.105c1.969-.013 3.746-.256 3.757-.21.343 1.477.975 4.392.74 4.63-.32.325-4.89-2.557-4.89-2.557"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        <div id="base-data" data-flash="false" data-is-login="true" data-jwt-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NTY2OTMiLCJpc3MiOiJzaGl5YW5sb3U6d2ViOmFwcCIsInVuYW1lIjoiXHU2NTcwXHU2MzZlXHU1MjA2XHU2NzkwXHU1ZTA4IiwiaXNfYWRtaW4iOmZhbHNlLCJleHAiOjE1NDAxMzA4ODYsImlhdCI6MTU0MDA0NDQ4Nn0.d_6FBSSkNbiw1mv0CuN6ARUE6pOPFAkvvBt0_K9GHGY" data-user-id="656693" data-is-jwt="true" data-socket-url="wss://comet.shiyanlou.com" data-msg-user="" data-msg-system="" data-invite-code="8862XMF"></div>
+
+        <!-- 不带 CSS 的库 -->
+        <script async="" src="./C语言实现web服务器 - 实验楼_files/analytics.js.下载"></script><script src="./C语言实现web服务器 - 实验楼_files/polyfill.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/manifest.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/vendor.js.下载"></script>
+
+        <script src="./C语言实现web服务器 - 实验楼_files/jquery.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/jquery.form.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/jquery.menu-aim.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/jquery.qrcode.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/html2canvas.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/jspdf.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/clipboard.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/qiniu.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/plupload.full.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/echarts.min.js.下载"></script>
+        <!-- 不带 CSS 的库 end -->
+
+        <!-- 带有 CSS 的库 -->
+        <script src="./C语言实现web服务器 - 实验楼_files/bootstrap.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/bootstrap-switch.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/bootstrap-tour.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/bootstrap-table.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/bootstrap-table-zh-CN.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/bootstrap-table-filter-control.min.js.下载"></script>
+
+        <script src="./C语言实现web服务器 - 实验楼_files/ace.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/video.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/videojs-flash.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/katex.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/highlight.min.js.下载"></script>
+        <!-- 带有 CSS 的库 end -->
+
+        <script src="./C语言实现web服务器 - 实验楼_files/d3.min.js.下载"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/moment.min.js.下载" charset="utf-8"></script>
+        <script src="./C语言实现web服务器 - 实验楼_files/calendar-heatmap.js.下载"></script>
+
+        <script src="./C语言实现web服务器 - 实验楼_files/raven.min.js.下载" crossorigin="anonymous"></script>
+        <script>
+            Raven.config('https://7748db6c507a45cca1ba53ccb7dc0d51@sentry.shiyanlou.com/5', {
+                whitelistUrls: [/console/, /running/]
+            }).install();
+        </script>
+
+        
+        
+
+        
+<div id="jinja-data" data-qiniu-token-url="/api/qiniu/token" data-labid="5306" data-is-authenticated="true" data-tencent-labid="[877]" data-course-detail="/courses/1053" data-left-time="0" data-course-id="1053" data-userlab-id="None" data-question-form="/questions/meta" data-start-newlab-url="/courses/clear" data-courses-doc="/courses/labs/5306/document"></div>
+<script src="./C语言实现web服务器 - 实验楼_files/labDoc.js.下载"></script><div class="showTimeOut" style="display: none; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background: rgba(0, 0, 0, 0.8); text-align: center; z-index: 1600;"><i class="fa fa-spinner fa-pulse" style="margin-top: 359.6px; color: rgb(255, 255, 255); font-size: 35px;"></i></div>
+
+
+
+        
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-89338452-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+</body></html>

@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://www.shiyanlou.com/courses/568/labs/1983/document -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style class="vjs-styles-defaults">
+      .video-js {
+        width: 300px;
+        height: 150px;
+      }
+
+      .vjs-fluid {
+        padding-top: 56.25%
+      }
+    </style>
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="o-transform">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+        <meta name="csrf-token" content="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqyqjA.je1V7xj7WeXPN6KUVrHPoWuVo24">
+        
+            
+                <title>基础知识：C++11 与 Boost Asio - 实验楼</title>
+            
+        
+
+        
+        <meta content="实验楼是国内领先的IT在线编程及在线实训学习平台，专业导师提供精选的实践项目，创新的技术使得学习者无需配置繁琐的本地环境，随时在线流畅使用。以就业为导向，提供编程、运维、测试、云计算、大数据、数据库等全面的IT技术动手实践环境，提供Linux、Python、Java、C语言、Node.js、Hadoop、PHP、Docker、Git、R、SQL、MongoDB、Redis、Swift、Spark等千门热门课程。" name="description">
+        <meta content="实验楼,IT培训,IT教育,编程,在线编程,Linux,Linux教程,Linux操作系统,Python,Python教程,Python基础教程,Java,Java编程,C语言,大数据,Node.js,Hadoop,PHP,Docker,Git,R,SQL,MongoDB,Redis,Swift,Spark,在线实验,IT在线教育,编程入门,项目训练,项目实践,webIDE,软件开发" name="keywords">
+        
+        <meta content="实验楼，琛石科技" name="author">
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://static.shiyanlou.com/favicon.ico">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/fontawesome-all.min.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/font-awesome.min.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap.min.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap-switch.min.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap-tour.min.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap-table.min.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/katex.min.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/video-js.min.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/monokai-sublime.min.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/calendar-heatmap.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/styles.css">
+        <link rel="stylesheet" href="./基础知识：C++11 与 Boost Asio - 实验楼_files/syl-styles.css">
+
+        
+<style>
+    .layout-fullscreen {
+        margin-top: 0;
+    }
+    .labdoc-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 18px;
+        color: #666;
+        background: #fff;
+        font-size: 16px;
+        border-bottom: solid 1px #eee;
+        z-index: 10;
+    }
+    .labdoc-header a {
+        color: #666;
+    }
+    .labdoc-header a:hover,
+    .labdoc-header a:focus {
+        color: #08bf91;;
+        text-decoration: none;
+    }
+    .labdoc-nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 20%;
+        height: calc(100% - 60px);
+        padding: 0 10px;
+        background-color: #f7f7f7;
+        background-image: url(https://static.shiyanlou.com/img/logo-water-mark.png);
+        background-repeat: no-repeat;
+        background-position: 50% calc(100% - 20px);
+        overflow: auto;
+    }
+    .labdoc-nav-content {
+        margin-left: 10px;
+    }
+    .labdoc-nav h2 {
+        padding: 5px 0;
+        font-size: 16px;
+    }
+    .labdoc-nav h3 {
+        padding: 5px 0;
+        margin-left: 20px;
+        font-size: 14px;
+    }
+    .labdoc-nav h2 a,
+    .labdoc-nav h3 a {
+        color: #666;
+        text-decoration: none;
+    }
+    .labdoc-nav h2:hover a,
+    .labdoc-nav h2:focus a,
+    .labdoc-nav h3:hover a,
+    .labdoc-nav h3:focus a,
+    .labdoc-nav h2.active a,
+    .labdoc-nav h3.active a {
+        color: #08bf91;
+        text-decoration: none;
+    }
+    .labdoc-content-container {
+        float: right;
+        width: 100%;
+        padding: 0;
+        margin-top: 60px;
+    }
+    .labdoc-content {
+        padding: 0 10px 20px;
+        background: #fff;
+    }
+    .labdoc-copyright {
+        margin-top: 30px;
+        color: #999;
+        font-size: 12px;
+        font-style:italic;
+    }
+    .lab-btns {
+        display: none;
+        position: fixed;
+        top: 30%;
+        right: 10px;
+        width: 56px;
+        text-align: center;
+        z-index: 10;
+    }
+    .lab-btns div {
+        margin-bottom: 4px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.20);
+    }
+    .lab-btns a {
+        display: block;
+        padding: 0 2px;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .lab-btns a:hover,
+    .lab-btns a:focus {
+        text-decoration: none;
+    }
+
+    .lab-btns img {
+        display: inline-block;
+        border-radius: 5px;
+    }
+    .lab-btns a img {
+        padding: 11px 0;
+    }
+    .lab-btns span {
+        display: none;
+        color: #08bf91;
+    }
+    .lab-btns a:hover img {
+        display: none;
+    }
+    .lab-btns a:hover span {
+        display: block;
+        width: 52px;
+        height: 52px;
+        padding-top: 8px;
+        text-align: center;
+    }
+    .labinfo {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 20%;
+        padding: 5px 20px;
+        background: cornsilk;
+        z-index: 10;
+    }
+    .labinfo-header {
+        margin-bottom: 20px;
+    }
+    .labinfo-body div {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+    .labinfo-body div {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+    .labinfo-body a {
+        margin: 10px 0;
+    }
+    .left-time a {
+        position: relative;
+        bottom: 1px;
+        padding: 4px 10px;
+        margin-left: 4px;
+        color: #fff;
+        background: #f66;
+        font-size: 14px;
+    }
+    .left-time a:hover,
+    .left-time a:focus {
+        color: #fff;
+    }
+    .labdoc-page,
+    .labdoc-page:focus,
+    .labdoc-page:hover {
+        padding: 20px;
+        color: #08bf91;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .course-warning {
+        width: 40%;
+        margin: 10px auto;
+        font-size: 18px;
+        text-align: center;
+    }
+    @media (min-width: 768px) {
+        .labdoc-nav,
+        .lab-btns {
+            display: block;
+        }
+        .labdoc-content-container {
+            width: 80%;
+        }
+        .labdoc-content {
+            padding: 0 100px 20px;
+        }
+    }
+</style>
+
+
+        
+        
+    <style type="text/css" abt="234"></style><style id="ace_editor.css">.ace_editor {position: relative;overflow: hidden;font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;direction: ltr;text-align: left;}.ace_scroller {position: absolute;overflow: hidden;top: 0;bottom: 0;background-color: inherit;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;cursor: text;}.ace_content {position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;min-width: 100%;}.ace_dragging .ace_scroller:before{position: absolute;top: 0;left: 0;right: 0;bottom: 0;content: '';background: rgba(250, 250, 250, 0.01);z-index: 1000;}.ace_dragging.ace_dark .ace_scroller:before{background: rgba(0, 0, 0, 0.01);}.ace_selecting, .ace_selecting * {cursor: text !important;}.ace_gutter {position: absolute;overflow : hidden;width: auto;top: 0;bottom: 0;left: 0;cursor: default;z-index: 4;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}.ace_gutter-active-line {position: absolute;left: 0;right: 0;}.ace_scroller.ace_scroll-left {box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;}.ace_gutter-cell {padding-left: 19px;padding-right: 6px;background-repeat: no-repeat;}.ace_gutter-cell.ace_error {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: 2px center;}.ace_gutter-cell.ace_warning {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");background-position: 2px center;}.ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");background-position: 2px center;}.ace_dark .ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");}.ace_scrollbar {position: absolute;right: 0;bottom: 0;z-index: 6;}.ace_scrollbar-inner {position: absolute;cursor: text;left: 0;top: 0;}.ace_scrollbar-v{overflow-x: hidden;overflow-y: scroll;top: 0;}.ace_scrollbar-h {overflow-x: scroll;overflow-y: hidden;left: 0;}.ace_print-margin {position: absolute;height: 100%;}.ace_text-input {position: absolute;z-index: 0;width: 0.5em;height: 1em;opacity: 0;background: transparent;-moz-appearance: none;appearance: none;border: none;resize: none;outline: none;overflow: hidden;font: inherit;padding: 0 1px;margin: 0 -1px;text-indent: -1em;-ms-user-select: text;-moz-user-select: text;-webkit-user-select: text;user-select: text;white-space: pre!important;}.ace_text-input.ace_composition {background: inherit;color: inherit;z-index: 1000;opacity: 1;text-indent: 0;}.ace_layer {z-index: 1;position: absolute;overflow: hidden;word-wrap: normal;white-space: pre;height: 100%;width: 100%;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;pointer-events: none;}.ace_gutter-layer {position: relative;width: auto;text-align: right;pointer-events: auto;}.ace_text-layer {font: inherit !important;}.ace_cjk {display: inline-block;text-align: center;}.ace_cursor-layer {z-index: 4;}.ace_cursor {z-index: 4;position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;border-left: 2px solid;transform: translatez(0);}.ace_slim-cursors .ace_cursor {border-left-width: 1px;}.ace_overwrite-cursors .ace_cursor {border-left-width: 0;border-bottom: 1px solid;}.ace_hidden-cursors .ace_cursor {opacity: 0.2;}.ace_smooth-blinking .ace_cursor {-webkit-transition: opacity 0.18s;transition: opacity 0.18s;}.ace_editor.ace_multiselect .ace_cursor {border-left-width: 1px;}.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {position: absolute;z-index: 3;}.ace_marker-layer .ace_selection {position: absolute;z-index: 5;}.ace_marker-layer .ace_bracket {position: absolute;z-index: 6;}.ace_marker-layer .ace_active-line {position: absolute;z-index: 2;}.ace_marker-layer .ace_selected-word {position: absolute;z-index: 4;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}.ace_line .ace_fold {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;display: inline-block;height: 11px;margin-top: -2px;vertical-align: middle;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");background-repeat: no-repeat, repeat-x;background-position: center center, top left;color: transparent;border: 1px solid black;border-radius: 2px;cursor: pointer;pointer-events: auto;}.ace_dark .ace_fold {}.ace_fold:hover{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");}.ace_tooltip {background-color: #FFF;background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));border: 1px solid gray;border-radius: 1px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);color: black;max-width: 100%;padding: 3px 4px;position: fixed;z-index: 999999;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;cursor: default;white-space: pre;word-wrap: break-word;line-height: normal;font-style: normal;font-weight: normal;letter-spacing: normal;pointer-events: none;}.ace_folding-enabled > .ace_gutter-cell {padding-right: 13px;}.ace_fold-widget {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;margin: 0 -12px 0 1px;display: none;width: 11px;vertical-align: top;background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: center;border-radius: 3px;border: 1px solid transparent;cursor: pointer;}.ace_folding-enabled .ace_fold-widget {display: inline-block;   }.ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");}.ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");}.ace_fold-widget:hover {border: 1px solid rgba(0, 0, 0, 0.3);background-color: rgba(255, 255, 255, 0.2);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);}.ace_fold-widget:active {border: 1px solid rgba(0, 0, 0, 0.4);background-color: rgba(0, 0, 0, 0.05);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);}.ace_dark .ace_fold-widget {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");}.ace_dark .ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget:hover {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);background-color: rgba(255, 255, 255, 0.1);}.ace_dark .ace_fold-widget:active {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);}.ace_fold-widget.ace_invalid {background-color: #FFB4B4;border-color: #DE5555;}.ace_fade-fold-widgets .ace_fold-widget {-webkit-transition: opacity 0.4s ease 0.05s;transition: opacity 0.4s ease 0.05s;opacity: 0;}.ace_fade-fold-widgets:hover .ace_fold-widget {-webkit-transition: opacity 0.05s ease 0.05s;transition: opacity 0.05s ease 0.05s;opacity:1;}.ace_underline {text-decoration: underline;}.ace_bold {font-weight: bold;}.ace_nobold .ace_bold {font-weight: normal;}.ace_italic {font-style: italic;}.ace_error-marker {background-color: rgba(255, 0, 0,0.2);position: absolute;z-index: 9;}.ace_highlight-marker {background-color: rgba(255, 255, 0,0.2);position: absolute;z-index: 8;}.ace_br1 {border-top-left-radius    : 3px;}.ace_br2 {border-top-right-radius   : 3px;}.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}.ace_br4 {border-bottom-right-radius: 3px;}.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}.ace_br8 {border-bottom-left-radius : 3px;}.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
+/*# sourceURL=ace/css/ace_editor.css */</style><style id="ace-tm">.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}
+/*# sourceURL=ace/css/ace-tm */</style><style>    .error_widget_wrapper {        background: inherit;        color: inherit;        border:none    }    .error_widget {        border-top: solid 2px;        border-bottom: solid 2px;        margin: 5px 0;        padding: 10px 40px;        white-space: pre-wrap;    }    .error_widget.ace_error, .error_widget_arrow.ace_error{        border-color: #ff5a5a    }    .error_widget.ace_warning, .error_widget_arrow.ace_warning{        border-color: #F1D817    }    .error_widget.ace_info, .error_widget_arrow.ace_info{        border-color: #5a5a5a    }    .error_widget.ace_ok, .error_widget_arrow.ace_ok{        border-color: #5aaa5a    }    .error_widget_arrow {        position: absolute;        border: solid 5px;        border-top-color: transparent!important;        border-right-color: transparent!important;        border-left-color: transparent!important;        top: -5px;    }</style><style type="text/css">
+.sidebox-my-contest-history[data-v-530b5260] {
+  overflow: hidden;
+}
+.sidebox-my-contest-record[data-v-530b5260] {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.sidebox-my-contest-record .pull-left[data-v-530b5260] {
+    width: 39%;
+    margin-right: 1%;
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebox-my-contest-record .pull-right[data-v-530b5260] {
+    width: 60%;
+}
+.sidebox-my-contest-record .challenge-meta-status[data-v-530b5260] {
+    position: relative;
+    bottom: 1px;
+}
+.sidebox-record-time[data-v-530b5260] {
+  display: inline-block;
+  margin-left: 4px;
+  color: #666;
+  font-size: 14px;
+}
+.sidebox-footer[data-v-530b5260] {
+  text-align: right;
+}
+.sidebox-footer a[data-v-530b5260] {
+    font-size: 14px;
+}
+</style><style type="text/css">
+.fade-enter-active[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  opacity: 0;
+}
+.header-message[data-v-07a2dd56] {
+  position: relative;
+}
+.header-message > a[data-v-07a2dd56] {
+  position: relative;
+  padding-top: 23px !important;
+}
+.header-message > a .icon[data-v-07a2dd56] {
+    width: 22px;
+}
+.popover[data-v-07a2dd56] {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: -66px;
+  width: 180px;
+  background: #fff;
+}
+.popover .msg-content[data-v-07a2dd56] {
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+.popover .msg-content a[data-v-07a2dd56] {
+      color: #f66;
+}
+.popover .msg-content a[data-v-07a2dd56]:focus, .popover .msg-content a[data-v-07a2dd56]:hover {
+        text-decoration: none;
+}
+.mark[data-v-07a2dd56] {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  padding: 0 5px;
+  color: #fff;
+  background: #f66;
+  font-size: 12px;
+  border-radius: 10px;
+  line-height: 16px;
+}
+@media (max-width: 768px) {
+.mark[data-v-07a2dd56] {
+    top: 14px;
+    right: calc(50% - 8px);
+}
+}
+</style><style type="text/css">
+.hidden[data-v-815c5224] {
+  display: none;
+}
+.show[data-v-815c5224] {
+  display: block;
+}
+.fade-enter-active[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  transition: opacity 0.5s;
+}
+.fade-enter[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  opacity: 0;
+}
+.header-userbox a[data-v-815c5224] {
+  display: block;
+  padding: 11px 0 11px 10px !important;
+}
+.header-avatar[data-v-815c5224] {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.vip-icon[data-v-815c5224] {
+  position: absolute;
+  bottom: 5px;
+  right: calc(50% - 30px);
+  width: 20px;
+  height: 20px;
+}
+@media (min-width: 768px) {
+.vip-icon[data-v-815c5224] {
+    right: 0;
+}
+}
+.user[data-v-815c5224] {
+  display: block;
+  position: absolute;
+  top: 60px;
+  left: -140px;
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 4px 1px #ccc;
+  z-index: 999 !important;
+}
+.user[data-v-815c5224]:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 220px;
+    height: 50px;
+}
+.user.popover > .arrow[data-v-815c5224] {
+    left: 63%;
+}
+.user-info[data-v-815c5224] {
+  overflow: hidden;
+}
+.user-info a[data-v-815c5224] {
+    float: left;
+    padding: 0 !important;
+}
+.user-info a img[data-v-815c5224] {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+}
+.username[data-v-815c5224] {
+  position: relative;
+}
+.username > img[data-v-815c5224] {
+    width: 20px;
+    position: absolute;
+    left: -30px;
+    bottom: 5px;
+}
+.username > span[data-v-815c5224] {
+    display: inline-block;
+    max-width: 150px;
+    color: #666;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.username > span.user-level[data-v-815c5224] {
+      color: #fec42d;
+      font-size: 14px;
+      font-weight: 700;
+}
+.username > p[data-v-815c5224] {
+    color: #a4a4a4;
+    font-size: 12px;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150px;
+    text-overflow: ellipsis;
+}
+.start-experiment[data-v-815c5224] {
+  margin-bottom: 10px;
+}
+.start-experiment > a[data-v-815c5224] {
+    display: inline-block;
+    width: 100%;
+    padding: 8px 0 !important;
+    margin: 10px 0;
+    background-color: #08bf91;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+.start-experiment > a[data-v-815c5224]:hover, .start-experiment > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #fff;
+}
+.marked-words[data-v-815c5224] {
+  width: 100%;
+  color: #a4a4a4 !important;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  position: absolute;
+  top: 130px;
+  left: 0;
+}
+.marked-words > a[data-v-815c5224] {
+    color: #a4a4a4 !important;
+    font-size: 12px;
+    padding: 0 !important;
+}
+.marked-words > a[data-v-815c5224]:hover, .marked-words > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #a4a4a4;
+}
+.user-links a[data-v-815c5224] {
+  padding: 4px 0 !important;
+  margin-top: 15px;
+  color: #3a3a3a;
+  text-align: center;
+  border: solid 1px #ccc;
+  border-radius: 20px;
+}
+.user-links a.member-index[data-v-815c5224] {
+    color: #f66;
+    border-color: #f66;
+}
+.user-links a[data-v-815c5224]:hover {
+    text-decoration: none;
+}
+.user-links .log-out[data-v-815c5224] {
+  padding-top: 20px;
+}
+.user-links .log-out a[data-v-815c5224] {
+    border: none;
+    padding: 0 !important;
+    color: #a4a4a4;
+    text-align: right;
+}
+</style><style type="text/css">
+.header-learn-info[data-v-33ac7940] {
+  float: right;
+  width: 100%;
+  padding: 23.5px 10px;
+  margin: 0;
+  position: relative;
+}
+.header-learn-info > span[data-v-33ac7940] {
+    font-size: 16px;
+    color: #666;
+}
+.header-learn-info > span img[data-v-33ac7940] {
+      transform: rotate(-90deg);
+}
+.header-learn-info > span[data-v-33ac7940]:hover {
+      cursor: pointer;
+}
+.home-page[data-v-33ac7940] {
+  color: #666;
+}
+.home-page[data-v-33ac7940]:hover {
+    text-decoration: none;
+    color: #08bf91;
+}
+@media (min-width: 768px) {
+.header-learn-info[data-v-33ac7940] {
+    width: auto;
+}
+}
+@media (max-width: 1200px) {
+.header-learn-info[data-v-33ac7940] {
+    display: none;
+}
+}
+.fade-enter-active[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  opacity: 0;
+}
+.learninfo-box[data-v-33ac7940] {
+  display: block;
+  width: 223px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  padding: 20px;
+  left: 35px;
+  background: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  border: none;
+}
+.learninfo-box .lab-running > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .lab-running .lab-running-name[data-v-33ac7940] {
+    font-size: 14px;
+    padding: 10px 0;
+}
+.learninfo-box .lab-running .lab-running-name > span[data-v-33ac7940] {
+      max-width: 60%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+}
+.learninfo-box .lab-running .lab-running-name .lab-continue[data-v-33ac7940] {
+      background: #08bf91;
+      font-size: 12px;
+      color: #fff;
+      border: none;
+      padding: 2px 12px;
+      margin-top: -1px;
+}
+.learninfo-box .learn-records > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .learn-records .records-list[data-v-33ac7940] {
+    margin-top: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940] {
+      display: inline-block;
+      font-size: 14px;
+      color: #666;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940]:hover {
+        text-decoration: none;
+        background-color: #f5f5f5;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940] {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940]:hover {
+      text-decoration: none;
+}
+@media (min-width: 768px) {
+.learninfo-box[data-v-33ac7940] {
+    left: -30px;
+    margin-bottom: 0;
+}
+}
+</style><style type="text/css">
+.input-group[data-v-68b3bbad] {
+  position: relative;
+}
+ul[data-v-68b3bbad] {
+  position: absolute;
+  top: 33px;
+  z-index: 100;
+  width: calc(100% - 46px);
+  padding: 0;
+  color: #7f7f7f;
+  background: #fff;
+  font-size: 14px;
+  border: solid 1px #ccc;
+  list-style: none;
+}
+ul li[data-v-68b3bbad] {
+    padding: 5px 11px;
+    cursor: pointer;
+}
+ul li.active[data-v-68b3bbad] {
+      background: #eee;
+}
+</style><style type="text/css">
+.side-new-contest .sidebox-body[data-v-7d67fa2d] {
+  overflow: hidden;
+}
+.side-new-contest .sidebox-body span[data-v-7d67fa2d] {
+    position: relative;
+    top: 4px;
+    color: #3a3a3a;
+    font-size: 14px;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d] {
+    padding: 2px 10px;
+    color: #08bf91;
+    font-size: 14px;
+    border: solid 1px #08bf91;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:hover, .side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:focus {
+      color: #fff;
+      background: #09bf91;
+}
+</style><style type="text/css">
+a[data-v-9b3c8994] {
+    display: inline-block;
+    vertical-align: middle;
+}
+@media (max-width: 768px) {
+a[data-v-9b3c8994] {
+        display: none;
+}
+}
+.fa[data-v-9b3c8994] {
+    padding: 4px;
+    color: #274a59;
+    background: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.fa[data-v-9b3c8994]:hover {
+    color: #ec5353;
+}
+.pull-left[data-v-9b3c8994] {
+    margin-left: 10px;
+}
+
+/*# sourceURL=/home/shiyanlou/shiyanlou/simplecloud/app/src/base/components/weibo.vue?211347e4 */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3NoaXlhbmxvdS9zaGl5YW5sb3Uvc2ltcGxlY2xvdWQvYXBwL3NyYy9iYXNlL2NvbXBvbmVudHMvd2VpYm8udnVlPzIxMTM0N2U0Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFtQ0E7SUFDQSxzQkFBQTtJQUNBLHVCQUFBO0NBQ0E7QUFDQTtBQUNBO1FBQ0EsY0FBQTtDQUNBO0NBQ0E7QUFDQTtJQUNBLGFBQUE7SUFDQSxlQUFBO0lBQ0EsaUJBQUE7SUFDQSxnQkFBQTtJQUNBLG1CQUFBO0NBQ0E7QUFDQTtJQUNBLGVBQUE7Q0FDQTtBQUNBO0lBQ0Esa0JBQUE7Q0FDQSIsImZpbGUiOiJ3ZWliby52dWUiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XG48YSA6aHJlZj1cImhyZWZcIiA6Y2xhc3M9XCJ7ICdidG4gYnRuLXByaW1hcnknOiBpc0J0biAsICdwdWxsLWxlZnQnOiBpc0xlZnR9XCIgdGFyZ2V0PVwiX2JsYW5rXCI+XG4gICAgPHNwYW4gdi1pZj1cImlzQnRuXCI+5YiG5Lqr5Yiw5b6u5Y2aPC9zcGFuPlxuICAgIDxpbWcgOnNyYz1cImljb25cIiBhbHQ9XCJcIj5cbjwvYT5cbjwvdGVtcGxhdGU+XG5cbjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gICAgcHJvcHM6IFsnaXNCdG4nLCAncGF0aCcsICd0aXRsZScsICdwaWMnLCAnaWNvbicsICdpc0xlZnQnLCAndXJsJ10sXG4gICAgZGF0YSgpIHtcbiAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgIGhyZWY6ICcnLFxuICAgICAgICAgICAgcGFyYW1zOiB7XG4gICAgICAgICAgICAgICAgdGl0bGU6IHRoaXMudGl0bGUsXG4gICAgICAgICAgICAgICAgYXBwa2V5OiAnMTM0MzcxMzA1MycsXG4gICAgICAgICAgICAgICAgcGljOiAodGhpcy5waWMgJiYgdGhpcy5waWMubGVuZ3RoKSA/IHRoaXMucGljIDogWydodHRwczovL3N0YXRpYy5zaGl5YW5sb3UuY29tL2ltZy9sb2dvLWJhc2UucG5nJ10sXG4gICAgICAgICAgICAgICAgc2VhcmNoUGljOiBmYWxzZSxcbiAgICAgICAgICAgICAgICB1cmw6IHRoaXMudXJsXG4gICAgICAgICAgICB9LFxuICAgICAgICAgICAgd2VpYm9Vcmw6IHRoaXMudXJsID8gYGh0dHA6Ly9zZXJ2aWNlLndlaWJvLmNvbS9zaGFyZS9zaGFyZS5waHA/dXJsPSR7dGhpcy51cmx9IGA6IGBodHRwOi8vc2VydmljZS53ZWliby5jb20vc2hhcmUvc2hhcmUucGhwP3VybD1odHRwczovL3d3dy5zaGl5YW5sb3UuY29tYCxcbiAgICAgICAgfTtcbiAgICB9LFxuICAgIG1vdW50ZWQoKSB7XG4gICAgICAgIHRoaXMuaHJlZiA9IGAke3RoaXMud2VpYm9Vcmx9JHt0aGlzLnBhdGh9YFxuICAgICAgICAgICAgKyBgJnRpdGxlPSR7ZW5jb2RlVVJJQ29tcG9uZW50KHRoaXMucGFyYW1zLnRpdGxlKX1gXG4gICAgICAgICAgICArIGAmYXBwa2V5PSR7dGhpcy5wYXJhbXMuYXBwa2V5fWBcbiAgICAgICAgICAgICsgYCZwaWM9JHt0aGlzLnBhcmFtcy5waWMuam9pbignfHwnKX1gXG4gICAgICAgICAgICArIGAmc2VhcmNoUGljPSR7dGhpcy5wYXJhbXMuc2VhcmNoUGljfWA7XG4gICAgICAgIHRoaXMuaHJlZiA9IGVuY29kZVVSSSh0aGlzLmhyZWYpXG4gICAgfVxufVxuPC9zY3JpcHQ+XG5cbjxzdHlsZSBzY29wZWQ+XG5hIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjhweCkge1xuICAgIGEge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cbn1cbi5mYSB7XG4gICAgcGFkZGluZzogNHB4O1xuICAgIGNvbG9yOiAjMjc0YTU5O1xuICAgIGJhY2tncm91bmQ6ICNmZmY7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbn1cbi5mYTpob3ZlciB7XG4gICAgY29sb3I6ICNlYzUzNTM7XG59XG4ucHVsbC1sZWZ0IHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbn1cbjwvc3R5bGU+XG5cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style><style type="text/css">
+.navbar-form[data-v-72bea96c] {
+  float: left !important;
+  padding: 10px 0;
+  margin: 8px 10px;
+}
+.form-group[data-v-72bea96c] {
+  position: relative;
+}
+label[data-v-72bea96c] {
+  display: inline;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: #3a3a3a;
+  font-size: 16px;
+}
+.form-control[data-v-72bea96c] {
+  width: 200px;
+  border-radius: 20px;
+}
+.search-autocomplete[data-v-72bea96c] {
+  position: absolute;
+  top: 35px;
+  left: 1px;
+  width: 195px;
+  padding: 4px;
+  border: solid 1px #ddd;
+  border-top: none;
+  background: #fff;
+  z-index: 1000;
+}
+.search-autocomplete a[data-v-72bea96c] {
+    display: block;
+    padding: 6px 8px;
+    color: #4c5157;
+    font-size: 13px;
+}
+.search-autocomplete a[data-v-72bea96c]:hover, .search-autocomplete a[data-v-72bea96c]:focus {
+      color: #fff;
+      background: #0c9;
+      text-decoration: none;
+}
+</style><script>//remove 17173 video ad
+doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+//remove baidu search ad
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+            all = document.body.querySelectorAll('.result.c-container[id="1"]');
+            //if(all.length == 1) return;
+            for(var i = 0; i < all.length; i++){
+                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
+                    all[i].style.display= "none";all[i].style.visibility='hidden';
+                }
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
+    };
+}
+//remove sohu video ad
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//remove 56.com video ad
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//fore iqiyi enable html5 player function
+if (document.URL.indexOf("iqiyi.com") >= 0){
+    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
+        document.cookie='player_forcedType=h5_VOD'
+        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
+            console.log('no reload')
+        }else{
+            location.reload()
+            localStorage.reloadTime = Date.now();
+        }
+    }
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+
+    <body>
+        <div style="height:0;width:0;visibility:hidden">
+            <img src="./基础知识：C++11 与 Boost Asio - 实验楼_files/weixin_logo.png" alt="">
+        </div>
+        
+            
+        
+
+        
+
+
+        <div class="content-box">
+        
+<style>
+.layout-fullscreen {
+    margin-top: -20px;
+}
+</style>
+<div class="layout layout-fullscreen">
+    <div class="container">
+        
+        
+    </div>
+    
+<div class="lab-btns">
+    
+        
+
+        
+            
+        
+
+        
+            
+        
+
+        
+        <div>
+            <img src="./基础知识：C++11 与 Boost Asio - 实验楼_files/best-study-way.png">
+            <a class=" member-vm lab-item-start  " data-mobile-url="/courses/568/labs/1983/document" data-url="/courses/start/1983" data-next="/courses/running">
+                <img src="./基础知识：C++11 与 Boost Asio - 实验楼_files/labdoc-start.png">
+                
+                    <span>开始<br>实验</span>
+                
+            </a>
+        </div>
+    
+    <div>
+        <a data-toggle="modal" href="https://www.shiyanlou.com/courses/568/labs/1983/document#askquestion">
+            <img src="./基础知识：C++11 与 Boost Asio - 实验楼_files/labdoc-question.png">
+            <span>我要<br>提问</span>
+        </a>
+    </div>
+    <div>
+        <a class="commit-error">
+            <img src="./基础知识：C++11 与 Boost Asio - 实验楼_files/labdoc-jiucuo.png">
+            <span>我要<br>纠错</span>
+        </a>
+    </div>
+</div>
+<div class="labdoc-header">
+    <a href="https://www.shiyanlou.com/courses/568">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        C++ 开发 Web 服务框架
+    </a>
+    
+</div>
+<div class="labdoc-nav">
+    <div class="labdoc-nav-content">
+                <h2 class="">
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-0">一、概述</a>
+                </h2>
+            
+                <h2 class="active">
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-1">二、编译环境介绍</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-2">三、C++ 基础</a>
+                </h2>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-3">3.1 命名空间</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-4">3.2 常用 IO 库</a>
+                </h3>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-5">四、C++11 相关</a>
+                </h2>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-6">4.1 lambda 表达式</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-7">4.2 无序容器 std::unordered_map</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-8">4.3 std::regex/std::regex_match/std::smatch</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-9">4.4 std::function</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-10">4.5 std::thread</a>
+                </h3>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-11">五、Boost Asio 相关</a>
+                </h2>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-12">5.1 HTTP 连接</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-13">5.2 HTTPS 连接</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-14">5.3 IO 操作</a>
+                </h3>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-15">六、总结</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#labdoc-header-16">七、参考资料</a>
+                </h2>
+            </div>
+    
+</div>
+<div class="labdoc-content-container">
+    <div class="markdown-body labdoc-content" id="labdoc-content"><div><h1 id="-c-11-boost-asio">基础知识：C++11 与 Boost Asio</h1>
+<h2 id="labdoc-header-0">一、概述</h2>
+<h4 id="-">项目介绍</h4>
+<p>服务器开发中 Web 服务是一个基本的代码单元，将服务端的请求和响应部分的逻辑抽象出来形成框架，能够做到最高级别的框架级代码复用。本次项目将综合使用 C++11 及 Boost 中的 Asio 实现 HTTP 和 HTTPS 的服务器框架。</p><h4 id="-">项目涉及的知识点</h4>
+<ul>
+<li>C++基本知识<ul>
+<li>面向对象</li>
+<li>模板</li>
+<li>命名空间</li>
+<li>常用 IO 库</li>
+</ul>
+</li>
+<li>C++11 相关<ul>
+<li>lambda expression</li>
+<li>std::shared_ptr</li>
+<li>std::make_shared</li>
+<li>std::unordered_map</li>
+<li>std::regex</li>
+<li>std::smatch</li>
+<li>std::regex_match</li>
+<li>std::function</li>
+<li>std::thread</li>
+</ul>
+</li>
+<li>Boost Asio 相关<ul>
+<li>boost::asio::io_service</li>
+<li>boost::asio::ip::tcp::socket</li>
+<li>boost::asio::ip::tcp::v4()</li>
+<li>boost::asio::ip::tcp::endpoint</li>
+<li>boost::asio::ip::tcp::acceptor</li>
+<li>boost::asio::streambuf</li>
+<li>boost::asio::async_read</li>
+<li>boost::asio::async_read_until</li>
+<li>boost::asio::async_write</li>
+<li>boost::asio::transfer_exactly</li>
+<li>boost::asio::ssl::stream</li>
+<li>boost::asio::ssl::stream_base::server</li>
+<li>boost::asio::ssl::context</li>
+<li>boost::asio::ssl::context::sslv23</li>
+<li>boost::asio::ssl::context::pem</li>
+<li>boost::system::error_code</li>
+</ul>
+</li>
+</ul>
+<h2 id="labdoc-header-1">二、编译环境介绍</h2>
+<p>在 g++ 4.9 之前，regex 库并不支持 ECMAScript 的正则语法，换句话说，在 g++4.9 之前，g++ 对 C++11 标准库的支持并不完善，为保证本次项目的顺利进行，请确保将 g++ 版本升级至 4.9 以上。</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// 下面的这段代码可以测试你的编译器对正则表达式的支持情况</span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;iostream&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;regex&gt;</span></span></span></span>
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function">
+</span></span>{
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-function"><span class="hljs-function">regex </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">r1</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-string"><span class="hljs-function"><span class="hljs-params"><span class="hljs-string">"S"</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span></span>;
+    <span class="hljs-built_in"><span class="hljs-built_in">printf</span></span>(<span class="hljs-string"><span class="hljs-string">"S works.\n"</span></span>);
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-function"><span class="hljs-function">regex </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">r2</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-string"><span class="hljs-function"><span class="hljs-params"><span class="hljs-string">"."</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span></span>;
+    <span class="hljs-built_in"><span class="hljs-built_in">printf</span></span>(<span class="hljs-string"><span class="hljs-string">". works.\n"</span></span>);
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-function"><span class="hljs-function">regex </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">r3</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-string"><span class="hljs-function"><span class="hljs-params"><span class="hljs-string">".+"</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span></span>;
+    <span class="hljs-built_in"><span class="hljs-built_in">printf</span></span>(<span class="hljs-string"><span class="hljs-string">".+ works.\n"</span></span>);
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-function"><span class="hljs-function">regex </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">r4</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-string"><span class="hljs-function"><span class="hljs-params"><span class="hljs-string">"[0-9]"</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span></span>;
+    <span class="hljs-built_in"><span class="hljs-built_in">printf</span></span>(<span class="hljs-string"><span class="hljs-string">"[0-9] works.\n"</span></span>);
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-number"><span class="hljs-number">0</span></span>;
+}
+</code></pre><p>如果你的运行结果遇到了下图所示的错误，说明你确实需要升级你的 g++ 了：</p><p><img src="./基础知识：C++11 与 Boost Asio - 实验楼_files/wm" alt="1-2-1"></p><p>使用 <code>g++ -v</code> 可以查看到当前编译器版本：</p><p><img src="./基础知识：C++11 与 Boost Asio - 实验楼_files/wm(1)" alt="1-2-2"></p><blockquote>
+<p>如果你最后一行中的 <code>gcc version</code> 显示的是 <code>4.8.x</code>，那么你需要手动将编译器版本升级至 <code>4.9</code> 以上，方法如下：</p><pre><code class="hljs bash"><span class="hljs-comment"><span class="hljs-comment"># 安装 add-apt-repository 工具</span></span>
+sudo apt-get install software-properties-common
+<span class="hljs-comment"><span class="hljs-comment"># 增加源</span></span>
+sudo add-apt-repository ppa<span class="hljs-function">:ubuntu-toolchain-r</span>/<span class="hljs-built_in">test</span>
+<span class="hljs-comment"><span class="hljs-comment"># 更新源</span></span>
+sudo apt-get update
+<span class="hljs-comment"><span class="hljs-comment"># 更新安装</span></span>
+sudo apt-get upgrade
+<span class="hljs-comment"><span class="hljs-comment"># 安装 gcc/g++ 4.9</span></span>
+sudo apt-get install gcc-4.9 g++-4.9
+<span class="hljs-comment"><span class="hljs-comment"># 更新链接</span></span>
+sudo updatedb
+sudo ldconfig
+sudo update-alternatives <span class="hljs-params">--install</span> <span class="hljs-string">/usr/bin/gcc</span> gcc <span class="hljs-string">/usr/bin/gcc-4.8</span> 48 \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/g</span>++ g++ <span class="hljs-string">/usr/bin/g</span>++-4.8 \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-ar</span> gcc-ar <span class="hljs-string">/usr/bin/gcc-ar-4.8</span> \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-nm</span> gcc-nm <span class="hljs-string">/usr/bin/gcc-nm-4.8</span> \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-ranlib</span> gcc-ranlib <span class="hljs-string">/usr/bin/gcc-ranlib-4.8</span>
+sudo update-alternatives <span class="hljs-params">--install</span> <span class="hljs-string">/usr/bin/gcc</span> gcc <span class="hljs-string">/usr/bin/gcc-4.9</span> 49 \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/g</span>++ g++ <span class="hljs-string">/usr/bin/g</span>++-4.9 \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-ar</span> gcc-ar <span class="hljs-string">/usr/bin/gcc-ar-4.9</span> \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-nm</span> gcc-nm <span class="hljs-string">/usr/bin/gcc-nm-4.9</span> \
+ <span class="hljs-params">--slave</span> <span class="hljs-string">/usr/bin/gcc-ranlib</span> gcc-ranlib <span class="hljs-string">/usr/bin/gcc-ranlib-4.9</span>
+</code></pre></blockquote>
+<p>此外，本次项目依赖了 <code>Boost</code> 和 <code>OpenSSL</code> 这两个库，不过好在实验楼的环境已经提供了这两个非常基本的库，你不需要再操心他们的安装了。</p><h2 id="labdoc-header-2">三、C++ 基础</h2>
+<p>面向对象和模板是 C++进阶知识的基础，这里不做过多介绍，本次项目我们将开发一个 Web 框架，我们在这里先回顾一下命名空间、和 sstream 字符串 IO 流的相关知识。如果对这部分比较熟悉，可以直接跳过本小节。</p><h3 id="labdoc-header-3">3.1 命名空间</h3>
+<p>在开发库时，库通常会有定义大量的全局名称，这时候当我们使用的库越来越多时，就不可避免的发生名称冲突的情况，这也就是我们常说的命名空间污染。</p><p>在命名空间诞生以前，通常使用的办法就是把一个函数、类、甚至变量名等名字取得足够长，在每一个名字的前面都增加相应的前缀，例如，当我们只想要定义一个 port 的变量时候：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// 原本的样子</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">int</span></span> port;
+<span class="hljs-comment"><span class="hljs-comment">// 实际的样子</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">int</span></span> shiyanlou_web_server_port;
+</code></pre><p>命名空间的定义非常简单，通过关键字 <code>namespace</code> 加上命名空间的名字，再使用花括号包裹需要的定义和声明即可完成相关的定义，例如：</p><pre><code class="hljs cpp"><span class="hljs-keyword">namespace</span> shiyanlou_web_server {
+    <span class="hljs-keyword">int</span><span class="hljs-built_in"> port </span>= <span class="hljs-number">0</span>;
+}
+</code></pre><p>这时，这个 <code>port</code> 就被限制在了命名空间 <code>shiyanlou_web_server</code> 当中，如果不通过命名空间的指定，就不会被访问到。</p><p>参考下面的例子：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">//</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// main.cpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;iostream&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">"web.hpp"</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">"web2.hpp"</span></span></span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-string"><span class="hljs-string">"hello world!"</span></span> &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-string"><span class="hljs-string">"shiyanlou_web_server, port="</span></span> &lt;&lt; shiyanlou_web_server::port &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-string"><span class="hljs-string">"shiyanlou_web2_server, port="</span></span> &lt;&lt; shiyanlou_web2_server::port &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-number"><span class="hljs-number">0</span></span>;
+}
+</code></pre><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// web.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">namespace</span></span> <span class="hljs-title">shiyanlou_web_server</span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> port = <span class="hljs-number"><span class="hljs-number">0</span></span>;
+}
+</code></pre><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">//</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// web2.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">namespace</span></span> <span class="hljs-title">shiyanlou_web2_server</span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> port = <span class="hljs-number"><span class="hljs-number">2</span></span>;
+}
+</code></pre><p>最后的输出结果为：</p><pre><code class="hljs nginx"><span class="hljs-attribute">hello</span> world!
+shiyanlou_web_server, <span class="hljs-attribute">port</span>=<span class="hljs-number">0</span>
+shiyanlou_web2_server, <span class="hljs-attribute">port</span>=<span class="hljs-number">2</span>
+</code></pre><h3 id="labdoc-header-4">3.2 常用 IO 库</h3>
+<p>我们常说的 C++ IO 库一般指 <code>iostream</code>, <code>fstream</code>, <code>sstream</code>。</p><ul>
+<li>iostream 包含了 <code>istream</code>(从流读)/<code>ostream</code>(从流写)/<code>iostream</code>(读写流)</li>
+<li>fstream 包含了 <code>ifstream</code>(从文件读)/<code>ofstream</code>(condition 文件写)/<code>fstream</code>(读写文件)</li>
+<li>sstream 包含了 <code>istringstream</code>(从 string 读)/<code>ostringstream</code>(向 string 写)/<code>stringstream</code>(读写 string)</li>
+</ul>
+<blockquote>
+<p>其实标准库还有宽字符版本，但我们这里不讨论，有兴趣的话可以参考参考链接。</p></blockquote>
+<p><code>iostream</code> 和 <code>fstream</code> 是两个比较常用的IO 库，我们这里不再回顾，这里简单回顾一下 <code>sstream</code>。</p><p>如果你熟悉 C 语言，就知道将 int 转换为 string 类型其实是一件很麻烦的事情，虽然标准库中提供了 <code>itoa()</code> 这种函数，但是依然需要对转换后的 C 风格字符串(char *)通过 std::string 的构造函数构造为 std::string。
+如果使用流操作，那么这将变得异常的简单：</p><pre><code class="hljs cpp"><span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;string&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;sstream&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;iostream&gt;</span></span></span></span>
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-comment"><span class="hljs-comment">// std::stringstream 支持读写</span></span>
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">stringstream</span></span> stream;
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">string</span></span> result;
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> number = <span class="hljs-number"><span class="hljs-number">12345</span></span>;
+    stream &lt;&lt; number;   <span class="hljs-comment"><span class="hljs-comment">// 将 number 输入到 stream</span></span>
+    stream &gt;&gt; results;  <span class="hljs-comment"><span class="hljs-comment">// 从 stream 读取到 result</span></span>
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt; result &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>; <span class="hljs-comment"><span class="hljs-comment">// 将输出为字符串"12345"</span></span>
+}
+</code></pre><p>如果希望让sstream 和 C 风格的字符串打交道，同样也可以：</p><pre><code class="hljs cpp"><span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;sstream&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;iostream&gt;</span></span></span></span>
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function">
+</span></span>{
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">stringstream</span></span> stream;
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> result[<span class="hljs-number"><span class="hljs-number">6</span></span>];
+    stream &lt;&lt; <span class="hljs-number"><span class="hljs-number">12345</span></span>;
+    stream &gt;&gt; result;
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; result &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+}
+</code></pre><p>需要注意的一点就是，在进行多次IO 操作时，如果希望结果彼此不影响，需要对 stream 对象进行一次 <code>clear()</code> 操作：</p><pre><code class="hljs cpp">stream.<span class="hljs-built_in">clear</span>()
+</code></pre><h2 id="labdoc-header-5">四、C++11 相关</h2>
+<p>C++11 几乎重新定义了 C++ 的一切，C++11 的出现伴随着大量的有用的新特性和标准库，这些特性和标准使得 C++ 变得更加现代，甚至在编码范式上都与传统 C++ 有着本质上的差异，本节我们将回顾一下这些特性：</p><ul>
+<li>lambda expression</li>
+<li>std::shared_ptr</li>
+<li>std::make_shared</li>
+<li>std::unordered_map</li>
+<li>std::regex</li>
+<li>std::smatch</li>
+<li>std::regex_match</li>
+<li>std::function</li>
+<li>std::thread</li>
+</ul>
+<p>如果对这些特性比较熟悉，可以直接跳过本节。</p><h3 id="labdoc-header-6">4.1 lambda 表达式</h3>
+<p>Lambda 表达式是 C++11中最重要的新特性之一，而 Lambda 表达式，实际上就是提供了一个类似匿名函数的特性，而匿名函数则是在需要一个函数，但是又不想费力去命名一个函数的情况下去使用的。这样的场景其实有很多很多，所以匿名函数几乎是现代编程语言的标配。</p><p>Lambda 表达式的基本语法如下：</p><pre><code class="hljs markdown">[<span class="hljs-string"><span class="hljs-string">捕获列表</span></span>](<span class="hljs-link"><span class="hljs-link">参数列表</span></span>) mutable(可选) 异常属性 -&gt; 返回类型 {
+<span class="hljs-code"><span class="hljs-code">    // 函数体</span></span>
+}
+</code></pre><p>上面的语法规则除了 <code>[捕获列表]</code> 内的东西外，其他部分都很好理解，只是一般函数的函数名被略去，返回值使用了一个 <code>-&gt;</code> 的形式进行。</p><p>所谓捕获列表，其实可以理解为参数的一种类型，lambda 表达式内部函数体在默认情况下是不能够使用函数体外部的变量的，这时候捕获列表可以起到传递外部数据的作用。根据传递的行为，捕获列表也分为以下几种：</p><p><strong>1. 值捕获</strong></p><p>与参数传值类似，值捕获的前期是变量可以拷贝，不同之处则在于，被捕获的变量在 lambda 表达式被创建时拷贝，而非调用时才拷贝：</p><pre><code class="hljs cpp"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> <span class="hljs-title">learn</span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-title">_</span></span></span><span class="hljs-function"><span class="hljs-title">lambda</span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-title">_f</span></span></span><span class="hljs-function"><span class="hljs-title">unc</span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-title">_1</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span><span class="hljs-number">_1</span> = <span class="hljs-number"><span class="hljs-number">1</span></span>;
+    <span class="hljs-keyword">auto</span> copy<span class="hljs-number">_</span><span class="hljs-keyword">value</span><span class="hljs-number">_1</span> = [<span class="hljs-keyword">value</span><span class="hljs-number">_1</span>] {
+        <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-keyword">value</span><span class="hljs-number">_1</span>;
+    };
+    <span class="hljs-keyword">value</span><span class="hljs-number">_1</span> = <span class="hljs-number"><span class="hljs-number">100</span></span>;
+    <span class="hljs-keyword">auto</span> stored<span class="hljs-number">_</span><span class="hljs-keyword">value</span><span class="hljs-number">_1</span> = copy<span class="hljs-number">_</span><span class="hljs-keyword">value</span><span class="hljs-number">_1</span>();
+    <span class="hljs-comment"><span class="hljs-comment">// 这时, stored_value_1 == 1, 而 value_1 == 100.</span></span>
+    <span class="hljs-comment"><span class="hljs-comment">// 因为 copy_value_1 在创建时就保存了一份 value_1 的拷贝</span></span>
+}
+</code></pre><p><strong>2. 引用捕获</strong></p><p>与引用传参类似，引用捕获保存的是引用，值会发生变化。</p><pre><code class="hljs cpp"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> <span class="hljs-title">learn</span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-title">_</span></span></span><span class="hljs-function"><span class="hljs-title">lambda</span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-title">_f</span></span></span><span class="hljs-function"><span class="hljs-title">unc</span></span><span class="hljs-number"><span class="hljs-function"><span class="hljs-title">_2</span></span></span><span class="hljs-function"><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> <span class="hljs-keyword">value</span><span class="hljs-number">_2</span> = <span class="hljs-number"><span class="hljs-number">1</span></span>;
+    <span class="hljs-keyword">auto</span> copy<span class="hljs-number">_</span><span class="hljs-keyword">value</span><span class="hljs-number">_2</span> = [&amp;<span class="hljs-keyword">value</span><span class="hljs-number">_2</span>] {
+        <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-keyword">value</span><span class="hljs-number">_2</span>;
+    };
+    <span class="hljs-keyword">value</span><span class="hljs-number">_2</span> = <span class="hljs-number"><span class="hljs-number">100</span></span>;
+    <span class="hljs-keyword">auto</span> stored<span class="hljs-number">_</span><span class="hljs-keyword">value</span><span class="hljs-number">_2</span> = copy<span class="hljs-number">_</span><span class="hljs-keyword">value</span><span class="hljs-number">_2</span>();
+    <span class="hljs-comment"><span class="hljs-comment">// 这时, stored_value_2 == 100, value_2 == 100.</span></span>
+    <span class="hljs-comment"><span class="hljs-comment">// 因为 copy_value_2 保存的是引用</span></span>
+}
+</code></pre><p><strong>3. 隐式捕获</strong></p><p>手动书写捕获列表有时候是非常复杂的，这种机械性的工作可以交给编译器来处理，这时候可以在捕获列表中写一个 <code>&amp;</code> 或 <code>=</code> 向编译器声明采用 引用捕获或者值捕获.</p><p>总结一下，捕获提供了lambda 表达式对外部值进行使用的功能，捕获列表的最常用的四种形式可以是：</p><ul>
+<li>[] 空捕获列表</li>
+<li>[name1, name2, ...] 捕获一系列变量</li>
+<li>[&amp;] 引用捕获, 让编译器自行推导捕获列表</li>
+<li>[=] 值捕获, 让编译器执行推导应用列表</li>
+</ul>
+<h4 id="std-shared_ptr-std-make_shared">std::shared_ptr, std::make_shared</h4>
+<p>C++11 在内存管理上同样做了很多改进，std::make_shared 就是其中之一。它是和 <code>std::shared_ptr</code> 共同出现的，<code>std::shared_ptr</code> 是一种智能指针，它能够记录多少个 shared_ptr 共同指向一个对象（熟悉 Objective-C 的可能知道，这种特性叫做引用计数），能够消除显式的调用 <code>delete</code>，当引用计数变为0的时候就会将对象自动删除。</p><p>但还不够，因为使用 <code>std::shared_ptr</code> 仍然需要使用 new来调用，这使得代码出现了某种程度上的不对称。因此就需要另一种手段(工厂模式)来解决这个问题。</p><p><code>std::make_shared</code> 就能够用来消除显式的使用 <code>new</code>，所以<code>std::make_shared</code> 会分配创建传入参数中的对象，并返回这个对象类型的<code>std::shared_ptr</code>指针。例如：</p><pre><code class="hljs cpp"><span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;iostream&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;memory&gt;</span></span></span></span>
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">foo</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">std</span></span></span></span><span class="hljs-function"><span class="hljs-params">::</span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">shared_ptr</span></span></span></span><span class="hljs-function"><span class="hljs-params">&lt;</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params">&gt; i)</span></span></span><span class="hljs-function">
+</span></span>{
+    (*i)++;
+}
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function">
+</span></span>{
+    <span class="hljs-comment"><span class="hljs-comment">// 构造了一个 std::shared_ptr</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">auto</span></span> pointer = <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::make_shared&lt;<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>&gt;(<span class="hljs-number"><span class="hljs-number">10</span></span>);
+    foo(pointer);
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; *pointer &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+}
+</code></pre><h3 id="labdoc-header-7">4.2 无序容器 std::unordered_map</h3>
+<p>在传统的 C++中，我们已经熟知了 std::map 关联容器，std::map 容器在插入元素时，会根据 <code>&lt;</code> 操作符比较元素大小并判断元素是否相同，并选择合适的位置插入到容器中。当对这个容器中的元素进行遍历时，输出结果会按照 <code>&lt;</code> 操作符的顺序来逐个遍历。</p><p>而 C++11 终于推出了无序容器。 <code>std::unordered_map</code> 就是无序容器其中之一，这个容器会计算元素的 Hash 值，并根据 Hash 值来判断元素是否相同。由于无序容器没有定义元素之间的顺序，仅靠 Hash 值来判断元素是否已经存在于容器中，所以遍历 <code>std::unordered_map</code> 时，结果是无序的。</p><p>来看一个例子：</p><pre><code class="hljs cpp"><span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;iostream&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;string&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;unordered_map&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;map&gt;</span></span></span></span>
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-comment"><span class="hljs-comment">// 两组结构按同样的顺序初始化</span></span>
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">unordered_map</span></span>&lt;<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>, <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">string</span></span>&gt; u = {
+        {<span class="hljs-number"><span class="hljs-number">1</span></span>, <span class="hljs-string"><span class="hljs-string">"1"</span></span>},
+        {<span class="hljs-number"><span class="hljs-number">3</span></span>, <span class="hljs-string"><span class="hljs-string">"3"</span></span>},
+        {<span class="hljs-number"><span class="hljs-number">2</span></span>, <span class="hljs-string"><span class="hljs-string">"2"</span></span>}
+    };
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">map</span></span>&lt;<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>, <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">string</span></span>&gt; v = {
+        {<span class="hljs-number"><span class="hljs-number">1</span></span>, <span class="hljs-string"><span class="hljs-string">"1"</span></span>},
+        {<span class="hljs-number"><span class="hljs-number">3</span></span>, <span class="hljs-string"><span class="hljs-string">"3"</span></span>},
+        {<span class="hljs-number"><span class="hljs-number">2</span></span>, <span class="hljs-string"><span class="hljs-string">"2"</span></span>}
+    };
+
+    <span class="hljs-comment"><span class="hljs-comment">// 分别对两组结构进行遍历</span></span>
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-string"><span class="hljs-string">"std::unordered_map"</span></span> &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span>( <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> <span class="hljs-keyword"><span class="hljs-keyword">auto</span></span> &amp; n : u) 
+        <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-string"><span class="hljs-string">"Key:["</span></span> &lt;&lt; n.first &lt;&lt; <span class="hljs-string"><span class="hljs-string">"] Value:["</span></span> &lt;&lt; n.second &lt;&lt; <span class="hljs-string"><span class="hljs-string">"]\n"</span></span>;
+
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-string"><span class="hljs-string">"std::map"</span></span> &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span>( <span class="hljs-keyword"><span class="hljs-keyword">const</span></span> <span class="hljs-keyword"><span class="hljs-keyword">auto</span></span> &amp; n : v) 
+        <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-string"><span class="hljs-string">"Key:["</span></span> &lt;&lt; n.first &lt;&lt; <span class="hljs-string"><span class="hljs-string">"] Value:["</span></span> &lt;&lt; n.second &lt;&lt; <span class="hljs-string"><span class="hljs-string">"]\n"</span></span>;
+}
+</code></pre><p>最终的输出结果为：</p><pre><code class="hljs css"><span class="hljs-selector-tag"><span class="hljs-selector-tag">std</span></span><span class="hljs-selector-pseudo"><span class="hljs-selector-pseudo">::unordered_map</span></span>
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">Key</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[2]</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Value</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[2]</span></span>
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">Key</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[3]</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Value</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[3]</span></span>
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">Key</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[1]</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Value</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[1]</span></span>
+
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">std</span></span><span class="hljs-selector-pseudo"><span class="hljs-selector-pseudo">::map</span></span>
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">Key</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[1]</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Value</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[1]</span></span>
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">Key</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[2]</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Value</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[2]</span></span>
+<span class="hljs-selector-tag"><span class="hljs-selector-tag">Key</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[3]</span></span> <span class="hljs-selector-tag"><span class="hljs-selector-tag">Value</span></span>:<span class="hljs-selector-attr"><span class="hljs-selector-attr">[3]</span></span>
+</code></pre><p>可以看到 <code>std::map</code> 的遍历结果是有序的，而 <code>std::unordered_map</code> 的遍历结果是无序的。</p><p>事实上，<code>std::unordered_map</code> 在单个元素访问时，总是能够获得更高的性能。</p><h3 id="labdoc-header-8">4.3 std::regex/std::regex_match/std::smatch</h3>
+<p>正则表达式是一个独立于 C++ 语言本身的另一个很大的话题，我们这里不详细讨论它的行为。</p><p>作为学习 <code>std::regex</code> 的一些介绍性内容，我们这里说明一下接下来会用到的一些正则表达式：</p><ul>
+<li><code>[a-z]+\.txt</code>: 在这个正则表达式中, <code>[a-z]</code> 表示匹配一个小写字母, <code>+</code> 可以使前面的表达式匹配多次，因此 <code>[a-z]+</code> 能够匹配一个小写字母组成的字符串。在正则表达式中一个 <code>.</code> 表示匹配任意字符，而 <code>\.</code> 则表示匹配字符 <code>.</code>，最后的 <code>txt</code> 表示严格匹配 <code>txt</code> 则三个字母。因此这个正则表达式的所要匹配的内容就是由纯小写字母组成的文本文件。</li>
+</ul>
+<p><code>std::regex_match</code> 用于匹配字符串和正则表达式，有很多不同的重载形式。最简单的一个形式就是传入<code>std::string</code> 以及一个 <code>std::regex</code> 进行匹配，当匹配成功时，会返回 <code>true</code>，否则返回 <code>false</code>。例如：</p><pre><code class="hljs cpp"><span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;iostream&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;string&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;regex&gt;</span></span></span></span>
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">string</span></span> fnames[] = {<span class="hljs-string"><span class="hljs-string">"foo.txt"</span></span>, <span class="hljs-string"><span class="hljs-string">"bar.txt"</span></span>, <span class="hljs-string"><span class="hljs-string">"test"</span></span>, <span class="hljs-string"><span class="hljs-string">"a0.txt"</span></span>, <span class="hljs-string"><span class="hljs-string">"AAA.txt"</span></span>};
+    <span class="hljs-comment"><span class="hljs-comment">// 在 C++ 中 `\` 会被作为字符串内的转义符，为使 `\.` 作为正则表达式传递进去生效，需要对 `\` 进行二次转义，从而有 `\\.`</span></span>
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-function"><span class="hljs-function">regex </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">txt_regex</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-string"><span class="hljs-function"><span class="hljs-params"><span class="hljs-string">"[a-z]+\\.txt"</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span></span>;
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> <span class="hljs-keyword"><span class="hljs-keyword">auto</span></span> &amp;fname: fnames)
+        <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; fname &lt;&lt; <span class="hljs-string"><span class="hljs-string">": "</span></span> &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::regex_match(fname, txt_regex) &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+}
+</code></pre><p>另一种常用的形式就是依次传入 <code>std::string</code>/<code>std::smatch</code>/<code>std::regex</code> 三个参数，其中 <code>std::smatch</code> 的本质其实是 <code>std::match_results</code>，在标准库中， <code>std::smatch</code> 被定义为了 <code>std::match_results&lt;std::string::const_iterator&gt;</code>，也就是一个子串迭代器类型的 <code>match_results</code>。使用 <code>std::smatch</code> 可以方便的对匹配的结果进行获取，例如：</p><pre><code class="hljs cpp"><span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-function"><span class="hljs-function">regex </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">base_regex</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-string"><span class="hljs-function"><span class="hljs-params"><span class="hljs-string">"([a-z]+)\\.txt"</span></span></span></span><span class="hljs-function"><span class="hljs-params">)</span></span></span></span>;
+<span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::smatch base_match;
+<span class="hljs-keyword"><span class="hljs-keyword">for</span></span>(<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> <span class="hljs-keyword"><span class="hljs-keyword">auto</span></span> &amp;fname: fnames) {
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (<span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::regex_match(fname, base_match, base_regex)) {
+        <span class="hljs-comment"><span class="hljs-comment">// sub_match 的第一个元素匹配整个字符串</span></span>
+        <span class="hljs-comment"><span class="hljs-comment">// sub_match 的第二个元素匹配了第一个括号表达式</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (base_match.size() == <span class="hljs-number"><span class="hljs-number">2</span></span>) {
+            <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">string</span></span> base = base_match[<span class="hljs-number"><span class="hljs-number">1</span></span>].str();
+            <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-string"><span class="hljs-string">"sub-match[0]: "</span></span> &lt;&lt; base_match[<span class="hljs-number"><span class="hljs-number">0</span></span>].str() &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+            <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; fname &lt;&lt; <span class="hljs-string"><span class="hljs-string">" sub-match[1]: "</span></span> &lt;&lt; base &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+        }
+    }
+}
+</code></pre><p>以上两个代码段的输出结果为：</p><pre><code class="hljs css"><span class="hljs-selector-tag">foo</span><span class="hljs-selector-class"><span class="hljs-selector-class">.txt</span></span>: <span class="hljs-number">1</span>
+<span class="hljs-selector-tag">bar</span><span class="hljs-selector-class"><span class="hljs-selector-class">.txt</span></span>: <span class="hljs-number">1</span>
+<span class="hljs-selector-tag">test</span>: <span class="hljs-number">0</span>
+<span class="hljs-selector-tag">a0</span><span class="hljs-selector-class"><span class="hljs-selector-class">.txt</span></span>: <span class="hljs-number">0</span>
+<span class="hljs-selector-tag">AAA</span><span class="hljs-selector-class"><span class="hljs-selector-class">.txt</span></span>: <span class="hljs-number">0</span>
+<span class="hljs-selector-tag">sub-match</span><span class="hljs-selector-attr">[</span><span class="hljs-number"><span class="hljs-selector-attr">0</span></span><span class="hljs-selector-attr">]</span>: <span class="hljs-selector-tag">foo</span><span class="hljs-selector-class"><span class="hljs-selector-class">.txt</span></span>
+<span class="hljs-selector-tag">foo</span><span class="hljs-selector-class"><span class="hljs-selector-class">.txt</span></span> <span class="hljs-selector-tag">sub-match</span><span class="hljs-selector-attr">[</span><span class="hljs-number"><span class="hljs-selector-attr">1</span></span><span class="hljs-selector-attr">]</span>: <span class="hljs-selector-tag">foo</span>
+<span class="hljs-selector-tag">sub-match</span><span class="hljs-selector-attr">[</span><span class="hljs-number"><span class="hljs-selector-attr">0</span></span><span class="hljs-selector-attr">]</span>: <span class="hljs-selector-tag">bar</span><span class="hljs-selector-class"><span class="hljs-selector-class">.txt</span></span>
+<span class="hljs-selector-tag">bar</span><span class="hljs-selector-class"><span class="hljs-selector-class">.txt</span></span> <span class="hljs-selector-tag">sub-match</span><span class="hljs-selector-attr">[</span><span class="hljs-number"><span class="hljs-selector-attr">1</span></span><span class="hljs-selector-attr">]</span>: <span class="hljs-selector-tag">bar</span>
+</code></pre><h3 id="labdoc-header-9">4.4 std::function</h3>
+<p><code>std::function</code> 是一种通用、多态的函数封装，它的实例可以对任何可以调用的目标实体进行存储、复制和调用操作，它也是对 C++中现有的可调用实体的一种类型安全的包裹（相对来说，函数指针的调用不是类型安全的），简而言之，<code>std::function</code> 就是函数的容器。</p><p>在前面的 Lambda 表达式中，我们已经介绍过使用 <code>auto</code> 关键字来接受一个 lambda 表达式。但有时候我们可能希望明确的指明这个 lambda 表达式的类型，这时就可以使用 <code>std::function</code> 来进行书写，例如：</p><pre><code class="hljs cpp"><span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;functional&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;iostream&gt;</span></span></span></span>
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">foo</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> para)</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> para;
+}
+
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-comment"><span class="hljs-comment">// std::function 包装了一个返回值为 int, 参数为 int 的函数</span></span>
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::function&lt;<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>(<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>)&gt; func = foo;
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; func(<span class="hljs-number"><span class="hljs-number">10</span></span>) &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+}
+</code></pre><h3 id="labdoc-header-10">4.5 std::thread</h3>
+<p><code>std::thread</code> 用于创建一个执行的线程实例，所以它是一切并发编程的基础，使用时需要包含<thread>头文件，它提供了很多基本的线程操作，例如<code>get_id()</code>来获取所创建线程的线程 ID，例如使用 <code>join()</code> 来等待线程等等，例如：</thread></p><pre><code class="hljs cpp"><span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;iostream&gt;</span></span></span></span>
+<span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;thread&gt;</span></span></span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">foo</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">cout</span></span> &lt;&lt; <span class="hljs-string"><span class="hljs-string">"hello world"</span></span> &lt;&lt; <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-built_in"><span class="hljs-built_in">endl</span></span>;
+}
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">main</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">()</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-built_in"><span class="hljs-built_in">std</span></span>::<span class="hljs-function"><span class="hljs-function">thread </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">t</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(foo)</span></span></span></span>;
+    t.join();
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-number"><span class="hljs-number">0</span></span>;
+}
+</code></pre><h2 id="labdoc-header-11">五、Boost Asio 相关</h2>
+<p>Boost 是一个 C++的可移植库，是对标准库的后备扩展，也是 C++标准化进程的开发引擎之一。Boost 库是由 C++标准委员会的成员发起的，里面发展的内容很有可能会成为 C++标准库的内容之一。因此 Boost 也是 C++社区中影响力最大的 『准』标准库。</p><p>Boost Asio，就是 Boost 库中的一个部分，Asio 的全称为 Asynchronous input and output （异步输入输出）的缩写。顾名思义，结合 Boost 的特点，Asio 提供了一套平台无关的异步数据处理能力（当然它也支持同步数据处理）。</p><p>本节我们将熟悉一下下面这些知识点的用法，如果你对这些内容比较熟悉，可以直接跳过本节。</p><ul>
+<li>boost::asio::io_service</li>
+<li>boost::asio::ip::tcp::socket</li>
+<li>boost::asio::ip::tcp::v4()</li>
+<li>boost::asio::ip::tcp::endpoint</li>
+<li>boost::asio::ip::tcp::acceptor</li>
+<li>boost::asio::streambuf</li>
+<li>boost::asio::async_read</li>
+<li>boost::asio::async_read_until</li>
+<li>boost::asio::async_write</li>
+<li>boost::asio::transfer_exactly</li>
+<li>boost::asio::ssl::stream</li>
+<li>boost::asio::ssl::stream_base::server</li>
+<li>boost::asio::ssl::context</li>
+<li>boost::asio::ssl::context::sslv23</li>
+<li>boost::asio::ssl::context::pem</li>
+<li>boost::system::error_code</li>
+</ul>
+<p>使用 Asio 只需要引入一个头文件即可：</p><pre><code class="hljs cpp"><span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;boost/asio.hpp&gt;</span></span></span></span>
+</code></pre><p>对于所有使用 Asio 的程序，都必须要包含至少一个 <code>io_service</code> 对象。对于 Asio 这个 Boost 库而言，它抽象了诸如网络、串口通信等等这些概念，并将其统一规为 IO 操作，所以 <code>io_service</code> 这个类提供了访问 I/O 的功能。因此，使用 Asio 时，必须定义：</p><pre><code class="hljs cpp">boost::asio::io_service io;
+</code></pre><h3 id="labdoc-header-12">5.1 HTTP 连接</h3>
+<p>既然网络的相关概念已经被抽象为 IO，我们就只需要关心从这个 IO 流中获取消息，因此，我们本质上还是在进行 IO 操作，只不过这个操作需要具备一些基本的网络概念。</p><p>我们知道，HTTP 和 HTTPS 的底层实际上是使用的 TCP 可靠连接，通过 Socket 技术进行通信，而一个 Socket 由 IP 地址及端口构成。无例外地，Asio 同样也需要建立一个和 socket 有关的对象，那就是 <code>boost::asio::ip::tcp::socket</code>。可想而知，Socket 既然是网络通信的基础，那么自然的我们要进行的 IO 操作也就必须在这里完成，因此，我们定义的 <code>boost::asio::ip::tcp::socket</code> 对象，必须由 <code>io_service</code> 来进行构造，即：</p><pre><code class="hljs cpp">boost::asio::ip::tcp::<span class="hljs-function"><span class="hljs-function">socket </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">socket</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(io)</span></span></span></span>;
+</code></pre><p>有了 socket 对象是不够的。在网络通信中，网络 IO 就入口串口一样，是以流的方式进行的。所以这个 socket 对象只能用来做我们日后进行 IO 操作时的一个必要属性。</p><p>不难看出，一个普通的 <code>boost::asio::ip::tcp::socket</code> 对象，实际上就是一个 HTTP 的 Socket 连接，因此我们在日后进行代码编写时，甚至于可以使用 <code>typedef</code> 将这个类型直接定义为 <code>HTTP</code>:</p><pre><code class="hljs cpp"><span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> boost::asio::ip::tcp::socket HTTP;
+</code></pre><p>然而，作为服务端，我们可能构建很多很多的连接从而响应并发，所以当我们需要建立连接时候，就需要使用一个叫做 <code>acceptor</code> 的对象。</p><p>而 <code>boost::asio::ip::tcp::acceptor</code> 从名字上就可以看出，这个对象应该被用于建立连接。在 Boost 中，我们需要初始化一个 <code>acceptor</code> 对象时，必须提供一个 <code>io_service</code> 对象和一个 <code>endpoint</code> 对象。</p><p>那么 <code>endpoint</code> 又是什么？事实上，socket 是一个端到端的连接，所谓 <code>endpoint</code> 就是 socket 位于服务端的一个端点，我们知道，socket 是由 IP 地址和端口号组成的，那么当我们需要为其建立一个 IPv4 的网络，首先可以建立一个 <code>boost::asio::ip::tcp::endpoint</code> 对象：</p><pre><code class="hljs cpp"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">short</span><span class="hljs-built_in"> port </span>= <span class="hljs-number">8080</span>;
+boost::asio::ip::tcp::<span class="hljs-function">endpoint <span class="hljs-title">endpoint</span><span class="hljs-params">(boost::asio::ip::tcp::v4()</span>, port)</span>;
+</code></pre><p>其中 <code>boost::asio::ip::tcp::v4()</code> 用于初始化一个 IPv4 的网络。最后在使用这个 <code>endpoint</code> 对象来初始化 <code>acceptor</code>:</p><pre><code class="hljs cpp">boost::asio::ip::tcp::<span class="hljs-function"><span class="hljs-function">acceptor </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">acceptor</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(io, endpoint)</span></span></span></span>;
+</code></pre><p>至此，我们讨论了如何使用 Asio 建立一个普通的网络操作对象 <code>acceptor</code>，以及在进行普通 HTTP 网络操作时需要的 <code>socket</code> 对象。</p><h3 id="labdoc-header-13">5.2 HTTPS 连接</h3>
+<p>讨论完了 Asio 里 HTTP 连接，我们再来看看 Asio 中的 HTTPS 是如何建立连接的。Asio 是一个开源的库，所以它也不可避免的在处理不擅长的逻辑时需要添加对别的框架的依赖。Asio 的 HTTPS 相关的 SSL 操作，就依赖了 OpenSSL 库。</p><p>要使用 SSL 相关的操作，还需要额外引入一个头文件：</p><pre><code class="hljs cpp"><span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">include</span></span></span><span class="hljs-meta"> </span><span class="hljs-meta-string"><span class="hljs-meta"><span class="hljs-meta-string">&lt;boost/asio/ssl.hpp&gt;</span></span></span></span>
+</code></pre><p>我们在上一小节里讨论了 <code>boost::asio::ip::tcp::socket</code> 产生的 Socket 对象实际上就是普通的 HTTP 对象。对于 HTTPS 而言，实际上就是对这个 socket 所产生的通道进行一个一层封装和加密。在 Boost Asio 中，加密 socket 的方式就是使用 <code>boost::asio::ssl::stream</code>，并将 <code>boost::asio::ip::tcp::socket</code> 作为模板参数传入给这个对象，即：</p><pre><code class="hljs cpp"><span class="hljs-keyword">typedef</span> <span class="hljs-symbol">boost:</span><span class="hljs-symbol">:asio</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:ssl</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:stream&lt;boost</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:asio</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:ip</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:tcp</span><span class="hljs-symbol">:</span><span class="hljs-symbol">:socket&gt;</span> HTTPS;
+</code></pre><p>而当我们要构造一个 HTTPS 的 socket 对象时，Boost Asio 要求必须为这个 socket 建立一个 <code>boost::asio::ssl::context</code> 对象。而一个 <code>context</code> 可以有很多不同的类型，最常用的，就是<code>boost::asio::ssl::context::sslv23</code>。构造好了 <code>context</code> 对象之后这还不够，因为一个 https 的服务器需要提供证书文件和秘钥文件，所以还需要使用 <code>use_certificate_chain_file()</code> 和 <code>use_private_key_file()</code> 这两个方法来进行进一步的配置：</p><pre><code class="hljs cpp"><span class="hljs-selector-tag">context</span><span class="hljs-selector-class">.use_certificate_chain_file</span>(<span class="hljs-selector-tag">cert_file</span>);
+<span class="hljs-selector-tag">context</span><span class="hljs-selector-class">.use_private_key_file</span>(<span class="hljs-selector-tag">private_key_file</span>, <span class="hljs-selector-tag">boost</span><span class="hljs-selector-pseudo">::asio</span><span class="hljs-selector-pseudo">::ssl</span><span class="hljs-selector-pseudo">::context</span><span class="hljs-selector-pseudo">::pem)</span>;
+</code></pre><p>其中的 <code>boost::asio::ssl::context::pem</code> 是指定的证书类型。因此相较于 HTTP 而言，HTTPS 的建立其实就是增加了对证书的配置、和 socket 加密的环节，对比如下：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// http</span></span>
+boost::asio::ip::tcp::<span class="hljs-function">socket <span class="hljs-title">http_socket</span><span class="hljs-params">(io)</span></span>;
+<span class="hljs-comment"><span class="hljs-comment">// https</span></span>
+boost::asio::ssl::<span class="hljs-function">context <span class="hljs-title">context</span><span class="hljs-params">(boost::asio::ssl::context::sslv23)</span></span>;
+context.use_certificate_chain_file(cert_file);
+context.use_private_key_file(private_key_file, boost::asio::ssl::context::pem);
+boost::asio::ssl::stream&lt;boost::asio::ip::tcp::socket&gt; https_socket(io, context);
+</code></pre><h3 id="labdoc-header-14">5.3 IO 操作</h3>
+<p>上面我们讨论了如何建立连接，现在我们再来看看如何进行 IO 操作。</p><p>当我们有了 socket 对象之后，就可以从里面读取网络流数据了。读取数据时，我们需要定义一个流缓冲 <code>boost::asio::streambuf</code> 对象，用于逐行读取 socket 中的数据：</p><pre><code class="hljs cpp">boost::asio::streambuf read_buffer;
+</code></pre><p>另外，很多网络协议其实都是基于行实现的，也就是说这些协议元素是由 <code>\r\n</code> 符号进行界定，HTTP 也不例外，所以在 Boost Asio 中，读取使用分隔符的协议，可以使用 <code>async_read_untile()</code> 方法：</p><pre><code class="hljs cpp">boost::asio::async_read_until(socket, readbuffer, <span class="hljs-string">"</span><span class="hljs-symbol"><span class="hljs-string">\r</span></span><span class="hljs-symbol"><span class="hljs-string">\n</span></span><span class="hljs-symbol"><span class="hljs-string">\r</span></span><span class="hljs-symbol"><span class="hljs-string">\n</span></span><span class="hljs-string">"</span>, read_handler);
+</code></pre><p>其中 socket 就是我们的 socket 连接，而 readbuffer 就是根据界定符读取到的一行数据，<code>"\r\n\r\n"</code> 就是分隔符，而对于 <code>read_handler</code> 我们还需要再进一步讨论。</p><p><code>read_handler</code> 是一个无返回类型的函数对象，它接受两个参数，一个是 <code>boost::system::error_code</code>，另一个是 <code>size_t</code>（<code>bytes_transferred</code>）：</p><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">read_handler</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(
+    </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> boost::system::error_code&amp; ec,
+    </span></span><span class="hljs-built_in"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">std</span></span></span></span><span class="hljs-function"><span class="hljs-params">::</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">size_t</span></span></span></span><span class="hljs-function"><span class="hljs-params"> bytes_transferred)</span></span></span><span class="hljs-function">
+</span></span>{
+  ...
+}
+</code></pre><p><code>boost::system::error_code</code> 用来描述操作是否成功，而 <code>size_t bytes_transferred</code> 则是用来确定接受到的字节数，通常情况下，我们可以用 <code>std::bind</code> 来将参数绑定到我们的某个函数传入，但实际上我们还有更好的做法，那就是 lambda 表达式，因为 Lambda 表达式还具有另外的一个功能，那就是进行值捕获，对于这一点，我们在后面实现框架的时候再详细讨论。</p><p>在这个 <code>read_handler</code> 中，我们实际上是在不断的读取 socket 里面的内容，因此我们还需要使用 <code>boost::asio::async_read</code> 对后面的内容进行进一步的读取，而它的用法 和 <code>boost::asio::async_read_until</code> 几乎一样，唯一的区别就是在 <code>read_handler</code> 这个参数之前，需要指定 读取的长度，通常我们可以使用 <code>boost::asio::transfer_exactly</code> 进行指定，故这里不再详细赘述，我们在后面实现框架的时候，再详细讨论。</p><p>最后，我们完成了读取的操作，就只剩下最后一步了，那就是服务器响应请求，回写请求的资源供给客户端，这时候我们就需要使用另一个方法：<code>boost::asio::async_write</code>。从名字上可以看出，这个方法和 <code>boost::asio::async_read</code> 属于同一个方法家族，可想而知用法也完全类似，我们还是留到后面的实际代码中再进行讨论。</p><h2 id="labdoc-header-15">六、总结</h2>
+<p>本节中我们回顾了 C++11 的相关知识，并对 Boost 中的 Asio 做了一些介绍。在下一节中，我们将综合运用上面提到的全部知识，开始实现我们的框架。</p><h2 id="labdoc-header-16">七、参考资料</h2>
+<ol>
+<li><a href="http://en.cppreference.com/w/cpp/compiler_support" target="_blank">C++ 11/14/17 标准在各编译器下支持情况</a></li>
+<li><a href="http://en.cppreference.com/w/cpp/io" target="_blank">C++ IO 库</a></li>
+<li><a href="http://en.cppreference.com/w/cpp/regex" target="_blank">C++ 正则表达式库</a></li>
+<li><a href="http://www.boost.org/doc/libs/1_61_0/doc/html/boost_asio.html" target="_blank">Boost Asio 库</a></li>
+</ol>
+</div><div class="labdoc-copyright">*本课程内容，由作者授权实验楼发布，未经允许，禁止转载、下载及非法传播。</div></div>
+    
+    
+    
+    <a class="pull-right labdoc-page" href="https://www.shiyanlou.com/courses/568/labs/1984/document">
+        下一节：HTTP Web 框架的设计与实现
+    </a>
+    
+</div>
+
+</div>
+
+
+        
+        
+
+        
+        
+        </div>
+
+        <div class="modal fade" id="flash-message" tabindex="-1" role="dialog">
+            <div class="modal-dialog" rolw="document">
+            </div>
+        </div>
+        <div class="modal fade" id="modal-message" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">注意</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary confirm" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="new-loading new-loading-modal" id="new-loading-modal">
+            <div class="loading-wrapper">
+                <p class="loading-icon-lion">
+                    <img src="./基础知识：C++11 与 Boost Asio - 实验楼_files/icon_loading.png" alt="">
+                </p>
+                <div class="progress">
+                    <div class="progress-bar load-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                        <span class="sr-only">0% Complete</span>
+                    </div>
+                </div>
+              <p class="loading-txt">
+                    加载中，精彩就在后面...
+              </p>
+              <p class="progress-reload">
+                  <a href="javascript:;" type="button" class="btn-progress-reload" title="">卡住了？点击重试</a>
+              </p>
+            </div>
+        </div>
+
+        
+<div class="modal fade" id="start-newlab">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始新实验</h3>
+			</div>
+			<div class="modal-body">
+                <p>一个实验正在进行，是否停止它，开始新实验？</p>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-newlab-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="start-evaluation-course">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始评估课实验</h3>
+			</div>
+			<div class="modal-body">
+                <div>
+                    <p>为了让评估结果更加准确，请注意以下操作：</p>
+                    <ul>
+                        <li>完成实验后点击「停止实验」按钮</li>
+                        <li>将代码提交到代码库</li>
+                        <li>尽可能详尽的撰写实验报告</li>
+                        <li>尽可能在实验操作的关键步骤截图</li>
+                        <li>尽可能减少无用操作</li>
+                        <li>尽可能高效的利用内存/CPU资源</li>
+                    </ul>
+                    <p>评估课还在不断完善中，我们真挚希望你能通过我们提供的这个平台，找到更好的发展机会。</p>
+                </div>
+                <br>
+                <div class="start-newlab"></div>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="vip-startlab-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4>请选择想使用的环境</h4>
+			</div>
+			<div class="modal-body">
+                <div class="start-newlab"></div>
+                
+                <div class="use-saved-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 oldvm">已保存的环境</button>
+                    <small class="last-saved-vm">
+                        最近保存：开发环境和剖析第一个 C 语言
+                    </small>
+                </div>
+                
+                <div class="use-tmp-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 newvm">该实验默认环境</button>
+                </div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade askquestion-modal" id="askquestion" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">发帖</h4>
+            </div>
+            <div class="modal-body words-ctrl">
+                <form class="form-horizontal" action="https://www.shiyanlou.com/questions/">
+                    <input name="_csrf_token" type="hidden" value="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqyqjA.je1V7xj7WeXPN6KUVrHPoWuVo24">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">标题</label>
+                        <div class="col-md-10">
+                            <input type="text" name="title" min="5" max="100" class="form-control syl-input" placeholder="至少输入5个字" value="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">描述</label>
+                        <div class="col-md-10">
+                              
+<div class="tabpanel mkeditor">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#mkeditor-editor" role="tab" data-toggle="tab">编辑</a>
+        </li>
+        <li role="presentation">
+            <a class="mkeditor-btn-view" href="https://www.shiyanlou.com/courses/568/labs/1983/document#mkeditor-viewer" role="tab" data-toggle="tab">预览</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active mkeditor-editor" id="mkeditor-editor" role="tabpanel">
+            
+            <div class="btn-group" role="group">
+            
+                <button type="button" class="btn btn-default mkeditor-btn-bold">
+                    <i class="fa fa-bold"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-italic">
+                    <i class="fa fa-italic"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-link">
+                    <i class="fa fa-link"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-quote">
+                    <i class="fa fa-quote-left"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-code">
+                    <i class="fa fa-code"></i>
+                </button>
+                <button type="button" style="display: none;position: relative;outline: 0;" class="btn btn-default question-btn-img">
+                    <i class="fa fa-image"></i>
+                    <div class="img-btn-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div type="button" class="btn btn-default screenshot-btn">
+                                    <i class="fa fa-cut"></i> 截取实验桌面
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="btn btn-default upload-image-btn">
+                                    <i class="fa fa-upload"></i> 上传本地图片
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <button id="mkeditor-pickfile" type="button" class="btn btn-default mkeditor-btn-img" style="z-index: 1;">
+                    <i class="fa fa-image"></i>
+                </button>
+                
+                <button type="button" class="btn btn-default mkeditor-btn-listol">
+                    <i class="fa fa-list-ol"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-listul">
+                    <i class="fa fa-list-ul"></i>
+                </button>
+            <div id="html5_1cq8ljp5pi8nb9j10mv1cgh1jqr3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;"><input id="html5_1cq8ljp5pi8nb9j10mv1cgh1jqr3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept=""></div></div>
+            <div class="btn-group pull-right" role="group">
+                <a style="font-size:12px; color:#666; text-decoration:underline;" href="https://www.shiyanlou.com/questions/764" target="_blank">
+                    <i class="fa fa-question-circle"></i>Markdown 语法
+                </a>
+            </div>
+            <textarea name="content" class="form-control syl-input content" min="0" max="20000" placeholder="推荐使用 Markdown 语法，至少输入 5 个字"></textarea>
+            <div class="help-block"></div>
+        </div>
+        <div class="tab-pane mkeditor-viewer markdown-body" id="mkeditor-viewer" role="tabpanel">
+            <div></div>
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none;">
+                        <label class="col-md-2 control-label">板块</label>
+                        <div class="col-md-10">
+                            <div class="q-types" data-type="">
+                            </div>
+                        </div>
+                    </div>
+                      
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span class="bottom-link" style="display:none;color:#999;background:#FFFFFF;font-size:14px;;border:none;float:left;padding-left:0;">
+                    😀 若纠错被确认，您将得到 3 个实验豆作为奖励
+                    <a type="button" href="https://www.shiyanlou.com/questions/16351" target="_blank" style="color:#00CC99;">
+                        了解详情
+                    </a>
+                </span>
+                <button type="button" class="btn syl-btn-default no-bg" data-dismiss="modal">取消</button>
+                <button type="button" class="submit-question btn syl-btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        
+        
+        
+        
+        
+
+        
+        <div class="modal fade" id="invite-user" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">邀请好友，双方都可获赠实验豆！</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="form-label">
+                            分享专属链接给好友，或粘贴到QQ群/微博/论坛，好友注册后，您和好友将分别获赠3个实验豆！
+                        </div>
+                        <input type="text" id="bstext" class="form-invite" value="https://www.shiyanlou.com/register?inviter=NTY0MzE5NjY5MzY4">
+                        
+                        <div id="msg-modal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade invite-vip-modal" id="invite-vip-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <img src="./基础知识：C++11 与 Boost Asio - 实验楼_files/invite-vip-title.png" style="width:100%;">
+                    </div>
+                    <div class="modal-body">
+                        <div class="invite-vip-content">好友输入你的邀请码开通会员后，您将获赠30天标准会员兑换卡一张，多邀多得。好友可享受30元优惠！</div>
+                        <div class="invite-vip-code">
+                            您的专属邀请码：<span>8862XMF</span>
+                            <input style="position:fixed;left:10000px" type="text" id="copy-input" value="输入我的邀请码加入实验楼会员，可享受30元优惠！邀请码：8862XMF。3000多个编程实验在线实践，开始学习：https://www.shiyanlou.com/vip">
+                            <button class="btn btn-primary invite-vip-copy" data-clipboard-target="#copy-input">复制</button>
+                            <div class="invite-vip-copied">
+                                复制成功！
+                            </div>
+                        </div>
+                        <div class="invite-vip-share">
+                            <span>或分享到</span>
+                            <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#" class="invite-vip-weibo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#F47166"></circle>
+                                        <path fill="#FFF" d="M11.811 18C8.601 18 6 16.403 6 14.434c0-1.97 3.897-5.08 5.387-5.08.626 0 1.852.444.994 1.848-.06.098 1.935-.816 3.026-.215 1.091.602 0 1.568 0 1.676 0 .107 2.19.107 2.19 1.77 0 1.97-2.576 3.567-5.786 3.567zm5.019-7.872c.678.58.391 1.611.391 1.611a.353.353 0 0 1-.338.28h-.22c-.161 0-.247-.119-.2-.264 0 0 .277-.639-.085-1.047-.361-.408-1.098-.314-1.098-.314a.268.268 0 0 1-.282-.263v-.057c0-.159.124-.294.276-.315 0 0 .879-.211 1.556.369zm1.265-1.16c1.242 1.117.843 3.088.843 3.088-.024.22-.244.413-.48.413h-.14c-.235 0-.397-.185-.36-.414 0 0 .317-1.24-.428-2.257-.745-1.017-2.495-.844-2.495-.844a.405.405 0 0 1-.412-.407v-.111c0-.237.185-.424.412-.429 0 0 1.818-.156 3.06.961zm-5.861 8.437c2.05-.288 3.568-1.55 3.39-2.817-.178-1.268-1.985-2.062-4.035-1.774-2.05.288-3.569 1.55-3.39 2.817.178 1.268 1.984 2.062 4.035 1.774zm-.367-.448c-1.22.237-2.36-.354-2.549-1.32-.188-.967.649-1.943 1.868-2.18 1.22-.237 2.361.354 2.549 1.32.188.967-.649 1.943-1.868 2.18zm-.243-2.166c.207 0 .375-.16.375-.357a.366.366 0 0 0-.375-.357.366.366 0 0 0-.375.357c0 .197.168.357.375.357zm-.72 1.079c.376-.175.579-.534.454-.802-.125-.268-.53-.343-.906-.168-.375.175-.578.534-.453.802.125.267.53.343.905.168z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a href="https://www.shiyanlou.com/courses/568/labs/1983/document#" class="invite-vip-qq">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#76C1FF"></circle>
+                                        <path fill="#FFF" d="M8.293 11.189c-.061.17.028.277 0 .924-.008.174-.718.962-1 1.78-.279.812-.317 1.66.114 1.993.432.334.833-1.109.886-.9.022.092.051.188.085.286.138.393.37.828.706 1.235.068.083-.416.234-.706.756s.083 1.471 1.526 1.471c1.861 0 2.278-.692 2.315-.689.14.011.149 0 .296 0 .18 0 .105.016.272 0 .09-.008.995.829 2.247.69 2.134-.238 1.808-.994 1.64-1.472-.175-.498-.793-.731-.766-.763.512-.598.593-.964.766-1.513.071-.226.566 1.24.948.9.159-.143.476-.736.159-1.994-.318-1.257-.933-1.544-.92-1.78.029-.49.012-.835-.011-.924-.113-.432-.35-.337-.35-.432 0-2.49-1.77-4.507-3.953-4.507s-3.953 2.018-3.953 4.507c0 .197-.165.051-.301.432z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a class="qq-zone invite-vip-qzone" href="https://www.shiyanlou.com/courses/568/labs/1983/document#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path fill="#FFDB59" d="M12.5 0C19.403 0 25 5.597 25 12.5S19.403 25 12.5 25 0 19.403 0 12.5 5.597 0 12.5 0"></path>
+                                        <path fill="#FFF" d="M12.5 17.417s-4.606 2.785-4.89 2.558c-.285-.228.934-5.418.934-5.418S4.419 11.14 4.588 10.72c.17-.42 5.468-.79 5.468-.79S12.023 5 12.5 5c.477 0 2.445 4.93 2.445 4.93s5.322.372 5.468.79c.145.417-3.956 3.837-3.956 3.837s.05.332.11.579c.004.017-1.916.06-3.489 0-.825-.03-1.82-.184-1.82-.184l4.553-3.23s-1.646-.295-3.31-.354c-1.824-.065-3.69.11-3.957.177-.168.042 1.178.038 2.714.176 1.076.098 2.491.355 2.491.355L9.196 15.45s1.95.117 3.698.105c1.969-.013 3.746-.256 3.757-.21.343 1.477.975 4.392.74 4.63-.32.325-4.89-2.557-4.89-2.557"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        <div id="base-data" data-flash="false" data-is-login="true" data-jwt-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NTY2OTMiLCJpc3MiOiJzaGl5YW5sb3U6d2ViOmFwcCIsInVuYW1lIjoiXHU2NTcwXHU2MzZlXHU1MjA2XHU2NzkwXHU1ZTA4IiwiaXNfYWRtaW4iOmZhbHNlLCJleHAiOjE1NDAxMjMyNzYsImlhdCI6MTU0MDAzNjg3Nn0.HIto2i1HBQVncL24H9rfZF0Dej-xNzZ2nQ2qZBUEkZw" data-user-id="656693" data-is-jwt="true" data-socket-url="wss://comet.shiyanlou.com" data-msg-user="" data-msg-system="" data-invite-code="8862XMF"></div>
+
+        <!-- 不带 CSS 的库 -->
+        <script async="" src="./基础知识：C++11 与 Boost Asio - 实验楼_files/analytics.js.下载"></script><script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/polyfill.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/manifest.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/vendor.js.下载"></script>
+
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/jquery.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/jquery.form.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/jquery.menu-aim.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/jquery.qrcode.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/html2canvas.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/jspdf.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/clipboard.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/qiniu.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/plupload.full.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/echarts.min.js.下载"></script>
+        <!-- 不带 CSS 的库 end -->
+
+        <!-- 带有 CSS 的库 -->
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap-switch.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap-tour.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap-table.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap-table-zh-CN.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/bootstrap-table-filter-control.min.js.下载"></script>
+
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/ace.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/video.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/videojs-flash.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/katex.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/highlight.min.js.下载"></script>
+        <!-- 带有 CSS 的库 end -->
+
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/d3.min.js.下载"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/moment.min.js.下载" charset="utf-8"></script>
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/calendar-heatmap.js.下载"></script>
+
+        <script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/raven.min.js.下载" crossorigin="anonymous"></script>
+        <script>
+            Raven.config('https://7748db6c507a45cca1ba53ccb7dc0d51@sentry.shiyanlou.com/5', {
+                whitelistUrls: [/console/, /running/]
+            }).install();
+        </script>
+
+        
+        
+
+        
+<div id="jinja-data" data-qiniu-token-url="/api/qiniu/token" data-labid="1983" data-is-authenticated="true" data-tencent-labid="[877]" data-course-detail="/courses/568" data-left-time="0" data-course-id="568" data-userlab-id="None" data-question-form="/questions/meta" data-start-newlab-url="/courses/clear" data-courses-doc="/courses/labs/1983/document"></div>
+<script src="./基础知识：C++11 与 Boost Asio - 实验楼_files/labDoc.js.下载"></script><div class="showTimeOut" style="display: none; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background: rgba(0, 0, 0, 0.8); text-align: center; z-index: 1600;"><i class="fa fa-spinner fa-pulse" style="margin-top: 326.8px; color: rgb(255, 255, 255); font-size: 35px;"></i></div>
+
+
+
+        
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-89338452-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+</body></html>

@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://www.shiyanlou.com/courses/682/labs/2234/document -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style class="vjs-styles-defaults">
+      .video-js {
+        width: 300px;
+        height: 150px;
+      }
+
+      .vjs-fluid {
+        padding-top: 56.25%
+      }
+    </style>
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="o-transform">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+        <meta name="csrf-token" content="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqypoQ.dWq3s3V8Sn08bDKJCUBxguimFJE">
+        
+            
+                <title>安装配置ffmpeg - 实验楼</title>
+            
+        
+
+        
+        <meta content="实验楼是国内领先的IT在线编程及在线实训学习平台，专业导师提供精选的实践项目，创新的技术使得学习者无需配置繁琐的本地环境，随时在线流畅使用。以就业为导向，提供编程、运维、测试、云计算、大数据、数据库等全面的IT技术动手实践环境，提供Linux、Python、Java、C语言、Node.js、Hadoop、PHP、Docker、Git、R、SQL、MongoDB、Redis、Swift、Spark等千门热门课程。" name="description">
+        <meta content="实验楼,IT培训,IT教育,编程,在线编程,Linux,Linux教程,Linux操作系统,Python,Python教程,Python基础教程,Java,Java编程,C语言,大数据,Node.js,Hadoop,PHP,Docker,Git,R,SQL,MongoDB,Redis,Swift,Spark,在线实验,IT在线教育,编程入门,项目训练,项目实践,webIDE,软件开发" name="keywords">
+        
+        <meta content="实验楼，琛石科技" name="author">
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://static.shiyanlou.com/favicon.ico">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/fontawesome-all.min.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/font-awesome.min.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/bootstrap.min.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/bootstrap-switch.min.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/bootstrap-tour.min.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/bootstrap-table.min.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/katex.min.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/video-js.min.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/monokai-sublime.min.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/calendar-heatmap.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/styles.css">
+        <link rel="stylesheet" href="./安装配置ffmpeg - 实验楼_files/syl-styles.css">
+
+        
+<style>
+    .layout-fullscreen {
+        margin-top: 0;
+    }
+    .labdoc-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 18px;
+        color: #666;
+        background: #fff;
+        font-size: 16px;
+        border-bottom: solid 1px #eee;
+        z-index: 10;
+    }
+    .labdoc-header a {
+        color: #666;
+    }
+    .labdoc-header a:hover,
+    .labdoc-header a:focus {
+        color: #08bf91;;
+        text-decoration: none;
+    }
+    .labdoc-nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 20%;
+        height: calc(100% - 60px);
+        padding: 0 10px;
+        background-color: #f7f7f7;
+        background-image: url(https://static.shiyanlou.com/img/logo-water-mark.png);
+        background-repeat: no-repeat;
+        background-position: 50% calc(100% - 20px);
+        overflow: auto;
+    }
+    .labdoc-nav-content {
+        margin-left: 10px;
+    }
+    .labdoc-nav h2 {
+        padding: 5px 0;
+        font-size: 16px;
+    }
+    .labdoc-nav h3 {
+        padding: 5px 0;
+        margin-left: 20px;
+        font-size: 14px;
+    }
+    .labdoc-nav h2 a,
+    .labdoc-nav h3 a {
+        color: #666;
+        text-decoration: none;
+    }
+    .labdoc-nav h2:hover a,
+    .labdoc-nav h2:focus a,
+    .labdoc-nav h3:hover a,
+    .labdoc-nav h3:focus a,
+    .labdoc-nav h2.active a,
+    .labdoc-nav h3.active a {
+        color: #08bf91;
+        text-decoration: none;
+    }
+    .labdoc-content-container {
+        float: right;
+        width: 100%;
+        padding: 0;
+        margin-top: 60px;
+    }
+    .labdoc-content {
+        padding: 0 10px 20px;
+        background: #fff;
+    }
+    .labdoc-copyright {
+        margin-top: 30px;
+        color: #999;
+        font-size: 12px;
+        font-style:italic;
+    }
+    .lab-btns {
+        display: none;
+        position: fixed;
+        top: 30%;
+        right: 10px;
+        width: 56px;
+        text-align: center;
+        z-index: 10;
+    }
+    .lab-btns div {
+        margin-bottom: 4px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.20);
+    }
+    .lab-btns a {
+        display: block;
+        padding: 0 2px;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .lab-btns a:hover,
+    .lab-btns a:focus {
+        text-decoration: none;
+    }
+
+    .lab-btns img {
+        display: inline-block;
+        border-radius: 5px;
+    }
+    .lab-btns a img {
+        padding: 11px 0;
+    }
+    .lab-btns span {
+        display: none;
+        color: #08bf91;
+    }
+    .lab-btns a:hover img {
+        display: none;
+    }
+    .lab-btns a:hover span {
+        display: block;
+        width: 52px;
+        height: 52px;
+        padding-top: 8px;
+        text-align: center;
+    }
+    .labinfo {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 20%;
+        padding: 5px 20px;
+        background: cornsilk;
+        z-index: 10;
+    }
+    .labinfo-header {
+        margin-bottom: 20px;
+    }
+    .labinfo-body div {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+    .labinfo-body div {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+    .labinfo-body a {
+        margin: 10px 0;
+    }
+    .left-time a {
+        position: relative;
+        bottom: 1px;
+        padding: 4px 10px;
+        margin-left: 4px;
+        color: #fff;
+        background: #f66;
+        font-size: 14px;
+    }
+    .left-time a:hover,
+    .left-time a:focus {
+        color: #fff;
+    }
+    .labdoc-page,
+    .labdoc-page:focus,
+    .labdoc-page:hover {
+        padding: 20px;
+        color: #08bf91;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .course-warning {
+        width: 40%;
+        margin: 10px auto;
+        font-size: 18px;
+        text-align: center;
+    }
+    @media (min-width: 768px) {
+        .labdoc-nav,
+        .lab-btns {
+            display: block;
+        }
+        .labdoc-content-container {
+            width: 80%;
+        }
+        .labdoc-content {
+            padding: 0 100px 20px;
+        }
+    }
+</style>
+
+
+        
+        
+    <style type="text/css" abt="234"></style><style id="ace_editor.css">.ace_editor {position: relative;overflow: hidden;font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;direction: ltr;text-align: left;}.ace_scroller {position: absolute;overflow: hidden;top: 0;bottom: 0;background-color: inherit;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;cursor: text;}.ace_content {position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;min-width: 100%;}.ace_dragging .ace_scroller:before{position: absolute;top: 0;left: 0;right: 0;bottom: 0;content: '';background: rgba(250, 250, 250, 0.01);z-index: 1000;}.ace_dragging.ace_dark .ace_scroller:before{background: rgba(0, 0, 0, 0.01);}.ace_selecting, .ace_selecting * {cursor: text !important;}.ace_gutter {position: absolute;overflow : hidden;width: auto;top: 0;bottom: 0;left: 0;cursor: default;z-index: 4;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}.ace_gutter-active-line {position: absolute;left: 0;right: 0;}.ace_scroller.ace_scroll-left {box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;}.ace_gutter-cell {padding-left: 19px;padding-right: 6px;background-repeat: no-repeat;}.ace_gutter-cell.ace_error {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: 2px center;}.ace_gutter-cell.ace_warning {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");background-position: 2px center;}.ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");background-position: 2px center;}.ace_dark .ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");}.ace_scrollbar {position: absolute;right: 0;bottom: 0;z-index: 6;}.ace_scrollbar-inner {position: absolute;cursor: text;left: 0;top: 0;}.ace_scrollbar-v{overflow-x: hidden;overflow-y: scroll;top: 0;}.ace_scrollbar-h {overflow-x: scroll;overflow-y: hidden;left: 0;}.ace_print-margin {position: absolute;height: 100%;}.ace_text-input {position: absolute;z-index: 0;width: 0.5em;height: 1em;opacity: 0;background: transparent;-moz-appearance: none;appearance: none;border: none;resize: none;outline: none;overflow: hidden;font: inherit;padding: 0 1px;margin: 0 -1px;text-indent: -1em;-ms-user-select: text;-moz-user-select: text;-webkit-user-select: text;user-select: text;white-space: pre!important;}.ace_text-input.ace_composition {background: inherit;color: inherit;z-index: 1000;opacity: 1;text-indent: 0;}.ace_layer {z-index: 1;position: absolute;overflow: hidden;word-wrap: normal;white-space: pre;height: 100%;width: 100%;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;pointer-events: none;}.ace_gutter-layer {position: relative;width: auto;text-align: right;pointer-events: auto;}.ace_text-layer {font: inherit !important;}.ace_cjk {display: inline-block;text-align: center;}.ace_cursor-layer {z-index: 4;}.ace_cursor {z-index: 4;position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;border-left: 2px solid;transform: translatez(0);}.ace_slim-cursors .ace_cursor {border-left-width: 1px;}.ace_overwrite-cursors .ace_cursor {border-left-width: 0;border-bottom: 1px solid;}.ace_hidden-cursors .ace_cursor {opacity: 0.2;}.ace_smooth-blinking .ace_cursor {-webkit-transition: opacity 0.18s;transition: opacity 0.18s;}.ace_editor.ace_multiselect .ace_cursor {border-left-width: 1px;}.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {position: absolute;z-index: 3;}.ace_marker-layer .ace_selection {position: absolute;z-index: 5;}.ace_marker-layer .ace_bracket {position: absolute;z-index: 6;}.ace_marker-layer .ace_active-line {position: absolute;z-index: 2;}.ace_marker-layer .ace_selected-word {position: absolute;z-index: 4;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}.ace_line .ace_fold {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;display: inline-block;height: 11px;margin-top: -2px;vertical-align: middle;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");background-repeat: no-repeat, repeat-x;background-position: center center, top left;color: transparent;border: 1px solid black;border-radius: 2px;cursor: pointer;pointer-events: auto;}.ace_dark .ace_fold {}.ace_fold:hover{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");}.ace_tooltip {background-color: #FFF;background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));border: 1px solid gray;border-radius: 1px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);color: black;max-width: 100%;padding: 3px 4px;position: fixed;z-index: 999999;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;cursor: default;white-space: pre;word-wrap: break-word;line-height: normal;font-style: normal;font-weight: normal;letter-spacing: normal;pointer-events: none;}.ace_folding-enabled > .ace_gutter-cell {padding-right: 13px;}.ace_fold-widget {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;margin: 0 -12px 0 1px;display: none;width: 11px;vertical-align: top;background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: center;border-radius: 3px;border: 1px solid transparent;cursor: pointer;}.ace_folding-enabled .ace_fold-widget {display: inline-block;   }.ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");}.ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");}.ace_fold-widget:hover {border: 1px solid rgba(0, 0, 0, 0.3);background-color: rgba(255, 255, 255, 0.2);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);}.ace_fold-widget:active {border: 1px solid rgba(0, 0, 0, 0.4);background-color: rgba(0, 0, 0, 0.05);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);}.ace_dark .ace_fold-widget {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");}.ace_dark .ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget:hover {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);background-color: rgba(255, 255, 255, 0.1);}.ace_dark .ace_fold-widget:active {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);}.ace_fold-widget.ace_invalid {background-color: #FFB4B4;border-color: #DE5555;}.ace_fade-fold-widgets .ace_fold-widget {-webkit-transition: opacity 0.4s ease 0.05s;transition: opacity 0.4s ease 0.05s;opacity: 0;}.ace_fade-fold-widgets:hover .ace_fold-widget {-webkit-transition: opacity 0.05s ease 0.05s;transition: opacity 0.05s ease 0.05s;opacity:1;}.ace_underline {text-decoration: underline;}.ace_bold {font-weight: bold;}.ace_nobold .ace_bold {font-weight: normal;}.ace_italic {font-style: italic;}.ace_error-marker {background-color: rgba(255, 0, 0,0.2);position: absolute;z-index: 9;}.ace_highlight-marker {background-color: rgba(255, 255, 0,0.2);position: absolute;z-index: 8;}.ace_br1 {border-top-left-radius    : 3px;}.ace_br2 {border-top-right-radius   : 3px;}.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}.ace_br4 {border-bottom-right-radius: 3px;}.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}.ace_br8 {border-bottom-left-radius : 3px;}.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
+/*# sourceURL=ace/css/ace_editor.css */</style><style id="ace-tm">.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}
+/*# sourceURL=ace/css/ace-tm */</style><style>    .error_widget_wrapper {        background: inherit;        color: inherit;        border:none    }    .error_widget {        border-top: solid 2px;        border-bottom: solid 2px;        margin: 5px 0;        padding: 10px 40px;        white-space: pre-wrap;    }    .error_widget.ace_error, .error_widget_arrow.ace_error{        border-color: #ff5a5a    }    .error_widget.ace_warning, .error_widget_arrow.ace_warning{        border-color: #F1D817    }    .error_widget.ace_info, .error_widget_arrow.ace_info{        border-color: #5a5a5a    }    .error_widget.ace_ok, .error_widget_arrow.ace_ok{        border-color: #5aaa5a    }    .error_widget_arrow {        position: absolute;        border: solid 5px;        border-top-color: transparent!important;        border-right-color: transparent!important;        border-left-color: transparent!important;        top: -5px;    }</style><style type="text/css">
+.sidebox-my-contest-history[data-v-530b5260] {
+  overflow: hidden;
+}
+.sidebox-my-contest-record[data-v-530b5260] {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.sidebox-my-contest-record .pull-left[data-v-530b5260] {
+    width: 39%;
+    margin-right: 1%;
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebox-my-contest-record .pull-right[data-v-530b5260] {
+    width: 60%;
+}
+.sidebox-my-contest-record .challenge-meta-status[data-v-530b5260] {
+    position: relative;
+    bottom: 1px;
+}
+.sidebox-record-time[data-v-530b5260] {
+  display: inline-block;
+  margin-left: 4px;
+  color: #666;
+  font-size: 14px;
+}
+.sidebox-footer[data-v-530b5260] {
+  text-align: right;
+}
+.sidebox-footer a[data-v-530b5260] {
+    font-size: 14px;
+}
+</style><style type="text/css">
+.fade-enter-active[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  opacity: 0;
+}
+.header-message[data-v-07a2dd56] {
+  position: relative;
+}
+.header-message > a[data-v-07a2dd56] {
+  position: relative;
+  padding-top: 23px !important;
+}
+.header-message > a .icon[data-v-07a2dd56] {
+    width: 22px;
+}
+.popover[data-v-07a2dd56] {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: -66px;
+  width: 180px;
+  background: #fff;
+}
+.popover .msg-content[data-v-07a2dd56] {
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+.popover .msg-content a[data-v-07a2dd56] {
+      color: #f66;
+}
+.popover .msg-content a[data-v-07a2dd56]:focus, .popover .msg-content a[data-v-07a2dd56]:hover {
+        text-decoration: none;
+}
+.mark[data-v-07a2dd56] {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  padding: 0 5px;
+  color: #fff;
+  background: #f66;
+  font-size: 12px;
+  border-radius: 10px;
+  line-height: 16px;
+}
+@media (max-width: 768px) {
+.mark[data-v-07a2dd56] {
+    top: 14px;
+    right: calc(50% - 8px);
+}
+}
+</style><style type="text/css">
+.hidden[data-v-815c5224] {
+  display: none;
+}
+.show[data-v-815c5224] {
+  display: block;
+}
+.fade-enter-active[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  transition: opacity 0.5s;
+}
+.fade-enter[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  opacity: 0;
+}
+.header-userbox a[data-v-815c5224] {
+  display: block;
+  padding: 11px 0 11px 10px !important;
+}
+.header-avatar[data-v-815c5224] {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.vip-icon[data-v-815c5224] {
+  position: absolute;
+  bottom: 5px;
+  right: calc(50% - 30px);
+  width: 20px;
+  height: 20px;
+}
+@media (min-width: 768px) {
+.vip-icon[data-v-815c5224] {
+    right: 0;
+}
+}
+.user[data-v-815c5224] {
+  display: block;
+  position: absolute;
+  top: 60px;
+  left: -140px;
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 4px 1px #ccc;
+  z-index: 999 !important;
+}
+.user[data-v-815c5224]:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 220px;
+    height: 50px;
+}
+.user.popover > .arrow[data-v-815c5224] {
+    left: 63%;
+}
+.user-info[data-v-815c5224] {
+  overflow: hidden;
+}
+.user-info a[data-v-815c5224] {
+    float: left;
+    padding: 0 !important;
+}
+.user-info a img[data-v-815c5224] {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+}
+.username[data-v-815c5224] {
+  position: relative;
+}
+.username > img[data-v-815c5224] {
+    width: 20px;
+    position: absolute;
+    left: -30px;
+    bottom: 5px;
+}
+.username > span[data-v-815c5224] {
+    display: inline-block;
+    max-width: 150px;
+    color: #666;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.username > span.user-level[data-v-815c5224] {
+      color: #fec42d;
+      font-size: 14px;
+      font-weight: 700;
+}
+.username > p[data-v-815c5224] {
+    color: #a4a4a4;
+    font-size: 12px;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150px;
+    text-overflow: ellipsis;
+}
+.start-experiment[data-v-815c5224] {
+  margin-bottom: 10px;
+}
+.start-experiment > a[data-v-815c5224] {
+    display: inline-block;
+    width: 100%;
+    padding: 8px 0 !important;
+    margin: 10px 0;
+    background-color: #08bf91;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+.start-experiment > a[data-v-815c5224]:hover, .start-experiment > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #fff;
+}
+.marked-words[data-v-815c5224] {
+  width: 100%;
+  color: #a4a4a4 !important;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  position: absolute;
+  top: 130px;
+  left: 0;
+}
+.marked-words > a[data-v-815c5224] {
+    color: #a4a4a4 !important;
+    font-size: 12px;
+    padding: 0 !important;
+}
+.marked-words > a[data-v-815c5224]:hover, .marked-words > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #a4a4a4;
+}
+.user-links a[data-v-815c5224] {
+  padding: 4px 0 !important;
+  margin-top: 15px;
+  color: #3a3a3a;
+  text-align: center;
+  border: solid 1px #ccc;
+  border-radius: 20px;
+}
+.user-links a.member-index[data-v-815c5224] {
+    color: #f66;
+    border-color: #f66;
+}
+.user-links a[data-v-815c5224]:hover {
+    text-decoration: none;
+}
+.user-links .log-out[data-v-815c5224] {
+  padding-top: 20px;
+}
+.user-links .log-out a[data-v-815c5224] {
+    border: none;
+    padding: 0 !important;
+    color: #a4a4a4;
+    text-align: right;
+}
+</style><style type="text/css">
+.header-learn-info[data-v-33ac7940] {
+  float: right;
+  width: 100%;
+  padding: 23.5px 10px;
+  margin: 0;
+  position: relative;
+}
+.header-learn-info > span[data-v-33ac7940] {
+    font-size: 16px;
+    color: #666;
+}
+.header-learn-info > span img[data-v-33ac7940] {
+      transform: rotate(-90deg);
+}
+.header-learn-info > span[data-v-33ac7940]:hover {
+      cursor: pointer;
+}
+.home-page[data-v-33ac7940] {
+  color: #666;
+}
+.home-page[data-v-33ac7940]:hover {
+    text-decoration: none;
+    color: #08bf91;
+}
+@media (min-width: 768px) {
+.header-learn-info[data-v-33ac7940] {
+    width: auto;
+}
+}
+@media (max-width: 1200px) {
+.header-learn-info[data-v-33ac7940] {
+    display: none;
+}
+}
+.fade-enter-active[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  opacity: 0;
+}
+.learninfo-box[data-v-33ac7940] {
+  display: block;
+  width: 223px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  padding: 20px;
+  left: 35px;
+  background: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  border: none;
+}
+.learninfo-box .lab-running > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .lab-running .lab-running-name[data-v-33ac7940] {
+    font-size: 14px;
+    padding: 10px 0;
+}
+.learninfo-box .lab-running .lab-running-name > span[data-v-33ac7940] {
+      max-width: 60%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+}
+.learninfo-box .lab-running .lab-running-name .lab-continue[data-v-33ac7940] {
+      background: #08bf91;
+      font-size: 12px;
+      color: #fff;
+      border: none;
+      padding: 2px 12px;
+      margin-top: -1px;
+}
+.learninfo-box .learn-records > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .learn-records .records-list[data-v-33ac7940] {
+    margin-top: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940] {
+      display: inline-block;
+      font-size: 14px;
+      color: #666;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940]:hover {
+        text-decoration: none;
+        background-color: #f5f5f5;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940] {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940]:hover {
+      text-decoration: none;
+}
+@media (min-width: 768px) {
+.learninfo-box[data-v-33ac7940] {
+    left: -30px;
+    margin-bottom: 0;
+}
+}
+</style><style type="text/css">
+.input-group[data-v-68b3bbad] {
+  position: relative;
+}
+ul[data-v-68b3bbad] {
+  position: absolute;
+  top: 33px;
+  z-index: 100;
+  width: calc(100% - 46px);
+  padding: 0;
+  color: #7f7f7f;
+  background: #fff;
+  font-size: 14px;
+  border: solid 1px #ccc;
+  list-style: none;
+}
+ul li[data-v-68b3bbad] {
+    padding: 5px 11px;
+    cursor: pointer;
+}
+ul li.active[data-v-68b3bbad] {
+      background: #eee;
+}
+</style><style type="text/css">
+.side-new-contest .sidebox-body[data-v-7d67fa2d] {
+  overflow: hidden;
+}
+.side-new-contest .sidebox-body span[data-v-7d67fa2d] {
+    position: relative;
+    top: 4px;
+    color: #3a3a3a;
+    font-size: 14px;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d] {
+    padding: 2px 10px;
+    color: #08bf91;
+    font-size: 14px;
+    border: solid 1px #08bf91;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:hover, .side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:focus {
+      color: #fff;
+      background: #09bf91;
+}
+</style><style type="text/css">
+a[data-v-9b3c8994] {
+    display: inline-block;
+    vertical-align: middle;
+}
+@media (max-width: 768px) {
+a[data-v-9b3c8994] {
+        display: none;
+}
+}
+.fa[data-v-9b3c8994] {
+    padding: 4px;
+    color: #274a59;
+    background: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.fa[data-v-9b3c8994]:hover {
+    color: #ec5353;
+}
+.pull-left[data-v-9b3c8994] {
+    margin-left: 10px;
+}
+
+/*# sourceURL=/home/shiyanlou/shiyanlou/simplecloud/app/src/base/components/weibo.vue?211347e4 */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3NoaXlhbmxvdS9zaGl5YW5sb3Uvc2ltcGxlY2xvdWQvYXBwL3NyYy9iYXNlL2NvbXBvbmVudHMvd2VpYm8udnVlPzIxMTM0N2U0Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFtQ0E7SUFDQSxzQkFBQTtJQUNBLHVCQUFBO0NBQ0E7QUFDQTtBQUNBO1FBQ0EsY0FBQTtDQUNBO0NBQ0E7QUFDQTtJQUNBLGFBQUE7SUFDQSxlQUFBO0lBQ0EsaUJBQUE7SUFDQSxnQkFBQTtJQUNBLG1CQUFBO0NBQ0E7QUFDQTtJQUNBLGVBQUE7Q0FDQTtBQUNBO0lBQ0Esa0JBQUE7Q0FDQSIsImZpbGUiOiJ3ZWliby52dWUiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XG48YSA6aHJlZj1cImhyZWZcIiA6Y2xhc3M9XCJ7ICdidG4gYnRuLXByaW1hcnknOiBpc0J0biAsICdwdWxsLWxlZnQnOiBpc0xlZnR9XCIgdGFyZ2V0PVwiX2JsYW5rXCI+XG4gICAgPHNwYW4gdi1pZj1cImlzQnRuXCI+5YiG5Lqr5Yiw5b6u5Y2aPC9zcGFuPlxuICAgIDxpbWcgOnNyYz1cImljb25cIiBhbHQ9XCJcIj5cbjwvYT5cbjwvdGVtcGxhdGU+XG5cbjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gICAgcHJvcHM6IFsnaXNCdG4nLCAncGF0aCcsICd0aXRsZScsICdwaWMnLCAnaWNvbicsICdpc0xlZnQnLCAndXJsJ10sXG4gICAgZGF0YSgpIHtcbiAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgIGhyZWY6ICcnLFxuICAgICAgICAgICAgcGFyYW1zOiB7XG4gICAgICAgICAgICAgICAgdGl0bGU6IHRoaXMudGl0bGUsXG4gICAgICAgICAgICAgICAgYXBwa2V5OiAnMTM0MzcxMzA1MycsXG4gICAgICAgICAgICAgICAgcGljOiAodGhpcy5waWMgJiYgdGhpcy5waWMubGVuZ3RoKSA/IHRoaXMucGljIDogWydodHRwczovL3N0YXRpYy5zaGl5YW5sb3UuY29tL2ltZy9sb2dvLWJhc2UucG5nJ10sXG4gICAgICAgICAgICAgICAgc2VhcmNoUGljOiBmYWxzZSxcbiAgICAgICAgICAgICAgICB1cmw6IHRoaXMudXJsXG4gICAgICAgICAgICB9LFxuICAgICAgICAgICAgd2VpYm9Vcmw6IHRoaXMudXJsID8gYGh0dHA6Ly9zZXJ2aWNlLndlaWJvLmNvbS9zaGFyZS9zaGFyZS5waHA/dXJsPSR7dGhpcy51cmx9IGA6IGBodHRwOi8vc2VydmljZS53ZWliby5jb20vc2hhcmUvc2hhcmUucGhwP3VybD1odHRwczovL3d3dy5zaGl5YW5sb3UuY29tYCxcbiAgICAgICAgfTtcbiAgICB9LFxuICAgIG1vdW50ZWQoKSB7XG4gICAgICAgIHRoaXMuaHJlZiA9IGAke3RoaXMud2VpYm9Vcmx9JHt0aGlzLnBhdGh9YFxuICAgICAgICAgICAgKyBgJnRpdGxlPSR7ZW5jb2RlVVJJQ29tcG9uZW50KHRoaXMucGFyYW1zLnRpdGxlKX1gXG4gICAgICAgICAgICArIGAmYXBwa2V5PSR7dGhpcy5wYXJhbXMuYXBwa2V5fWBcbiAgICAgICAgICAgICsgYCZwaWM9JHt0aGlzLnBhcmFtcy5waWMuam9pbignfHwnKX1gXG4gICAgICAgICAgICArIGAmc2VhcmNoUGljPSR7dGhpcy5wYXJhbXMuc2VhcmNoUGljfWA7XG4gICAgICAgIHRoaXMuaHJlZiA9IGVuY29kZVVSSSh0aGlzLmhyZWYpXG4gICAgfVxufVxuPC9zY3JpcHQ+XG5cbjxzdHlsZSBzY29wZWQ+XG5hIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjhweCkge1xuICAgIGEge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cbn1cbi5mYSB7XG4gICAgcGFkZGluZzogNHB4O1xuICAgIGNvbG9yOiAjMjc0YTU5O1xuICAgIGJhY2tncm91bmQ6ICNmZmY7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbn1cbi5mYTpob3ZlciB7XG4gICAgY29sb3I6ICNlYzUzNTM7XG59XG4ucHVsbC1sZWZ0IHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbn1cbjwvc3R5bGU+XG5cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style><style type="text/css">
+.navbar-form[data-v-72bea96c] {
+  float: left !important;
+  padding: 10px 0;
+  margin: 8px 10px;
+}
+.form-group[data-v-72bea96c] {
+  position: relative;
+}
+label[data-v-72bea96c] {
+  display: inline;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: #3a3a3a;
+  font-size: 16px;
+}
+.form-control[data-v-72bea96c] {
+  width: 200px;
+  border-radius: 20px;
+}
+.search-autocomplete[data-v-72bea96c] {
+  position: absolute;
+  top: 35px;
+  left: 1px;
+  width: 195px;
+  padding: 4px;
+  border: solid 1px #ddd;
+  border-top: none;
+  background: #fff;
+  z-index: 1000;
+}
+.search-autocomplete a[data-v-72bea96c] {
+    display: block;
+    padding: 6px 8px;
+    color: #4c5157;
+    font-size: 13px;
+}
+.search-autocomplete a[data-v-72bea96c]:hover, .search-autocomplete a[data-v-72bea96c]:focus {
+      color: #fff;
+      background: #0c9;
+      text-decoration: none;
+}
+</style><script>//remove 17173 video ad
+doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+//remove baidu search ad
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+            all = document.body.querySelectorAll('.result.c-container[id="1"]');
+            //if(all.length == 1) return;
+            for(var i = 0; i < all.length; i++){
+                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
+                    all[i].style.display= "none";all[i].style.visibility='hidden';
+                }
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
+    };
+}
+//remove sohu video ad
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//remove 56.com video ad
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//fore iqiyi enable html5 player function
+if (document.URL.indexOf("iqiyi.com") >= 0){
+    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
+        document.cookie='player_forcedType=h5_VOD'
+        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
+            console.log('no reload')
+        }else{
+            location.reload()
+            localStorage.reloadTime = Date.now();
+        }
+    }
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+
+    <body>
+        <div style="height:0;width:0;visibility:hidden">
+            <img src="./安装配置ffmpeg - 实验楼_files/weixin_logo.png" alt="">
+        </div>
+        
+            
+        
+
+        
+
+
+        <div class="content-box">
+        
+<style>
+.layout-fullscreen {
+    margin-top: -20px;
+}
+</style>
+<div class="layout layout-fullscreen">
+    <div class="container">
+        
+        
+    </div>
+    
+<div class="lab-btns">
+    
+        
+
+        
+            
+        
+
+        
+            
+        
+
+        
+        <div>
+            <img src="./安装配置ffmpeg - 实验楼_files/best-study-way.png">
+            <a class=" member-vm lab-item-start  " data-mobile-url="/courses/682/labs/2234/document" data-url="/courses/start/2234" data-next="/courses/running">
+                <img src="./安装配置ffmpeg - 实验楼_files/labdoc-start.png">
+                
+                    <span>开始<br>实验</span>
+                
+            </a>
+        </div>
+    
+    <div>
+        <a data-toggle="modal" href="https://www.shiyanlou.com/courses/682/labs/2234/document#askquestion">
+            <img src="./安装配置ffmpeg - 实验楼_files/labdoc-question.png">
+            <span>我要<br>提问</span>
+        </a>
+    </div>
+    <div>
+        <a class="commit-error">
+            <img src="./安装配置ffmpeg - 实验楼_files/labdoc-jiucuo.png">
+            <span>我要<br>纠错</span>
+        </a>
+    </div>
+</div>
+<div class="labdoc-header">
+    <a href="https://www.shiyanlou.com/courses/682">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        ffmpeg 结合 SDL 编写播放器
+    </a>
+    
+</div>
+<div class="labdoc-nav">
+    <div class="labdoc-nav-content">
+                <h2 class="active">
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-0">一、实验简介</a>
+                </h2>
+            
+                <h2 class="">
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-1">二、编译安装</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-2">三、ffmpeg 工具介绍</a>
+                </h2>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-3">3.1 ffmpeg 命令行工具</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-4">3.2 ffserver</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-5">3.3 ffplay</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-6">3.4 ffprobe</a>
+                </h3>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-7">四、ffmpeg 为开发者准备的库</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-8">五、制作动画屏幕捕捉</a>
+                </h2>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-9">5.1 打开文件</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-10">5.2 获取视频数据流</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-11">5.3 存储数据</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-12">5.4 读取数据</a>
+                </h3>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#labdoc-header-13">六、实验总结</a>
+                </h2>
+            </div>
+    
+</div>
+<div class="labdoc-content-container">
+    <div class="markdown-body labdoc-content" id="labdoc-content"><div><h1 id="-">简介</h1>
+<h2 id="labdoc-header-0">一、实验简介</h2>
+<h4 id="1-1-">1.1 实验介绍</h4>
+<p><code>ffmpeg</code> 是一个很好的开源的多媒体库，它包括了编解码，格式转化，复用器，解复用器，数据流处理，过滤和播放大多数多媒体格式，既包括较老的格式也支持很新的格式，它具有高度的可移植性。<code>ffmpeg</code> 可以在各种环境下构建，运行。从 Linux , 到 Mac OS ， windows ，Android 都可以适用。</p><p>本实验将学习使用 <code>ffmpeg</code>  ，它提供了一套丰富的视音频解码库，和方便使用的工具。我们将学习编译 <code>ffpemg</code> ，使用它的库来转换视频文件，并结合 <code>sdl</code> 编写播放器，从中学习到编解码的知识。</p><h4 id="1-2-">1.2 知识点</h4>
+<ul>
+<li>ffmpeg 库介绍</li>
+<li>相关结构介绍</li>
+<li>动画屏幕捕捉</li>
+<li>格式转换</li>
+</ul>
+<h4 id="1-3-">1.3 代码获取</h4>
+<p>这里也有完整的代码：</p><pre><code class="hljs ">wget http:<span class="hljs-regexp">//</span>labfile.oss.aliyuncs.com<span class="hljs-regexp">/courses/</span><span class="hljs-number">682</span><span class="hljs-regexp">/project1.c</span>
+</code></pre><h4 id="1-4-">1.4 实验效果</h4>
+<p>先放一张完成后的效果：<img src="./安装配置ffmpeg - 实验楼_files/wm" alt="1-1.4-1"></p><h2 id="labdoc-header-1">二、编译安装</h2>
+<p>虽然有源可以直接安装，但是如果你想安装某一特定版本，或者最新版的 ffmpeg ，源码安装无疑是最好的。</p><p>首先安装相关的依赖：</p><pre><code class="hljs ">sudo apt-<span class="hljs-built_in">get</span> <span class="hljs-keyword">update</span>
+sudo apt-<span class="hljs-built_in">get</span> -y install autoconf automake build-essential libass-<span class="hljs-built_in">dev</span> libfreetype6-<span class="hljs-built_in">dev</span> \
+  libsdl1<span class="hljs-number">.2</span>-<span class="hljs-built_in">dev</span> libtheora-<span class="hljs-built_in">dev</span> libtool libva-<span class="hljs-built_in">dev</span> libvdpau-<span class="hljs-built_in">dev</span> libvorbis-<span class="hljs-built_in">dev</span> libxcb1-<span class="hljs-built_in">dev</span> libxcb-shm0-<span class="hljs-built_in">dev</span> \
+  libxcb-xfixes0-<span class="hljs-built_in">dev</span> pkg-config texinfo zlib1g-<span class="hljs-built_in">dev</span>
+sudo apt-<span class="hljs-built_in">get</span> install yasm
+sudo apt-<span class="hljs-built_in">get</span> install libx264-<span class="hljs-built_in">dev</span>        # H<span class="hljs-number">.264</span> 依赖库
+sudo apt-<span class="hljs-built_in">get</span> install cmake mercurial
+sudo apt-<span class="hljs-built_in">get</span> install libfdk-aac-<span class="hljs-built_in">dev</span>        # aac audio 依赖库
+sudo apt-<span class="hljs-built_in">get</span> install libmp3lame-<span class="hljs-built_in">dev</span>        # mp3 audio 依赖库
+sudo apt-<span class="hljs-built_in">get</span> install libopus-<span class="hljs-built_in">dev</span>        # Opus audio 依赖库
+sudo apt-<span class="hljs-built_in">get</span> install ctags                # 文档工具
+</code></pre><p>本次实验选择的是 ffmpeg 2.8.8 ，因为最新版 ffmpeg 更新了很多函数、宏，但是查看具体更新的信息比较麻烦，所以我们选择较老一点的版本，学习起来容易一点。以下为编译安装的过程，你也可以选择我提前准备好的包：</p><pre><code class="hljs ">wget http:<span class="hljs-comment">//labfile.oss.aliyuncs.com/courses/682/ffmpeg.tar.gz</span>
+tar xvf ffmpeg<span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.gz</span>
+cd ffmpeg-<span class="hljs-number">2.8</span>.<span class="hljs-number">8</span>
+sudo make install
+</code></pre><p>手动安装的过程，在环境里大概需要1个小时：</p><pre><code class="hljs ">wget http:<span class="hljs-comment">//labfile.oss.aliyuncs.com/courses/682/ffmpeg-2.8.8.tar.xz</span>
+tar xvf ffmpeg-<span class="hljs-number">2.8</span>.<span class="hljs-number">8</span><span class="hljs-selector-class">.tar</span><span class="hljs-selector-class">.xz</span>
+cd ffmpeg-<span class="hljs-number">2.8</span>.<span class="hljs-number">8</span>
+./configure
+sudo make
+sudo make install
+</code></pre><p>安装完成后在 shell  中即可查看相关的信息：</p><pre><code class="hljs "><span class="hljs-attribute"> ffmpeg -v</span> 
+</code></pre><p><img src="./安装配置ffmpeg - 实验楼_files/wm(1)" alt="1-2-1"></p><h2 id="labdoc-header-2">三、ffmpeg 工具介绍</h2>
+<p>这一章节我们将正式开始讲解ffmpeg 工具，分步骤进行。</p><h3 id="labdoc-header-3">3.1 ffmpeg 命令行工具</h3>
+<p>ffmpeg 工具是一个高效快速的命令行工具，进行视音频不同格式之间的转换，</p><p>ffmpeg可以读取任意数量的输入“文件”（可以是常规文件，管道，网络流，抓取设备等）读取，由 -i 选项指定，并写入任意数量的输出“文件” （由纯输出文件名指定，在命令行中发现的不能被解释为选项的任何东西被认为是输出文件名。）</p><p>每个输入或输出文件原则上可以包含任意数量的不同类型的流（视频/音频/字幕/附件/数据）。 流的数量或类型可以由容器格式规定。 选择哪些输入并输出到哪个要么自动完成，要么使用-map选项。</p><ul>
+<li><p>将输出文件的视频比特率设置为64 kbit/s</p><pre><code class="hljs ">ffmpeg -<span class="hljs-selector-tag">i</span> <span class="hljs-selector-tag">input</span><span class="hljs-selector-class">.avi</span> -<span class="hljs-selector-tag">b</span>:v <span class="hljs-number">64</span>k -bufsize <span class="hljs-number">64</span>k output.avi
+</code></pre></li>
+<li><p>强制输出文件的帧速率24帧：</p><pre><code class="hljs ">ffmpeg -<span class="hljs-selector-tag">i</span> <span class="hljs-selector-tag">input</span><span class="hljs-selector-class">.avi</span> -r <span class="hljs-number">24</span> output.avi
+</code></pre></li>
+<li><p>强制输入文件的帧速率(仅对raw格式有效)为1帧和输出文件的帧速率为24帧的：</p><pre><code class="hljs ">ffmpeg -r <span class="hljs-number">1</span> -<span class="hljs-selector-tag">i</span> <span class="hljs-selector-tag">input</span><span class="hljs-selector-class">.m2v</span> -r <span class="hljs-number">24</span> output.avi
+</code></pre></li>
+</ul>
+<p>ffmpeg 的转码流程可以由下图表示：</p><p><img src="./安装配置ffmpeg - 实验楼_files/wm(2)" alt="1-3.1-1"></p><p>（ ffmpeg 调用 libavformat 库（包含 demuxers ）来读取输入文件，并从中获取包含编码数据的数据包。 当有多个输入文件时，ffmpeg 尝试通过输入流上的时间戳来保持它们的同步。</p><p>编码分组后传递到解码器。 解码器可以通过滤波进一步处理的未压缩帧（原始视频/ PCM音频/ ...）。 在过滤之后，帧被传递到编码器，编码它们并输出编码分组。 最后，它们被传递到复用器，复用器将编码的数据包写入输出文件。）</p><h3 id="labdoc-header-4">3.2 ffserver</h3>
+<p>ffserver 是用于音频和视频的流服务器。 它支持多种推送方式，从文件流传输或者实时流推送。 如果有足够大的推送存储空间，还可以查找每个实时流的位置。</p><p>ffserver 从一些实例接收预录制文件或 FFM 流作为输入，然后通过 RTP / RTSP / HTTP 将其流式传输。</p><p>对于每个推送，可以有不同格式的不同输出流，每个格式由配置文件中的 <stream> 部分指定。</stream></p><p>推送发布的网址如：</p><pre><code class="hljs "><span class="hljs-symbol">http:</span><span class="hljs-comment">//ffserver_ip_address:http_port/feed_name</span>
+</code></pre><p>其中 ffserver_ip_address 是安装 ffserver 的计算机的 IP 地址，http_port 是 HTTP 服务器的端口号（通过 HTTPPort 选项配置），feed_name 是配置文件中定义的相应订阅源的名称。</p><p>多个流可以连接到同一个推送上。例如，可以使用以下图形描述的情况：</p><p><img src="./安装配置ffmpeg - 实验楼_files/wm(3)" alt="1-3.2-1"></p><p>我们可以使用下面的命令来开启一个简单的范例：</p><pre><code class="hljs ">ffserver -f doc/ffserver<span class="hljs-selector-class">.conf</span> &amp;
+ffmpeg -<span class="hljs-selector-tag">i</span> INPUTFILE http:<span class="hljs-comment">//localhost:8090/feed1.ffm</span>
+</code></pre><p>然后可以在其他的电脑上输入 url 查看：</p><pre><code class="hljs "><span class="hljs-symbol">http:</span><span class="hljs-comment">//&lt;linuxbox&gt;:8090/test.asf</span>
+</code></pre><h3 id="labdoc-header-5">3.3 ffplay</h3>
+<p>ffplay 是一个使用 ffmpeg 库和 sdl 库的非常简单和便携的媒体播放器。 它主要用作各种 ffmpeg api 的测试平台。</p><p>每个流使用一些选项，例如比特率或编解码器。 流指定符用于精确地指定选项所属的流。流指定符是一个字符串，通常添加选项名称，并用冒号分隔。 例如。 -codec：a：1 ac3 包含a：1 流标识符，它匹配第二个音频流。 因此，它将为第二个音频流选择 ac3 编解码器。流指定符可以匹配多个流，以便将选项应用于所有流。 例如。 -b：128k 中的流说明符匹配所有音频流。空流说明符匹配所有流。 例如，-codec copy 或 -codec：copy 将复制所有流，而不重新编码。流标识符的可能形式是：</p><blockquote>
+<p>stream_index ：                  使用此索引匹配流。 例如。 -threads：1 4 将第二个流的线程计数设置为4。</p><p>stream_type[:stream_index]： stream_type 是以下之一：视频的'v'或'V'，音频的'a'，字幕的's'，数据的'd'和                                      附件的't'。 'v'匹配所有视频流，'V'仅匹配未附加图片。如果给出                                            stream_index，则它匹配此类型的流 stream_index。 否则，它匹配此类型的所有流。</p><p>p:program_id[:stream_index]：如果给出 stream_index，则它将流与程序中具有 id program_id 的数字                                            stream_index 匹配。 否则，它匹配程序中的所有流。</p><p>stream_id or i:stream_id ：  通过流 id 匹配流（例如 MPEG-TS 容器中的 PID ）。</p><p>m:key[:value]    ：             匹配具有指定值的元数据标记键的流。 如果未指定值，则将包含给定标记的流与任何值                              进行匹配。匹配具有可用配置的流，必须定义编解码器，并且存在诸如视频尺寸或音频采                             样率的基本信息。请注意，在ffmpeg中，通过元数据进行的匹配仅适用于输入文件。</p></blockquote>
+<h3 id="labdoc-header-6">3.4 ffprobe</h3>
+<p>ffprobe从多媒体流收集信息，并以人和机器可读的方式打印。</p><p>例如，它可以用于检查由多媒体流使用的容器的格式以及包含在其中的每个媒体流的格式和类型。</p><p>如果在输入中指定了文件名，ffprobe 将尝试打开并探测文件内容。如果文件无法打开或识别为多媒体文件，则返回正的退出代码。</p><p>ffprobe 可以用作独立应用或与文本过滤器组合，其可以执行更复杂的处理，例如，统计处理或绘图。</p><p>选项用于列出 ffprobe 支持的某些格式，或用于指定要显示的信息，以及用于设置 ffprobe 将如何显示它。</p><p>ffprobe 输出设计为可以通过文本过滤器轻松解析，并且由选定 writer（由 print_format 选项指定）定义的一个或多个部分组成。</p><p>存储在容器或流中的元数据标签被识别并打印在相应的 “FORMAT” ，“STREAM” 或 “PROGRAM_STREAM” 部分中。</p><h2 id="labdoc-header-7">四、ffmpeg 为开发者准备的库</h2>
+<h4 id="4-1-libavutil">4.1 libavutil</h4>
+<p>libavutil 库是一个实用程序库，以辅助多媒体编程。 它包含安全可移植字符串函数，随机数生成器，数据结构，附加数学函数，加密和多媒体相关功能。 它不是 libavcodec 和 libavformat 所需的代码的库。</p><p>这个库的目标是：</p><pre><code class="hljs ">模块化        它应该具有很少的相互依赖性和在 <span class="hljs-string">./configure</span> 期间禁用单个部件的可能性。
+小          源和对象都应该小。
+高效         它应该具有低CPU和内存使用。
+有用         它应该添加人们很需要的功能。
+</code></pre><h4 id="4-2-libavcodec">4.2 libavcodec</h4>
+<p>libavcodec 库提供通用编码/解码框架，并包含用于音频，视频和字幕流的多个解码器和编码器，以及多个比特流滤波器。</p><p>共享架构提供从比特流 i/o 到 dsp 优化的各种服务，并且使得它适合于实现健壮和快速的编解码器。</p><h4 id="4-3-libavformat">4.3 libavformat</h4>
+<p><code>libavformat</code> 库为音频、视频和字幕流的复用和解复用（多路复用和解复用）提供了一个通用框架。 它包括多媒体容器格式的多个多路复用器和多路分解器。</p><p>它还支持几种输入和输出协议来访问媒体资源。</p><h4 id="4-4-libavdevice">4.4 libavdevice</h4>
+<p>libavdevice 库提供了一个通用框架，用于从许多常见的多媒体输入/输出设备抓取和渲染，并支持多个输入和输出设备，包括 Video4Linux2，VfW，DShow和ALSA。</p><h4 id="4-5-libavfilter">4.5 libavfilter</h4>
+<p>libavfilter 库提供了一个通用的音频/视频过滤框架，包含几个过滤器，源和接收器模块。</p><h4 id="4-6-libswscale">4.6 libswscale</h4>
+<p>libswscale 库执行高度优化的图像缩放和颜色空间和像素格式转换操作。</p><p>具体来说，此库执行以下转换：</p><pre><code class="hljs ">重新调整：是更改视频大小的过程。 有几个重新调整选项和算法可用。 这通常是有损耗的过程。
+
+像素格式转换：是转换图像的图像格式和颜色空间的过程，例如从平面 YUV420P 到 RGB24 转换。 它还可以处理<span class="hljs-built_in"> packed </span>转换，即从<span class="hljs-built_in"> packed </span>布局（属于在同一缓冲器中交织的不同平面的所有像素）转换为平面布局（属于存储在专用缓冲器或“平面”中的相同平面的所有样本）的转换。
+
+如果源和目标颜色空间不同，这通常是有损过程。
+</code></pre><h4 id="4-7-libswresample">4.7 libswresample</h4>
+<p>libswresample 库执行高度优化的音频重采样，重新矩阵化和样本格式转换操作。</p><p>具体来说，此库执行以下转换：</p><pre><code class="hljs ">重新采样：是改变音频速率的过程，例如从 44100Hz 的高采样率到 8000Hz 。从高到低采样率的音频转换是有损耗的过程。有几个重采样选项和算法可用。
+
+格式转换：是将采样类型（例如从16位有符号采样转换为无符号8位或浮点采样）的过程。当从<span class="hljs-built_in"> packed </span>布局（所有属于在相同缓冲器中交错的不同通道的样本）到平面布局（属于存储在专用缓冲器或“平面”中的相同通道的所有样本）时，它还处理<span class="hljs-built_in"> packed </span>转换。
+
+重新矩阵化：是改变通道布局的过程，例如从立体声到单声道。当输入通道不能映射到输出流时，该过程是有损的，因为它涉及不同的增益因子和混合。
+通过专用选项启用各种其他音频转换（例如拉伸和填充）。
+</code></pre><h2 id="labdoc-header-8">五、制作动画屏幕捕捉</h2>
+<p>电影文件有几个部分组成，文件本身称为容器，容器的类型决定文件中信息的位置。 本节实验容器的示例是 avi 和quicktime。 接下来，我们需要处理很多流：例如通常有一个音频流和一个视频流。流中的数据元素被称为帧。 每个流由不同种类的编解码器编码。 编解码器定义实际数据如何被 COTED和 DECDODE --- 因此名称 CODEC。 编解码器的示例是 DivX 和 MP3 。 然后从流中读取分组。 数据包是可以包含数据位的数据片段，这些数据被解码成我们最终可以为我们的应用程序处理的原始帧。 为了我们的目的，每个分组包含完整的帧，或者在音频的情况下多个帧。</p><p>处理视频和音频流是非常容易的，属于基本层次：</p><pre><code class="hljs ">从文件中找到视频流
+从视频流中读取数据包
+如果不是一帧完整的数据就继续执行上一步
+对帧数据做一些处理
+然后循环执行以上操作，直到结束
+</code></pre><p>在本实验中我们将对帧数据做一些处理，比如将每一帧的图像转为 jpg或者bmp或者ppm等格式保存下来。</p><h3 id="labdoc-header-9">5.1 打开文件</h3>
+<p>首先注册 ffmpeg 库：</p><pre><code class="hljs "><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;libavcodec/avcodec.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;libavformat/avformat.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;ffmpeg/swscale.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+...
+<span class="hljs-built_in">int</span> main(<span class="hljs-built_in">int</span> argc, charg *argv[]) {
+av_register_all()<span class="hljs-comment">;</span>
+</code></pre><p>这会将所有可用的文件格式和编解码器注册到我们的库中，以便在打开具有相应格式/编解码器的文件时自动使用。 注意，我们只需要 <code>av_register_all（）</code>一次，所以在 main（）中调用。 如果你喜欢，可以只注册某些文件格式和编解码器，但是这样比较麻烦。</p><p>接下来打开文件：</p><pre><code class="hljs ">AVFormatContext *pFormatCtx = <span class="hljs-keyword">NULL</span>;
+
+// <span class="hljs-keyword">Open</span> video <span class="hljs-keyword">file</span>
+<span class="hljs-keyword">if</span>(avformat_open_input(&amp;pFormatCtx, argv[<span class="hljs-number">1</span>], <span class="hljs-keyword">NULL</span>, <span class="hljs-number">0</span>, <span class="hljs-keyword">NULL</span>)!=<span class="hljs-number">0</span>)
+  <span class="hljs-keyword">return</span> -<span class="hljs-number">1</span>; // Couldn<span class="hljs-symbol">'t</span> <span class="hljs-keyword">open</span> <span class="hljs-keyword">file</span>
+</code></pre><p>我们从第一个参数获取文件名。 此函数读取文件头并将有关文件格式的信息存储在我们给出的 <code>AVFormatContext</code> 结构中。 最后三个参数用于指定文件格式，缓冲区大小和格式选项，但通过将其设置为NULL或0，libavformat将自动检测这些。
+此函数只查看头文件，所以接下来我们需要检查文件中的流信息：</p><pre><code class="hljs "><span class="hljs-comment">// Retrieve stream information</span>
+<span class="hljs-keyword">if</span>(avformat_find_stream_info(pFormatCtx, <span class="hljs-literal">NULL</span>)&lt;<span class="hljs-number">0</span>)
+  <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// Couldn't find stream information</span>
+</code></pre><p>此函数获取有效的数据流，没有就返回 -1。接下来编写一个方便的调试功能，可以显示我们资源的数据信息：</p><pre><code class="hljs ">av_dump_format(pFormatCtx, <span class="hljs-number">0</span>, argv[<span class="hljs-number">1</span>], <span class="hljs-number">0</span>);        <span class="hljs-comment">//打印资源的信息</span>
+</code></pre><p>举例，编写程序 /home/shiyanlou/ffmpeg-2.8.8/test.c：</p><pre><code class="hljs "><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;libavcodec/avcodec.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;libavformat/avformat.h&gt;</span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;libswscale/swscale.h&gt;</span></span>
+
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> *argv[])</span> </span>{
+   AVFormatContext   *pFormatCtx = <span class="hljs-literal">NULL</span>;
+   <span class="hljs-keyword">if</span>(argc &lt; <span class="hljs-number">2</span>) {
+        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"Please provide a movie file\n"</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+  }
+   av_register_all();    
+   <span class="hljs-keyword">if</span>(avformat_open_input(&amp;pFormatCtx, argv[<span class="hljs-number">1</span>], <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>)!=<span class="hljs-number">0</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// Couldn't open file</span>
+   <span class="hljs-keyword">if</span>(avformat_find_stream_info(pFormatCtx, <span class="hljs-literal">NULL</span>)&lt;<span class="hljs-number">0</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// Couldn't find stream information</span>
+
+   av_dump_format(pFormatCtx, <span class="hljs-number">0</span>, argv[<span class="hljs-number">1</span>], <span class="hljs-number">0</span>);
+   avformat_close_input(&amp;pFormatCtx);
+   <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</code></pre><checker style="display: none">[{"name":"检查是否存在文件 test.c","script":"#!/bin/bash\nls -l /home/shiyanlou/ffmpeg-2.8.8/test.c\n","error":"我们发现您还没有完成程序 /home/shiyanlou/ffmpeg-2.8.8/test.c\n"}]</checker><pre><code class="hljs ">gcc -Wall -ggdb test.c  -I/usr/local/<span class="hljs-keyword">include</span>     -L/usr/local/<span class="hljs-class"><span class="hljs-keyword">lib</span> -<span class="hljs-title">lavformat</span> -<span class="hljs-title">lavcodec</span> -<span class="hljs-title">lva</span>-<span class="hljs-title">x11</span> -<span class="hljs-title">lva</span> -<span class="hljs-title">lxcb</span>-<span class="hljs-title">shm</span> -<span class="hljs-title">lxcb</span>-<span class="hljs-title">xfixes</span> -<span class="hljs-title">lxcb</span>-<span class="hljs-title">render</span> -<span class="hljs-title">lxcb</span>-<span class="hljs-title">shape</span> -<span class="hljs-title">lxcb</span> -<span class="hljs-title">lX11</span> -<span class="hljs-title">lasound</span> -<span class="hljs-title">lz</span> -<span class="hljs-title">lswresample</span> -<span class="hljs-title">lswscale</span> -<span class="hljs-title">lavutil</span> -<span class="hljs-title">lm</span> -<span class="hljs-title">pthread</span> -<span class="hljs-title">o</span> <span class="hljs-title">test</span>.<span class="hljs-title">out</span> </span>
+</code></pre><pre><code class="hljs ">wget <span class="hljs-symbol">http:</span>/<span class="hljs-regexp">/labfile.oss.aliyuncs.com/courses</span><span class="hljs-regexp">/682/thoseyears</span>.mp4
+./test.<span class="hljs-keyword">out</span> ./thoseyears.mp4
+</code></pre><p><img src="./安装配置ffmpeg - 实验楼_files/wm(4)" alt="1-5.1-1"></p><h3 id="labdoc-header-10">5.2 获取视频数据流</h3>
+<p>现在 <code>pFormatCtx-&gt;streams</code> 只是一个指针数组，大小为 <code>pFormatCtx-&gt; nb_streams</code> ，所以让我们来看一下它，直到我们找到一个视频流。</p><pre><code class="hljs "><span class="hljs-keyword">int</span> i;
+AVCodecContext *pCodecCtxOrig = <span class="hljs-keyword">NULL</span>;
+AVCodecContext *pCodecCtx = <span class="hljs-keyword">NULL</span>;
+
+<span class="hljs-comment">// Find the first video stream</span>
+videoStream=<span class="hljs-number">-1</span>;
+<span class="hljs-keyword">for</span>(i=<span class="hljs-number">0</span>; i&lt;pFormatCtx-&gt;nb_streams; i++)
+  <span class="hljs-keyword">if</span>(pFormatCtx-&gt;streams[i]-&gt;codec-&gt;codec_type==AVMEDIA_TYPE_VIDEO) {
+    videoStream=i;
+    <span class="hljs-keyword">break</span>;
+  }
+<span class="hljs-keyword">if</span>(videoStream==<span class="hljs-number">-1</span>)
+  <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// Didn't find a video stream</span>
+
+<span class="hljs-comment">// Get a pointer to the codec context for the video stream</span>
+pCodecCtx=pFormatCtx-&gt;streams[videoStream]-&gt;codec;
+</code></pre><p>流的编解码器信息被称为编解码器上下文， 这包含了流使用的编解码器的所有信息，现在我们有一个指向它的指针。 但是我们还是要找到实际的编解码器并打开它：</p><pre><code class="hljs ">AVCodec *pCodec = <span class="hljs-literal">NULL</span>;
+
+<span class="hljs-comment">// Find the decoder for the video stream</span>
+pCodec=avcodec_find_decoder(pCodecCtx-&gt;codec_id);
+<span class="hljs-keyword">if</span>(pCodec==<span class="hljs-literal">NULL</span>) {
+  <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">"Unsupported codec!\n"</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// Codec not found</span>
+}
+<span class="hljs-comment">// Copy context</span>
+pCodecCtx = avcodec_alloc_context3(pCodec);
+<span class="hljs-keyword">if</span>(avcodec_copy_context(pCodecCtx, pCodecCtxOrig) != <span class="hljs-number">0</span>) {
+  <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">"Couldn't copy codec context"</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// Error copying codec context</span>
+}
+<span class="hljs-comment">// Open codec</span>
+<span class="hljs-keyword">if</span>(avcodec_open2(pCodecCtx, pCodec)&lt;<span class="hljs-number">0</span>)
+  <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>; <span class="hljs-comment">// Could not open codec</span>
+</code></pre><p>注意我们不能直接从视频流中使用 <code>AVCodecContext</code> ， 因此，我们必须使用 <code>avcodec_alloc_context()</code> 将上下文复制到一个新的位置（为它分配内存）。</p><h3 id="labdoc-header-11">5.3 存储数据</h3>
+<p>现在需要一个空间来存储一帧的数据：</p><pre><code class="hljs ">AVFrame *pFrame = NULL<span class="hljs-comment">;</span>
+
+//Allocate video frame
+<span class="hljs-attribute">pFrame</span>=av_frame_alloc()<span class="hljs-comment">;</span>
+</code></pre><p>现在我们计划输出 PPM 图片文件，PPM 存储 24-bit 的 RGB ，它是 portable 像素图片，是有 netpbm 项目定义的一系列的 portable 图片格式中的一个。这些图片格式都相对比较容易处理，跟平台无关，所以称之为 portable，简单理解，就是比较直接的图片格式，比如 PPM，其实就是把每一个点的 RGB 分别保存起来。所以，PPM 格式的文件是没有压缩的，相对比较大，但是由于图片格式简单，一般作为图片处理的中间文件（不会丢失文件信息），或者作为简单的图片格式保存。</p><p>我们将帧从其原格式转换为RGB。 ffmpeg 函数库可以做这些转换。 对于大多数项目，都需要将初始格式转换为特定的格式。</p><pre><code class="hljs "><span class="hljs-comment">//Allocate an AVFrame structure</span>
+pFrameRGB = av_frame_alloc();
+<span class="hljs-keyword">if</span>(pFrameRGB == <span class="hljs-literal">NULL</span>)
+{
+  <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;
+}
+</code></pre><p>有了一帧的数据后，还需要将它存储在起来，<code>avpicture_get_size</code> 可以获取资源大小，然后我们分配内存空间：</p><pre><code class="hljs ">uint8_t *buffer = NULL<span class="hljs-comment">;</span>
+int numBytes<span class="hljs-comment">;</span>
+//Detemine required buffer size and allocate buffer
+numBytes = avpicture_get_size(<span class="hljs-name">PIX_FMT_RGB24</span>, pCodecCtx-&gt;width, pCodecCtx-&gt;height)<span class="hljs-comment">;</span>
+buffer = (<span class="hljs-name">uint8_t*</span> )av_malloc(<span class="hljs-name">numBytes*</span> sizeof(<span class="hljs-name">uint8_t</span>))<span class="hljs-comment">;</span>
+</code></pre><p><code>av_malloc</code> 是 <code>ffmpeg</code> 分配内存用的，它可以合理分配内存，避免泄漏，多次释放和其他的问题，接着用 <code>avpicture_fill</code> 来处理分配空间后的帧数据。<code>AVPicture</code> 结构是 <code>AVFrame</code> 结构的子集，早期的时候 <code>AVFrame</code> 和 <code>AVPicture</code> 是一样的结构：</p><pre><code class="hljs "><span class="hljs-function"><span class="hljs-title">avpicture_fill</span><span class="hljs-params">((AVPicture *)</span><span class="hljs-title">pFrameRGB</span></span>, buffer, PIX_FMT_RGB24, pCodecCtx-&gt;<span class="hljs-attribute">width</span>, pCodecCtx-&gt;height);
+</code></pre><h3 id="labdoc-header-12">5.4 读取数据</h3>
+<p>现在我们可以读取 video 中的数据流，将包中的数据转为 frame ，然后将 frame 转为我们需要的格式：</p><pre><code class="hljs ">struct SwsContent *sws_ctx = NULL;     
+int frameFinished;
+AVPacket packet;
+<span class="hljs-comment">// initialize SWS context for software scaling</span>
+<span class="hljs-function"><span class="hljs-title">sws_ctx</span> = sws_getContext(pCodecCtx-&gt;</span>width,
+    <span class="hljs-function"><span class="hljs-title">pCodecCtx</span>-&gt;</span>height,
+    <span class="hljs-function"><span class="hljs-title">pCodecCtx</span>-&gt;</span>pix_fmt,
+    <span class="hljs-function"><span class="hljs-title">pCodecCtx</span>-&gt;</span>width,
+    <span class="hljs-function"><span class="hljs-title">pCodecCtx</span>-&gt;</span>height,
+    PIX_FMT_RGB24,
+    SWS_BILINEAR,
+    NULL,
+    NULL,
+    NULL
+    );
+
+i=<span class="hljs-number">0</span>;
+<span class="hljs-keyword">while</span>(av_read_frame(pFormatCtx, &amp;packet)&gt;=<span class="hljs-number">0</span>) {
+  <span class="hljs-comment">// Is this a packet from the video stream?</span>
+  <span class="hljs-keyword">if</span>(packet.stream_index==videoStream) {
+    <span class="hljs-comment">// Decode video frame</span>
+    avcodec_decode_video2(pCodecCtx, pFrame, &amp;frameFinished, &amp;packet);
+
+    <span class="hljs-comment">// Did we get a video frame?</span>
+    <span class="hljs-keyword">if</span>(frameFinished) {
+    <span class="hljs-comment">// Convert the image from its native format to RGB</span>
+        <span class="hljs-function"><span class="hljs-title">sws_scale</span>(sws_ctx, (uint8_t const * const *)pFrame-&gt;</span><span class="hljs-keyword">data</span>,
+          <span class="hljs-function"><span class="hljs-title">pFrame</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">linesize</span>, 0, pCodecCtx-&gt;</span>height,
+          <span class="hljs-function"><span class="hljs-title">pFrameRGB</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">data</span>, pFrameRGB-&gt;</span>linesize);
+
+        <span class="hljs-comment">// Save the frame to disk</span>
+          S<span class="hljs-function"><span class="hljs-title">aveFrame</span>(pFrameRGB, pCodecCtx-&gt;</span>width, 
+                    <span class="hljs-function"><span class="hljs-title">pCodecCtx</span>-&gt;</span>height, i);
+          printf(<span class="hljs-string">"decode %d frame\n"</span>, i);
+          i++;
+    }
+  }
+
+  <span class="hljs-comment">// Free the packet that was allocated by av_read_frame</span>
+  av_free_packet(&amp;packet);
+}
+</code></pre><p>该过程同样很简单：<code>av_read_frame()</code> 读取一个数据包并将其存储在 <code>AVPacket struct</code> 中。 注意，我们只分配了数据包结构。<code>ffmpeg</code> 为我们分配了内部数据，由 <code>packet.data</code> 指向。 这可以通过 <code>av_free_packe()</code> 释放。 <code>avcodec_decode_video()</code> 将数据包转换为我们的帧。<code>avcodec_decode_video()</code> 为我们设置 <code>frameFinished</code> 。 最后，我们使用 <code>sws_scale()</code> 从格式 <code>pCodecCtx-&gt; pix_fmt</code> 转换为 RGB 。将 <code>AVFrame</code> 指针转换为 <code>AVPicture</code> 指针。 最后，我们将 frame 和 height 和 width 信息传递给 SaveFrame 函数。
+现在我们需要做的是使 <code>SaveFrame</code> 函数将 RGB 信息写入 PPM 格式的文件。</p><pre><code class="hljs "><span class="hljs-keyword">void</span> SaveFrame(AVFrame *pFrame, <span class="hljs-keyword">int</span> <span class="hljs-built_in">width</span>, <span class="hljs-keyword">int</span> <span class="hljs-built_in">height</span>, <span class="hljs-keyword">int</span> iFrame) {
+  FILE *pFile;
+  <span class="hljs-keyword">char</span> szFilename[<span class="hljs-number">32</span>];
+  <span class="hljs-keyword">int</span>  y;
+
+  <span class="hljs-comment">// Open file</span>
+  sprintf(szFilename, <span class="hljs-string">"frame%d.ppm"</span>, iFrame);
+  pFile=fopen(szFilename, <span class="hljs-string">"wb"</span>);
+  <span class="hljs-built_in">if</span>(pFile==NULL)
+    <span class="hljs-built_in">return</span>;
+
+  <span class="hljs-comment">// Write header</span>
+  fprintf(pFile, <span class="hljs-string">"P6\n%d %d\n255\n"</span>, <span class="hljs-built_in">width</span>, <span class="hljs-built_in">height</span>);
+
+  <span class="hljs-comment">// Write pixel data</span>
+  <span class="hljs-built_in">for</span>(y=<span class="hljs-number">0</span>; y&lt;<span class="hljs-built_in">height</span>; y++)
+    fwrite(pFrame-&gt;data[<span class="hljs-number">0</span>]+y*pFrame-&gt;linesize[<span class="hljs-number">0</span>], <span class="hljs-number">1</span>, <span class="hljs-built_in">width</span>*<span class="hljs-number">3</span>, pFile);
+
+  <span class="hljs-comment">// Close file</span>
+  fclose(pFile);
+}
+</code></pre><p>文件打开后，然后写入 RGB 数据。 我们一次写一行文件。 PPM文件是一个在长字符串中布局的 RGB 信息的文件。 
+现在，回到我们的main（）函数。 一旦我们完成从视频流读取，我们只需要清理内存：</p><pre><code class="hljs "><span class="hljs-comment">// Free the RGB image</span>
+<span class="hljs-selector-tag">av_free</span>(buffer);
+<span class="hljs-selector-tag">av_free</span>(pFrameRGB);
+
+<span class="hljs-comment">// Free the YUV frame</span>
+<span class="hljs-selector-tag">av_free</span>(pFrame);
+
+<span class="hljs-comment">// Close the codecs</span>
+<span class="hljs-selector-tag">avcodec_close</span>(pCodecCtx);
+<span class="hljs-selector-tag">avcodec_close</span>(pCodecCtxOrig);
+
+<span class="hljs-comment">// Close the video file</span>
+<span class="hljs-selector-tag">avformat_close_input</span>(&amp;pFormatCtx);
+
+<span class="hljs-selector-tag">return</span> <span class="hljs-selector-tag">0</span>;
+</code></pre><checker style="display: none">[{"name":"检查是否存在文件 project1.c","script":"#!/bin/bash\nls -l /home/shiyanlou/ffmpeg-2.8.8/project1.c\n","error":"我们发现您还没有完成程序 /home/shiyanlou/ffmpeg-2.8.8/project1.c\n"}]</checker><p>用 av_free 来清理通过 avcode_alloc_frame 和 av_malloc 分配的内存：</p><pre><code class="hljs ">gcc -Wall -ggdb project1.c  -I/usr/local/<span class="hljs-keyword">include</span>     -L/usr/local/<span class="hljs-class"><span class="hljs-keyword">lib</span> -<span class="hljs-title">lavformat</span> -<span class="hljs-title">lavcodec</span> -<span class="hljs-title">lva</span>-<span class="hljs-title">x11</span> -<span class="hljs-title">lva</span> -<span class="hljs-title">lxcb</span>-<span class="hljs-title">shm</span> -<span class="hljs-title">lxcb</span>-<span class="hljs-title">xfixes</span> -<span class="hljs-title">lxcb</span>-<span class="hljs-title">render</span> -<span class="hljs-title">lxcb</span>-<span class="hljs-title">shape</span> -<span class="hljs-title">lxcb</span> -<span class="hljs-title">lX11</span> -<span class="hljs-title">lasound</span> -<span class="hljs-title">lz</span> -<span class="hljs-title">lswresample</span> -<span class="hljs-title">lswscale</span> -<span class="hljs-title">lavutil</span> -<span class="hljs-title">lm</span> -<span class="hljs-title">pthread</span> -<span class="hljs-title">o</span> <span class="hljs-title">project1</span>.<span class="hljs-title">out</span> </span>
+</code></pre><pre><code class="hljs "><span class="hljs-string">./project1.out</span> <span class="hljs-string">./thoseyears.mp4</span>
+</code></pre><p><img src="./安装配置ffmpeg - 实验楼_files/wm(5)" alt="1-5.4-1"></p><p><img src="./安装配置ffmpeg - 实验楼_files/wm(6)" alt="1-5.4-2"></p><p>完成后可以看到在目录下多了很多的 ppm 文件，可以选择将 ppm 转为 jpg ，或者安装一个可以打开 ppm 文件格式的软件。所以我编写了一个 ffmpeg 的转码脚本1.sh，内容如下：</p><pre><code class="hljs "><span class="hljs-meta">#!/bin/sh</span>
+ff=`ls *.ppm`
+<span class="hljs-keyword">for</span> f <span class="hljs-keyword">in</span> <span class="hljs-variable">$ff</span>
+<span class="hljs-keyword">do</span>
+file=`<span class="hljs-built_in">echo</span>  <span class="hljs-variable">${f%.*}</span>`
+ffmpeg -i <span class="hljs-string">"<span class="hljs-variable">$file</span>"</span>.ppm <span class="hljs-string">"<span class="hljs-variable">$file</span>"</span>.jpg
+<span class="hljs-keyword">done</span> 
+mkdir -p jpgs
+mv *.jpg jpgs
+rm *.ppm
+</code></pre><pre><code class="hljs "><span class="hljs-keyword">sh </span><span class="hljs-number">1</span>.<span class="hljs-keyword">sh
+</span>
+</code></pre><p>为了简化操作，我们通过桌面操作进入我们的 jpgs 目录 /home/shiyanlou/ffmpeg-2.8.8/jpgs/，就可以看到相关的图片了。可以通过浏览器查看：</p><p><img src="./安装配置ffmpeg - 实验楼_files/wm(7)" alt="1-5.4-3"></p><p>完整的代码可以通过 1.3 节的链接获取。</p><h2 id="labdoc-header-13">六、实验总结</h2>
+<p>本节实验学习了 ffmpeg 的基本内容，并编程实现了视频内容转为图片，这也是一个获取壁纸的好办法嘛，你学会了吗?</p></div><div class="labdoc-copyright">*本课程内容，由作者授权实验楼发布，未经允许，禁止转载、下载及非法传播。</div></div>
+    
+    
+    
+    <a class="pull-right labdoc-page" href="https://www.shiyanlou.com/courses/682/labs/2239/document">
+        下一节：ffmpeg 结合sdl 播放视频
+    </a>
+    
+</div>
+
+</div>
+
+
+        
+        
+
+        
+        
+        </div>
+
+        <div class="modal fade" id="flash-message" tabindex="-1" role="dialog">
+            <div class="modal-dialog" rolw="document">
+            </div>
+        </div>
+        <div class="modal fade" id="modal-message" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">注意</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary confirm" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="new-loading new-loading-modal" id="new-loading-modal">
+            <div class="loading-wrapper">
+                <p class="loading-icon-lion">
+                    <img src="./安装配置ffmpeg - 实验楼_files/icon_loading.png" alt="">
+                </p>
+                <div class="progress">
+                    <div class="progress-bar load-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                        <span class="sr-only">0% Complete</span>
+                    </div>
+                </div>
+              <p class="loading-txt">
+                    加载中，精彩就在后面...
+              </p>
+              <p class="progress-reload">
+                  <a href="javascript:;" type="button" class="btn-progress-reload" title="">卡住了？点击重试</a>
+              </p>
+            </div>
+        </div>
+
+        
+<div class="modal fade" id="start-newlab">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始新实验</h3>
+			</div>
+			<div class="modal-body">
+                <p>一个实验正在进行，是否停止它，开始新实验？</p>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-newlab-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="start-evaluation-course">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始评估课实验</h3>
+			</div>
+			<div class="modal-body">
+                <div>
+                    <p>为了让评估结果更加准确，请注意以下操作：</p>
+                    <ul>
+                        <li>完成实验后点击「停止实验」按钮</li>
+                        <li>将代码提交到代码库</li>
+                        <li>尽可能详尽的撰写实验报告</li>
+                        <li>尽可能在实验操作的关键步骤截图</li>
+                        <li>尽可能减少无用操作</li>
+                        <li>尽可能高效的利用内存/CPU资源</li>
+                    </ul>
+                    <p>评估课还在不断完善中，我们真挚希望你能通过我们提供的这个平台，找到更好的发展机会。</p>
+                </div>
+                <br>
+                <div class="start-newlab"></div>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="vip-startlab-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4>请选择想使用的环境</h4>
+			</div>
+			<div class="modal-body">
+                <div class="start-newlab"></div>
+                
+                <div class="use-saved-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 oldvm">已保存的环境</button>
+                    <small class="last-saved-vm">
+                        最近保存：开发环境和剖析第一个 C 语言
+                    </small>
+                </div>
+                
+                <div class="use-tmp-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 newvm">该实验默认环境</button>
+                </div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade askquestion-modal" id="askquestion" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">发帖</h4>
+            </div>
+            <div class="modal-body words-ctrl">
+                <form class="form-horizontal" action="https://www.shiyanlou.com/questions/">
+                    <input name="_csrf_token" type="hidden" value="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqypoQ.dWq3s3V8Sn08bDKJCUBxguimFJE">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">标题</label>
+                        <div class="col-md-10">
+                            <input type="text" name="title" min="5" max="100" class="form-control syl-input" placeholder="至少输入5个字" value="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">描述</label>
+                        <div class="col-md-10">
+                              
+<div class="tabpanel mkeditor">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#mkeditor-editor" role="tab" data-toggle="tab">编辑</a>
+        </li>
+        <li role="presentation">
+            <a class="mkeditor-btn-view" href="https://www.shiyanlou.com/courses/682/labs/2234/document#mkeditor-viewer" role="tab" data-toggle="tab">预览</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active mkeditor-editor" id="mkeditor-editor" role="tabpanel">
+            
+            <div class="btn-group" role="group">
+            
+                <button type="button" class="btn btn-default mkeditor-btn-bold">
+                    <i class="fa fa-bold"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-italic">
+                    <i class="fa fa-italic"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-link">
+                    <i class="fa fa-link"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-quote">
+                    <i class="fa fa-quote-left"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-code">
+                    <i class="fa fa-code"></i>
+                </button>
+                <button type="button" style="display: none;position: relative;outline: 0;" class="btn btn-default question-btn-img">
+                    <i class="fa fa-image"></i>
+                    <div class="img-btn-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div type="button" class="btn btn-default screenshot-btn">
+                                    <i class="fa fa-cut"></i> 截取实验桌面
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="btn btn-default upload-image-btn">
+                                    <i class="fa fa-upload"></i> 上传本地图片
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <button id="mkeditor-pickfile" type="button" class="btn btn-default mkeditor-btn-img" style="z-index: 1;">
+                    <i class="fa fa-image"></i>
+                </button>
+                
+                <button type="button" class="btn btn-default mkeditor-btn-listol">
+                    <i class="fa fa-list-ol"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-listul">
+                    <i class="fa fa-list-ul"></i>
+                </button>
+            <div id="html5_1cq8lcjj71lqb1lp1kd7118317dl3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;"><input id="html5_1cq8lcjj71lqb1lp1kd7118317dl3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept=""></div></div>
+            <div class="btn-group pull-right" role="group">
+                <a style="font-size:12px; color:#666; text-decoration:underline;" href="https://www.shiyanlou.com/questions/764" target="_blank">
+                    <i class="fa fa-question-circle"></i>Markdown 语法
+                </a>
+            </div>
+            <textarea name="content" class="form-control syl-input content" min="0" max="20000" placeholder="推荐使用 Markdown 语法，至少输入 5 个字"></textarea>
+            <div class="help-block"></div>
+        </div>
+        <div class="tab-pane mkeditor-viewer markdown-body" id="mkeditor-viewer" role="tabpanel">
+            <div></div>
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none;">
+                        <label class="col-md-2 control-label">板块</label>
+                        <div class="col-md-10">
+                            <div class="q-types" data-type="">
+                            </div>
+                        </div>
+                    </div>
+                      
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span class="bottom-link" style="display:none;color:#999;background:#FFFFFF;font-size:14px;;border:none;float:left;padding-left:0;">
+                    😀 若纠错被确认，您将得到 3 个实验豆作为奖励
+                    <a type="button" href="https://www.shiyanlou.com/questions/16351" target="_blank" style="color:#00CC99;">
+                        了解详情
+                    </a>
+                </span>
+                <button type="button" class="btn syl-btn-default no-bg" data-dismiss="modal">取消</button>
+                <button type="button" class="submit-question btn syl-btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        
+        
+        
+        
+        
+
+        
+        <div class="modal fade" id="invite-user" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">邀请好友，双方都可获赠实验豆！</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="form-label">
+                            分享专属链接给好友，或粘贴到QQ群/微博/论坛，好友注册后，您和好友将分别获赠3个实验豆！
+                        </div>
+                        <input type="text" id="bstext" class="form-invite" value="https://www.shiyanlou.com/register?inviter=NTY0MzE5NjY5MzY4">
+                        
+                        <div id="msg-modal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade invite-vip-modal" id="invite-vip-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <img src="./安装配置ffmpeg - 实验楼_files/invite-vip-title.png" style="width:100%;">
+                    </div>
+                    <div class="modal-body">
+                        <div class="invite-vip-content">好友输入你的邀请码开通会员后，您将获赠30天标准会员兑换卡一张，多邀多得。好友可享受30元优惠！</div>
+                        <div class="invite-vip-code">
+                            您的专属邀请码：<span>8862XMF</span>
+                            <input style="position:fixed;left:10000px" type="text" id="copy-input" value="输入我的邀请码加入实验楼会员，可享受30元优惠！邀请码：8862XMF。3000多个编程实验在线实践，开始学习：https://www.shiyanlou.com/vip">
+                            <button class="btn btn-primary invite-vip-copy" data-clipboard-target="#copy-input">复制</button>
+                            <div class="invite-vip-copied">
+                                复制成功！
+                            </div>
+                        </div>
+                        <div class="invite-vip-share">
+                            <span>或分享到</span>
+                            <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#" class="invite-vip-weibo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#F47166"></circle>
+                                        <path fill="#FFF" d="M11.811 18C8.601 18 6 16.403 6 14.434c0-1.97 3.897-5.08 5.387-5.08.626 0 1.852.444.994 1.848-.06.098 1.935-.816 3.026-.215 1.091.602 0 1.568 0 1.676 0 .107 2.19.107 2.19 1.77 0 1.97-2.576 3.567-5.786 3.567zm5.019-7.872c.678.58.391 1.611.391 1.611a.353.353 0 0 1-.338.28h-.22c-.161 0-.247-.119-.2-.264 0 0 .277-.639-.085-1.047-.361-.408-1.098-.314-1.098-.314a.268.268 0 0 1-.282-.263v-.057c0-.159.124-.294.276-.315 0 0 .879-.211 1.556.369zm1.265-1.16c1.242 1.117.843 3.088.843 3.088-.024.22-.244.413-.48.413h-.14c-.235 0-.397-.185-.36-.414 0 0 .317-1.24-.428-2.257-.745-1.017-2.495-.844-2.495-.844a.405.405 0 0 1-.412-.407v-.111c0-.237.185-.424.412-.429 0 0 1.818-.156 3.06.961zm-5.861 8.437c2.05-.288 3.568-1.55 3.39-2.817-.178-1.268-1.985-2.062-4.035-1.774-2.05.288-3.569 1.55-3.39 2.817.178 1.268 1.984 2.062 4.035 1.774zm-.367-.448c-1.22.237-2.36-.354-2.549-1.32-.188-.967.649-1.943 1.868-2.18 1.22-.237 2.361.354 2.549 1.32.188.967-.649 1.943-1.868 2.18zm-.243-2.166c.207 0 .375-.16.375-.357a.366.366 0 0 0-.375-.357.366.366 0 0 0-.375.357c0 .197.168.357.375.357zm-.72 1.079c.376-.175.579-.534.454-.802-.125-.268-.53-.343-.906-.168-.375.175-.578.534-.453.802.125.267.53.343.905.168z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a href="https://www.shiyanlou.com/courses/682/labs/2234/document#" class="invite-vip-qq">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#76C1FF"></circle>
+                                        <path fill="#FFF" d="M8.293 11.189c-.061.17.028.277 0 .924-.008.174-.718.962-1 1.78-.279.812-.317 1.66.114 1.993.432.334.833-1.109.886-.9.022.092.051.188.085.286.138.393.37.828.706 1.235.068.083-.416.234-.706.756s.083 1.471 1.526 1.471c1.861 0 2.278-.692 2.315-.689.14.011.149 0 .296 0 .18 0 .105.016.272 0 .09-.008.995.829 2.247.69 2.134-.238 1.808-.994 1.64-1.472-.175-.498-.793-.731-.766-.763.512-.598.593-.964.766-1.513.071-.226.566 1.24.948.9.159-.143.476-.736.159-1.994-.318-1.257-.933-1.544-.92-1.78.029-.49.012-.835-.011-.924-.113-.432-.35-.337-.35-.432 0-2.49-1.77-4.507-3.953-4.507s-3.953 2.018-3.953 4.507c0 .197-.165.051-.301.432z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a class="qq-zone invite-vip-qzone" href="https://www.shiyanlou.com/courses/682/labs/2234/document#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path fill="#FFDB59" d="M12.5 0C19.403 0 25 5.597 25 12.5S19.403 25 12.5 25 0 19.403 0 12.5 5.597 0 12.5 0"></path>
+                                        <path fill="#FFF" d="M12.5 17.417s-4.606 2.785-4.89 2.558c-.285-.228.934-5.418.934-5.418S4.419 11.14 4.588 10.72c.17-.42 5.468-.79 5.468-.79S12.023 5 12.5 5c.477 0 2.445 4.93 2.445 4.93s5.322.372 5.468.79c.145.417-3.956 3.837-3.956 3.837s.05.332.11.579c.004.017-1.916.06-3.489 0-.825-.03-1.82-.184-1.82-.184l4.553-3.23s-1.646-.295-3.31-.354c-1.824-.065-3.69.11-3.957.177-.168.042 1.178.038 2.714.176 1.076.098 2.491.355 2.491.355L9.196 15.45s1.95.117 3.698.105c1.969-.013 3.746-.256 3.757-.21.343 1.477.975 4.392.74 4.63-.32.325-4.89-2.557-4.89-2.557"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        <div id="base-data" data-flash="false" data-is-login="true" data-jwt-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NTY2OTMiLCJpc3MiOiJzaGl5YW5sb3U6d2ViOmFwcCIsInVuYW1lIjoiXHU2NTcwXHU2MzZlXHU1MjA2XHU2NzkwXHU1ZTA4IiwiaXNfYWRtaW4iOmZhbHNlLCJleHAiOjE1NDAxMjMwNDEsImlhdCI6MTU0MDAzNjY0MX0.f0G1kVb_2vFzQ8cUIFl1oiCerywiPpY9oYkYjTg95QQ" data-user-id="656693" data-is-jwt="true" data-socket-url="wss://comet.shiyanlou.com" data-msg-user="" data-msg-system="" data-invite-code="8862XMF"></div>
+
+        <!-- 不带 CSS 的库 -->
+        <script async="" src="./安装配置ffmpeg - 实验楼_files/analytics.js.下载"></script><script src="./安装配置ffmpeg - 实验楼_files/polyfill.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/manifest.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/vendor.js.下载"></script>
+
+        <script src="./安装配置ffmpeg - 实验楼_files/jquery.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/jquery.form.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/jquery.menu-aim.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/jquery.qrcode.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/html2canvas.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/jspdf.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/clipboard.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/qiniu.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/plupload.full.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/echarts.min.js.下载"></script>
+        <!-- 不带 CSS 的库 end -->
+
+        <!-- 带有 CSS 的库 -->
+        <script src="./安装配置ffmpeg - 实验楼_files/bootstrap.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/bootstrap-switch.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/bootstrap-tour.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/bootstrap-table.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/bootstrap-table-zh-CN.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/bootstrap-table-filter-control.min.js.下载"></script>
+
+        <script src="./安装配置ffmpeg - 实验楼_files/ace.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/video.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/videojs-flash.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/katex.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/highlight.min.js.下载"></script>
+        <!-- 带有 CSS 的库 end -->
+
+        <script src="./安装配置ffmpeg - 实验楼_files/d3.min.js.下载"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/moment.min.js.下载" charset="utf-8"></script>
+        <script src="./安装配置ffmpeg - 实验楼_files/calendar-heatmap.js.下载"></script>
+
+        <script src="./安装配置ffmpeg - 实验楼_files/raven.min.js.下载" crossorigin="anonymous"></script>
+        <script>
+            Raven.config('https://7748db6c507a45cca1ba53ccb7dc0d51@sentry.shiyanlou.com/5', {
+                whitelistUrls: [/console/, /running/]
+            }).install();
+        </script>
+
+        
+        
+
+        
+<div id="jinja-data" data-qiniu-token-url="/api/qiniu/token" data-labid="2234" data-is-authenticated="true" data-tencent-labid="[877]" data-course-detail="/courses/682" data-left-time="0" data-course-id="682" data-userlab-id="None" data-question-form="/questions/meta" data-start-newlab-url="/courses/clear" data-courses-doc="/courses/labs/2234/document"></div>
+<script src="./安装配置ffmpeg - 实验楼_files/labDoc.js.下载"></script><div class="showTimeOut" style="display: none; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background: rgba(0, 0, 0, 0.8); text-align: center; z-index: 1600;"><i class="fa fa-spinner fa-pulse" style="margin-top: 326.8px; color: rgb(255, 255, 255); font-size: 35px;"></i></div>
+
+
+
+        
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-89338452-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+</body></html>

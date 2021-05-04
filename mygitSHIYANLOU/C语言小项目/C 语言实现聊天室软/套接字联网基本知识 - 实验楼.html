@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://www.shiyanlou.com/courses/602/labs/1991/document -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style class="vjs-styles-defaults">
+      .video-js {
+        width: 300px;
+        height: 150px;
+      }
+
+      .vjs-fluid {
+        padding-top: 56.25%
+      }
+    </style>
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="o-transform">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+        <meta name="csrf-token" content="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqzIng.a9TUuDaoj1xYgF11rl3q88L-nfo">
+        
+            
+                <title>套接字联网基本知识 - 实验楼</title>
+            
+        
+
+        
+        <meta content="实验楼是国内领先的IT在线编程及在线实训学习平台，专业导师提供精选的实践项目，创新的技术使得学习者无需配置繁琐的本地环境，随时在线流畅使用。以就业为导向，提供编程、运维、测试、云计算、大数据、数据库等全面的IT技术动手实践环境，提供Linux、Python、Java、C语言、Node.js、Hadoop、PHP、Docker、Git、R、SQL、MongoDB、Redis、Swift、Spark等千门热门课程。" name="description">
+        <meta content="实验楼,IT培训,IT教育,编程,在线编程,Linux,Linux教程,Linux操作系统,Python,Python教程,Python基础教程,Java,Java编程,C语言,大数据,Node.js,Hadoop,PHP,Docker,Git,R,SQL,MongoDB,Redis,Swift,Spark,在线实验,IT在线教育,编程入门,项目训练,项目实践,webIDE,软件开发" name="keywords">
+        
+        <meta content="实验楼，琛石科技" name="author">
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://static.shiyanlou.com/favicon.ico">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/fontawesome-all.min.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/font-awesome.min.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/bootstrap.min.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/bootstrap-switch.min.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/bootstrap-tour.min.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/bootstrap-table.min.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/katex.min.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/video-js.min.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/monokai-sublime.min.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/calendar-heatmap.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/styles.css">
+        <link rel="stylesheet" href="./套接字联网基本知识 - 实验楼_files/syl-styles.css">
+
+        
+<style>
+    .layout-fullscreen {
+        margin-top: 0;
+    }
+    .labdoc-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 18px;
+        color: #666;
+        background: #fff;
+        font-size: 16px;
+        border-bottom: solid 1px #eee;
+        z-index: 10;
+    }
+    .labdoc-header a {
+        color: #666;
+    }
+    .labdoc-header a:hover,
+    .labdoc-header a:focus {
+        color: #08bf91;;
+        text-decoration: none;
+    }
+    .labdoc-nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 20%;
+        height: calc(100% - 60px);
+        padding: 0 10px;
+        background-color: #f7f7f7;
+        background-image: url(https://static.shiyanlou.com/img/logo-water-mark.png);
+        background-repeat: no-repeat;
+        background-position: 50% calc(100% - 20px);
+        overflow: auto;
+    }
+    .labdoc-nav-content {
+        margin-left: 10px;
+    }
+    .labdoc-nav h2 {
+        padding: 5px 0;
+        font-size: 16px;
+    }
+    .labdoc-nav h3 {
+        padding: 5px 0;
+        margin-left: 20px;
+        font-size: 14px;
+    }
+    .labdoc-nav h2 a,
+    .labdoc-nav h3 a {
+        color: #666;
+        text-decoration: none;
+    }
+    .labdoc-nav h2:hover a,
+    .labdoc-nav h2:focus a,
+    .labdoc-nav h3:hover a,
+    .labdoc-nav h3:focus a,
+    .labdoc-nav h2.active a,
+    .labdoc-nav h3.active a {
+        color: #08bf91;
+        text-decoration: none;
+    }
+    .labdoc-content-container {
+        float: right;
+        width: 100%;
+        padding: 0;
+        margin-top: 60px;
+    }
+    .labdoc-content {
+        padding: 0 10px 20px;
+        background: #fff;
+    }
+    .labdoc-copyright {
+        margin-top: 30px;
+        color: #999;
+        font-size: 12px;
+        font-style:italic;
+    }
+    .lab-btns {
+        display: none;
+        position: fixed;
+        top: 30%;
+        right: 10px;
+        width: 56px;
+        text-align: center;
+        z-index: 10;
+    }
+    .lab-btns div {
+        margin-bottom: 4px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.20);
+    }
+    .lab-btns a {
+        display: block;
+        padding: 0 2px;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .lab-btns a:hover,
+    .lab-btns a:focus {
+        text-decoration: none;
+    }
+
+    .lab-btns img {
+        display: inline-block;
+        border-radius: 5px;
+    }
+    .lab-btns a img {
+        padding: 11px 0;
+    }
+    .lab-btns span {
+        display: none;
+        color: #08bf91;
+    }
+    .lab-btns a:hover img {
+        display: none;
+    }
+    .lab-btns a:hover span {
+        display: block;
+        width: 52px;
+        height: 52px;
+        padding-top: 8px;
+        text-align: center;
+    }
+    .labinfo {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 20%;
+        padding: 5px 20px;
+        background: cornsilk;
+        z-index: 10;
+    }
+    .labinfo-header {
+        margin-bottom: 20px;
+    }
+    .labinfo-body div {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+    .labinfo-body div {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+    .labinfo-body a {
+        margin: 10px 0;
+    }
+    .left-time a {
+        position: relative;
+        bottom: 1px;
+        padding: 4px 10px;
+        margin-left: 4px;
+        color: #fff;
+        background: #f66;
+        font-size: 14px;
+    }
+    .left-time a:hover,
+    .left-time a:focus {
+        color: #fff;
+    }
+    .labdoc-page,
+    .labdoc-page:focus,
+    .labdoc-page:hover {
+        padding: 20px;
+        color: #08bf91;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .course-warning {
+        width: 40%;
+        margin: 10px auto;
+        font-size: 18px;
+        text-align: center;
+    }
+    @media (min-width: 768px) {
+        .labdoc-nav,
+        .lab-btns {
+            display: block;
+        }
+        .labdoc-content-container {
+            width: 80%;
+        }
+        .labdoc-content {
+            padding: 0 100px 20px;
+        }
+    }
+</style>
+
+
+        
+        
+    <style type="text/css" abt="234"></style><style id="ace_editor.css">.ace_editor {position: relative;overflow: hidden;font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;direction: ltr;text-align: left;}.ace_scroller {position: absolute;overflow: hidden;top: 0;bottom: 0;background-color: inherit;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;cursor: text;}.ace_content {position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;min-width: 100%;}.ace_dragging .ace_scroller:before{position: absolute;top: 0;left: 0;right: 0;bottom: 0;content: '';background: rgba(250, 250, 250, 0.01);z-index: 1000;}.ace_dragging.ace_dark .ace_scroller:before{background: rgba(0, 0, 0, 0.01);}.ace_selecting, .ace_selecting * {cursor: text !important;}.ace_gutter {position: absolute;overflow : hidden;width: auto;top: 0;bottom: 0;left: 0;cursor: default;z-index: 4;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}.ace_gutter-active-line {position: absolute;left: 0;right: 0;}.ace_scroller.ace_scroll-left {box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;}.ace_gutter-cell {padding-left: 19px;padding-right: 6px;background-repeat: no-repeat;}.ace_gutter-cell.ace_error {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: 2px center;}.ace_gutter-cell.ace_warning {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");background-position: 2px center;}.ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");background-position: 2px center;}.ace_dark .ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");}.ace_scrollbar {position: absolute;right: 0;bottom: 0;z-index: 6;}.ace_scrollbar-inner {position: absolute;cursor: text;left: 0;top: 0;}.ace_scrollbar-v{overflow-x: hidden;overflow-y: scroll;top: 0;}.ace_scrollbar-h {overflow-x: scroll;overflow-y: hidden;left: 0;}.ace_print-margin {position: absolute;height: 100%;}.ace_text-input {position: absolute;z-index: 0;width: 0.5em;height: 1em;opacity: 0;background: transparent;-moz-appearance: none;appearance: none;border: none;resize: none;outline: none;overflow: hidden;font: inherit;padding: 0 1px;margin: 0 -1px;text-indent: -1em;-ms-user-select: text;-moz-user-select: text;-webkit-user-select: text;user-select: text;white-space: pre!important;}.ace_text-input.ace_composition {background: inherit;color: inherit;z-index: 1000;opacity: 1;text-indent: 0;}.ace_layer {z-index: 1;position: absolute;overflow: hidden;word-wrap: normal;white-space: pre;height: 100%;width: 100%;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;pointer-events: none;}.ace_gutter-layer {position: relative;width: auto;text-align: right;pointer-events: auto;}.ace_text-layer {font: inherit !important;}.ace_cjk {display: inline-block;text-align: center;}.ace_cursor-layer {z-index: 4;}.ace_cursor {z-index: 4;position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;border-left: 2px solid;transform: translatez(0);}.ace_slim-cursors .ace_cursor {border-left-width: 1px;}.ace_overwrite-cursors .ace_cursor {border-left-width: 0;border-bottom: 1px solid;}.ace_hidden-cursors .ace_cursor {opacity: 0.2;}.ace_smooth-blinking .ace_cursor {-webkit-transition: opacity 0.18s;transition: opacity 0.18s;}.ace_editor.ace_multiselect .ace_cursor {border-left-width: 1px;}.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {position: absolute;z-index: 3;}.ace_marker-layer .ace_selection {position: absolute;z-index: 5;}.ace_marker-layer .ace_bracket {position: absolute;z-index: 6;}.ace_marker-layer .ace_active-line {position: absolute;z-index: 2;}.ace_marker-layer .ace_selected-word {position: absolute;z-index: 4;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}.ace_line .ace_fold {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;display: inline-block;height: 11px;margin-top: -2px;vertical-align: middle;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");background-repeat: no-repeat, repeat-x;background-position: center center, top left;color: transparent;border: 1px solid black;border-radius: 2px;cursor: pointer;pointer-events: auto;}.ace_dark .ace_fold {}.ace_fold:hover{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");}.ace_tooltip {background-color: #FFF;background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));border: 1px solid gray;border-radius: 1px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);color: black;max-width: 100%;padding: 3px 4px;position: fixed;z-index: 999999;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;cursor: default;white-space: pre;word-wrap: break-word;line-height: normal;font-style: normal;font-weight: normal;letter-spacing: normal;pointer-events: none;}.ace_folding-enabled > .ace_gutter-cell {padding-right: 13px;}.ace_fold-widget {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;margin: 0 -12px 0 1px;display: none;width: 11px;vertical-align: top;background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: center;border-radius: 3px;border: 1px solid transparent;cursor: pointer;}.ace_folding-enabled .ace_fold-widget {display: inline-block;   }.ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");}.ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");}.ace_fold-widget:hover {border: 1px solid rgba(0, 0, 0, 0.3);background-color: rgba(255, 255, 255, 0.2);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);}.ace_fold-widget:active {border: 1px solid rgba(0, 0, 0, 0.4);background-color: rgba(0, 0, 0, 0.05);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);}.ace_dark .ace_fold-widget {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");}.ace_dark .ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget:hover {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);background-color: rgba(255, 255, 255, 0.1);}.ace_dark .ace_fold-widget:active {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);}.ace_fold-widget.ace_invalid {background-color: #FFB4B4;border-color: #DE5555;}.ace_fade-fold-widgets .ace_fold-widget {-webkit-transition: opacity 0.4s ease 0.05s;transition: opacity 0.4s ease 0.05s;opacity: 0;}.ace_fade-fold-widgets:hover .ace_fold-widget {-webkit-transition: opacity 0.05s ease 0.05s;transition: opacity 0.05s ease 0.05s;opacity:1;}.ace_underline {text-decoration: underline;}.ace_bold {font-weight: bold;}.ace_nobold .ace_bold {font-weight: normal;}.ace_italic {font-style: italic;}.ace_error-marker {background-color: rgba(255, 0, 0,0.2);position: absolute;z-index: 9;}.ace_highlight-marker {background-color: rgba(255, 255, 0,0.2);position: absolute;z-index: 8;}.ace_br1 {border-top-left-radius    : 3px;}.ace_br2 {border-top-right-radius   : 3px;}.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}.ace_br4 {border-bottom-right-radius: 3px;}.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}.ace_br8 {border-bottom-left-radius : 3px;}.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
+/*# sourceURL=ace/css/ace_editor.css */</style><style id="ace-tm">.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}
+/*# sourceURL=ace/css/ace-tm */</style><style>    .error_widget_wrapper {        background: inherit;        color: inherit;        border:none    }    .error_widget {        border-top: solid 2px;        border-bottom: solid 2px;        margin: 5px 0;        padding: 10px 40px;        white-space: pre-wrap;    }    .error_widget.ace_error, .error_widget_arrow.ace_error{        border-color: #ff5a5a    }    .error_widget.ace_warning, .error_widget_arrow.ace_warning{        border-color: #F1D817    }    .error_widget.ace_info, .error_widget_arrow.ace_info{        border-color: #5a5a5a    }    .error_widget.ace_ok, .error_widget_arrow.ace_ok{        border-color: #5aaa5a    }    .error_widget_arrow {        position: absolute;        border: solid 5px;        border-top-color: transparent!important;        border-right-color: transparent!important;        border-left-color: transparent!important;        top: -5px;    }</style><style type="text/css">
+.sidebox-my-contest-history[data-v-530b5260] {
+  overflow: hidden;
+}
+.sidebox-my-contest-record[data-v-530b5260] {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.sidebox-my-contest-record .pull-left[data-v-530b5260] {
+    width: 39%;
+    margin-right: 1%;
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebox-my-contest-record .pull-right[data-v-530b5260] {
+    width: 60%;
+}
+.sidebox-my-contest-record .challenge-meta-status[data-v-530b5260] {
+    position: relative;
+    bottom: 1px;
+}
+.sidebox-record-time[data-v-530b5260] {
+  display: inline-block;
+  margin-left: 4px;
+  color: #666;
+  font-size: 14px;
+}
+.sidebox-footer[data-v-530b5260] {
+  text-align: right;
+}
+.sidebox-footer a[data-v-530b5260] {
+    font-size: 14px;
+}
+</style><style type="text/css">
+.fade-enter-active[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  opacity: 0;
+}
+.header-message[data-v-07a2dd56] {
+  position: relative;
+}
+.header-message > a[data-v-07a2dd56] {
+  position: relative;
+  padding-top: 23px !important;
+}
+.header-message > a .icon[data-v-07a2dd56] {
+    width: 22px;
+}
+.popover[data-v-07a2dd56] {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: -66px;
+  width: 180px;
+  background: #fff;
+}
+.popover .msg-content[data-v-07a2dd56] {
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+.popover .msg-content a[data-v-07a2dd56] {
+      color: #f66;
+}
+.popover .msg-content a[data-v-07a2dd56]:focus, .popover .msg-content a[data-v-07a2dd56]:hover {
+        text-decoration: none;
+}
+.mark[data-v-07a2dd56] {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  padding: 0 5px;
+  color: #fff;
+  background: #f66;
+  font-size: 12px;
+  border-radius: 10px;
+  line-height: 16px;
+}
+@media (max-width: 768px) {
+.mark[data-v-07a2dd56] {
+    top: 14px;
+    right: calc(50% - 8px);
+}
+}
+</style><style type="text/css">
+.hidden[data-v-815c5224] {
+  display: none;
+}
+.show[data-v-815c5224] {
+  display: block;
+}
+.fade-enter-active[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  transition: opacity 0.5s;
+}
+.fade-enter[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  opacity: 0;
+}
+.header-userbox a[data-v-815c5224] {
+  display: block;
+  padding: 11px 0 11px 10px !important;
+}
+.header-avatar[data-v-815c5224] {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.vip-icon[data-v-815c5224] {
+  position: absolute;
+  bottom: 5px;
+  right: calc(50% - 30px);
+  width: 20px;
+  height: 20px;
+}
+@media (min-width: 768px) {
+.vip-icon[data-v-815c5224] {
+    right: 0;
+}
+}
+.user[data-v-815c5224] {
+  display: block;
+  position: absolute;
+  top: 60px;
+  left: -140px;
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 4px 1px #ccc;
+  z-index: 999 !important;
+}
+.user[data-v-815c5224]:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 220px;
+    height: 50px;
+}
+.user.popover > .arrow[data-v-815c5224] {
+    left: 63%;
+}
+.user-info[data-v-815c5224] {
+  overflow: hidden;
+}
+.user-info a[data-v-815c5224] {
+    float: left;
+    padding: 0 !important;
+}
+.user-info a img[data-v-815c5224] {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+}
+.username[data-v-815c5224] {
+  position: relative;
+}
+.username > img[data-v-815c5224] {
+    width: 20px;
+    position: absolute;
+    left: -30px;
+    bottom: 5px;
+}
+.username > span[data-v-815c5224] {
+    display: inline-block;
+    max-width: 150px;
+    color: #666;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.username > span.user-level[data-v-815c5224] {
+      color: #fec42d;
+      font-size: 14px;
+      font-weight: 700;
+}
+.username > p[data-v-815c5224] {
+    color: #a4a4a4;
+    font-size: 12px;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150px;
+    text-overflow: ellipsis;
+}
+.start-experiment[data-v-815c5224] {
+  margin-bottom: 10px;
+}
+.start-experiment > a[data-v-815c5224] {
+    display: inline-block;
+    width: 100%;
+    padding: 8px 0 !important;
+    margin: 10px 0;
+    background-color: #08bf91;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+.start-experiment > a[data-v-815c5224]:hover, .start-experiment > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #fff;
+}
+.marked-words[data-v-815c5224] {
+  width: 100%;
+  color: #a4a4a4 !important;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  position: absolute;
+  top: 130px;
+  left: 0;
+}
+.marked-words > a[data-v-815c5224] {
+    color: #a4a4a4 !important;
+    font-size: 12px;
+    padding: 0 !important;
+}
+.marked-words > a[data-v-815c5224]:hover, .marked-words > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #a4a4a4;
+}
+.user-links a[data-v-815c5224] {
+  padding: 4px 0 !important;
+  margin-top: 15px;
+  color: #3a3a3a;
+  text-align: center;
+  border: solid 1px #ccc;
+  border-radius: 20px;
+}
+.user-links a.member-index[data-v-815c5224] {
+    color: #f66;
+    border-color: #f66;
+}
+.user-links a[data-v-815c5224]:hover {
+    text-decoration: none;
+}
+.user-links .log-out[data-v-815c5224] {
+  padding-top: 20px;
+}
+.user-links .log-out a[data-v-815c5224] {
+    border: none;
+    padding: 0 !important;
+    color: #a4a4a4;
+    text-align: right;
+}
+</style><style type="text/css">
+.header-learn-info[data-v-33ac7940] {
+  float: right;
+  width: 100%;
+  padding: 23.5px 10px;
+  margin: 0;
+  position: relative;
+}
+.header-learn-info > span[data-v-33ac7940] {
+    font-size: 16px;
+    color: #666;
+}
+.header-learn-info > span img[data-v-33ac7940] {
+      transform: rotate(-90deg);
+}
+.header-learn-info > span[data-v-33ac7940]:hover {
+      cursor: pointer;
+}
+.home-page[data-v-33ac7940] {
+  color: #666;
+}
+.home-page[data-v-33ac7940]:hover {
+    text-decoration: none;
+    color: #08bf91;
+}
+@media (min-width: 768px) {
+.header-learn-info[data-v-33ac7940] {
+    width: auto;
+}
+}
+@media (max-width: 1200px) {
+.header-learn-info[data-v-33ac7940] {
+    display: none;
+}
+}
+.fade-enter-active[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  opacity: 0;
+}
+.learninfo-box[data-v-33ac7940] {
+  display: block;
+  width: 223px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  padding: 20px;
+  left: 35px;
+  background: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  border: none;
+}
+.learninfo-box .lab-running > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .lab-running .lab-running-name[data-v-33ac7940] {
+    font-size: 14px;
+    padding: 10px 0;
+}
+.learninfo-box .lab-running .lab-running-name > span[data-v-33ac7940] {
+      max-width: 60%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+}
+.learninfo-box .lab-running .lab-running-name .lab-continue[data-v-33ac7940] {
+      background: #08bf91;
+      font-size: 12px;
+      color: #fff;
+      border: none;
+      padding: 2px 12px;
+      margin-top: -1px;
+}
+.learninfo-box .learn-records > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .learn-records .records-list[data-v-33ac7940] {
+    margin-top: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940] {
+      display: inline-block;
+      font-size: 14px;
+      color: #666;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940]:hover {
+        text-decoration: none;
+        background-color: #f5f5f5;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940] {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940]:hover {
+      text-decoration: none;
+}
+@media (min-width: 768px) {
+.learninfo-box[data-v-33ac7940] {
+    left: -30px;
+    margin-bottom: 0;
+}
+}
+</style><style type="text/css">
+.input-group[data-v-68b3bbad] {
+  position: relative;
+}
+ul[data-v-68b3bbad] {
+  position: absolute;
+  top: 33px;
+  z-index: 100;
+  width: calc(100% - 46px);
+  padding: 0;
+  color: #7f7f7f;
+  background: #fff;
+  font-size: 14px;
+  border: solid 1px #ccc;
+  list-style: none;
+}
+ul li[data-v-68b3bbad] {
+    padding: 5px 11px;
+    cursor: pointer;
+}
+ul li.active[data-v-68b3bbad] {
+      background: #eee;
+}
+</style><style type="text/css">
+.side-new-contest .sidebox-body[data-v-7d67fa2d] {
+  overflow: hidden;
+}
+.side-new-contest .sidebox-body span[data-v-7d67fa2d] {
+    position: relative;
+    top: 4px;
+    color: #3a3a3a;
+    font-size: 14px;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d] {
+    padding: 2px 10px;
+    color: #08bf91;
+    font-size: 14px;
+    border: solid 1px #08bf91;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:hover, .side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:focus {
+      color: #fff;
+      background: #09bf91;
+}
+</style><style type="text/css">
+a[data-v-9b3c8994] {
+    display: inline-block;
+    vertical-align: middle;
+}
+@media (max-width: 768px) {
+a[data-v-9b3c8994] {
+        display: none;
+}
+}
+.fa[data-v-9b3c8994] {
+    padding: 4px;
+    color: #274a59;
+    background: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.fa[data-v-9b3c8994]:hover {
+    color: #ec5353;
+}
+.pull-left[data-v-9b3c8994] {
+    margin-left: 10px;
+}
+
+/*# sourceURL=/home/shiyanlou/shiyanlou/simplecloud/app/src/base/components/weibo.vue?211347e4 */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3NoaXlhbmxvdS9zaGl5YW5sb3Uvc2ltcGxlY2xvdWQvYXBwL3NyYy9iYXNlL2NvbXBvbmVudHMvd2VpYm8udnVlPzIxMTM0N2U0Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFtQ0E7SUFDQSxzQkFBQTtJQUNBLHVCQUFBO0NBQ0E7QUFDQTtBQUNBO1FBQ0EsY0FBQTtDQUNBO0NBQ0E7QUFDQTtJQUNBLGFBQUE7SUFDQSxlQUFBO0lBQ0EsaUJBQUE7SUFDQSxnQkFBQTtJQUNBLG1CQUFBO0NBQ0E7QUFDQTtJQUNBLGVBQUE7Q0FDQTtBQUNBO0lBQ0Esa0JBQUE7Q0FDQSIsImZpbGUiOiJ3ZWliby52dWUiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XG48YSA6aHJlZj1cImhyZWZcIiA6Y2xhc3M9XCJ7ICdidG4gYnRuLXByaW1hcnknOiBpc0J0biAsICdwdWxsLWxlZnQnOiBpc0xlZnR9XCIgdGFyZ2V0PVwiX2JsYW5rXCI+XG4gICAgPHNwYW4gdi1pZj1cImlzQnRuXCI+5YiG5Lqr5Yiw5b6u5Y2aPC9zcGFuPlxuICAgIDxpbWcgOnNyYz1cImljb25cIiBhbHQ9XCJcIj5cbjwvYT5cbjwvdGVtcGxhdGU+XG5cbjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gICAgcHJvcHM6IFsnaXNCdG4nLCAncGF0aCcsICd0aXRsZScsICdwaWMnLCAnaWNvbicsICdpc0xlZnQnLCAndXJsJ10sXG4gICAgZGF0YSgpIHtcbiAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgIGhyZWY6ICcnLFxuICAgICAgICAgICAgcGFyYW1zOiB7XG4gICAgICAgICAgICAgICAgdGl0bGU6IHRoaXMudGl0bGUsXG4gICAgICAgICAgICAgICAgYXBwa2V5OiAnMTM0MzcxMzA1MycsXG4gICAgICAgICAgICAgICAgcGljOiAodGhpcy5waWMgJiYgdGhpcy5waWMubGVuZ3RoKSA/IHRoaXMucGljIDogWydodHRwczovL3N0YXRpYy5zaGl5YW5sb3UuY29tL2ltZy9sb2dvLWJhc2UucG5nJ10sXG4gICAgICAgICAgICAgICAgc2VhcmNoUGljOiBmYWxzZSxcbiAgICAgICAgICAgICAgICB1cmw6IHRoaXMudXJsXG4gICAgICAgICAgICB9LFxuICAgICAgICAgICAgd2VpYm9Vcmw6IHRoaXMudXJsID8gYGh0dHA6Ly9zZXJ2aWNlLndlaWJvLmNvbS9zaGFyZS9zaGFyZS5waHA/dXJsPSR7dGhpcy51cmx9IGA6IGBodHRwOi8vc2VydmljZS53ZWliby5jb20vc2hhcmUvc2hhcmUucGhwP3VybD1odHRwczovL3d3dy5zaGl5YW5sb3UuY29tYCxcbiAgICAgICAgfTtcbiAgICB9LFxuICAgIG1vdW50ZWQoKSB7XG4gICAgICAgIHRoaXMuaHJlZiA9IGAke3RoaXMud2VpYm9Vcmx9JHt0aGlzLnBhdGh9YFxuICAgICAgICAgICAgKyBgJnRpdGxlPSR7ZW5jb2RlVVJJQ29tcG9uZW50KHRoaXMucGFyYW1zLnRpdGxlKX1gXG4gICAgICAgICAgICArIGAmYXBwa2V5PSR7dGhpcy5wYXJhbXMuYXBwa2V5fWBcbiAgICAgICAgICAgICsgYCZwaWM9JHt0aGlzLnBhcmFtcy5waWMuam9pbignfHwnKX1gXG4gICAgICAgICAgICArIGAmc2VhcmNoUGljPSR7dGhpcy5wYXJhbXMuc2VhcmNoUGljfWA7XG4gICAgICAgIHRoaXMuaHJlZiA9IGVuY29kZVVSSSh0aGlzLmhyZWYpXG4gICAgfVxufVxuPC9zY3JpcHQ+XG5cbjxzdHlsZSBzY29wZWQ+XG5hIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjhweCkge1xuICAgIGEge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cbn1cbi5mYSB7XG4gICAgcGFkZGluZzogNHB4O1xuICAgIGNvbG9yOiAjMjc0YTU5O1xuICAgIGJhY2tncm91bmQ6ICNmZmY7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbn1cbi5mYTpob3ZlciB7XG4gICAgY29sb3I6ICNlYzUzNTM7XG59XG4ucHVsbC1sZWZ0IHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbn1cbjwvc3R5bGU+XG5cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style><style type="text/css">
+.navbar-form[data-v-72bea96c] {
+  float: left !important;
+  padding: 10px 0;
+  margin: 8px 10px;
+}
+.form-group[data-v-72bea96c] {
+  position: relative;
+}
+label[data-v-72bea96c] {
+  display: inline;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: #3a3a3a;
+  font-size: 16px;
+}
+.form-control[data-v-72bea96c] {
+  width: 200px;
+  border-radius: 20px;
+}
+.search-autocomplete[data-v-72bea96c] {
+  position: absolute;
+  top: 35px;
+  left: 1px;
+  width: 195px;
+  padding: 4px;
+  border: solid 1px #ddd;
+  border-top: none;
+  background: #fff;
+  z-index: 1000;
+}
+.search-autocomplete a[data-v-72bea96c] {
+    display: block;
+    padding: 6px 8px;
+    color: #4c5157;
+    font-size: 13px;
+}
+.search-autocomplete a[data-v-72bea96c]:hover, .search-autocomplete a[data-v-72bea96c]:focus {
+      color: #fff;
+      background: #0c9;
+      text-decoration: none;
+}
+</style><script>//remove 17173 video ad
+doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+//remove baidu search ad
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+            all = document.body.querySelectorAll('.result.c-container[id="1"]');
+            //if(all.length == 1) return;
+            for(var i = 0; i < all.length; i++){
+                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
+                    all[i].style.display= "none";all[i].style.visibility='hidden';
+                }
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
+    };
+}
+//remove sohu video ad
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//remove 56.com video ad
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//fore iqiyi enable html5 player function
+if (document.URL.indexOf("iqiyi.com") >= 0){
+    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
+        document.cookie='player_forcedType=h5_VOD'
+        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
+            console.log('no reload')
+        }else{
+            location.reload()
+            localStorage.reloadTime = Date.now();
+        }
+    }
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+
+    <body>
+        <div style="height:0;width:0;visibility:hidden">
+            <img src="./套接字联网基本知识 - 实验楼_files/weixin_logo.png" alt="">
+        </div>
+        
+            
+        
+
+        
+
+
+        <div class="content-box">
+        
+<style>
+.layout-fullscreen {
+    margin-top: -20px;
+}
+</style>
+<div class="layout layout-fullscreen">
+    <div class="container">
+        
+        
+    </div>
+    
+<div class="lab-btns">
+    
+        
+
+        
+            
+        
+
+        
+            
+        
+
+        
+        <div>
+            <img src="./套接字联网基本知识 - 实验楼_files/best-study-way.png">
+            <a class=" member-vm lab-item-start  " data-mobile-url="/courses/602/labs/1991/document" data-url="/courses/start/1991" data-next="/courses/running">
+                <img src="./套接字联网基本知识 - 实验楼_files/labdoc-start.png">
+                
+                    <span>开始<br>实验</span>
+                
+            </a>
+        </div>
+    
+    <div>
+        <a data-toggle="modal" href="https://www.shiyanlou.com/courses/602/labs/1991/document#askquestion">
+            <img src="./套接字联网基本知识 - 实验楼_files/labdoc-question.png">
+            <span>我要<br>提问</span>
+        </a>
+    </div>
+    <div>
+        <a class="commit-error">
+            <img src="./套接字联网基本知识 - 实验楼_files/labdoc-jiucuo.png">
+            <span>我要<br>纠错</span>
+        </a>
+    </div>
+</div>
+<div class="labdoc-header">
+    <a href="https://www.shiyanlou.com/courses/602">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        C 语言实现聊天室软件
+    </a>
+    
+</div>
+<div class="labdoc-nav">
+    <div class="labdoc-nav-content">
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/602/labs/1991/document#labdoc-header-0">一、实验介绍</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/602/labs/1991/document#labdoc-header-1">二、实验步骤</a>
+                </h2>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/602/labs/1991/document#labdoc-header-2">2.1 TCP/IP 协议族基本知识</a>
+                </h3>
+            
+                <h3>
+                    <a href="https://www.shiyanlou.com/courses/602/labs/1991/document#labdoc-header-3">2.2 套接字联网有关的函数调用</a>
+                </h3>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/602/labs/1991/document#labdoc-header-4">三、实验总结</a>
+                </h2>
+            </div>
+    
+</div>
+<div class="labdoc-content-container">
+    <div class="markdown-body labdoc-content" id="labdoc-content"><div><h1 id="-">套接字联网基本知识</h1>
+<h2 id="labdoc-header-0">一、实验介绍</h2>
+<h4 id="1-1-">1.1 实验简介</h4>
+<p>本实验目的在于提供套接字联网的基本知识，为聊天室程序提供预备预备知识。</p><h4 id="1-2-">1.2 实验知识点</h4>
+<ul>
+<li>TCP/IP 协议族</li>
+<li>套接字编程概念</li>
+<li>套接字相关函数</li>
+</ul>
+<h4 id="1-3-">1.3 实验环境</h4>
+<ul>
+<li>xfce终端</li>
+</ul>
+<h4 id="1-4-">1.4 适合人群</h4>
+<p>本课程适合有 C 语言基础的同学学习，讲解了最基本的套接字联网，学习后熟悉建立套接字等操作流程。</p><h4 id="1-5-">1.5 代码获取</h4>
+<p><em>本节实验主要讲解基础知识，不含实际操作。</em></p><h2 id="labdoc-header-1">二、实验步骤</h2>
+<p>这一章节我们将正式开始讲解套接字联网，分步骤进行。</p><h3 id="labdoc-header-2">2.1 TCP/IP 协议族基本知识</h3>
+<h4 id="2-1-1-">2.1.1 常见的网络拓扑</h4>
+<p>两台主机通信的过程：应用进程产生消息，经由主机的 TCP/IP 协议栈发送到局域网（LAN），最后经过广域网（目前最大的广域网的因特网）中的网络设备（路由器）传给目的主机所在的局域网（LAN），最后经过局域网（LAN）将报文传送个目的主机，经由主机 TCP/IP 协议栈处理，将消息递交给目的应用程序。网络拓扑如下：</p><p><img src="./套接字联网基本知识 - 实验楼_files/wm" alt="1-2.1.1-1"></p><ul>
+<li>图中路由器是网络中的架构设备，是因特网的组成部分。</li>
+</ul>
+<h4 id="2-1-2-osi-tcp-ip-">2.1.2 OSI 和 TCP/IP 分层模型</h4>
+<p>OSI 模型是国际化标准组织定义的七层模型，和现行的 TCP/IP 协议族是等价的。OSI 的顶上三层等价于 TCP/IP 协议族的应用层（典型的有 Web、Telnet、FTP 等应用）。 OSI 底下两层等价于 TCP/IP 协议族中随系统提供的设备驱动程序和硬件。</p><p><img src="./套接字联网基本知识 - 实验楼_files/wm(1)" alt="1-2.1.2-1"></p><ul>
+<li><p>基于套接字的编程所处的位置是 TCP/IP 协议族应用层和传输层（TCP、UDP）的交界处。</p></li>
+<li><p>为什么套接字提供的是从 OSI 模型的顶上三层（TCP/IP 协议族的应用层）进入传输层的接口？两个原因如下：</p></li>
+</ul>
+<blockquote>
+<ol>
+<li><p>顶上三层处理具体网络应用的所有细节，却对通信细节了解很少；底下四层对具体网络应用了解不多，却处理所有的通信细节。</p></li>
+<li><p>顶上三层通常构成所谓的用户进程，底下四层却通常作为操作系统内核的一部分提供（Unix 与其他现代操作系统都提供分隔用户进程与内核的机制）由此可见，第4层和第5层之间的接口是构建 API 的自然位置。</p></li>
+</ol>
+</blockquote>
+<h4 id="2-1-3-tcp-">2.1.3 TCP 状态转移</h4>
+<p>TCP 是一个有限状态机，TCP 为一个连接定义了11中状态，并且 TCP 规则规定如何基于当前状态及该状态下所连接的分组从一个状态转换到另一个状态。例如：客户机的 TCP 连接状态经历的过程如下：首先处于起始点（CLOSE）状态，然后客户机主动打开，会转移到 SYN_SENT 状态。如果客户机接收到来自服务器的 SYN,ACK 报文，则发送 ACK 确认消息，并转移至 ESTABLISHED 状态，就可以收发消息了。</p><p><img src="./套接字联网基本知识 - 实验楼_files/wm(2)" alt="1-2.1.3-1"></p><ul>
+<li>粗实线表示通常的客户状态转换，用粗虚线表示通常的服务器状态转换。</li>
+</ul>
+<h4 id="2-1-4-tcp-">2.1.4 TCP 的分组交换流程</h4>
+<p>站在 Linux 系统编程的角度来看 TCP 协议栈的状态转移分为三个阶段讲解：</p><blockquote>
+<ol>
+<li><p>三次握手建立连接阶段：首先由客户机调用 <code>connect</code> 函数发起主动连接，激发 TCP 协议栈发送 SYN 报文；服务器协议栈收到该 SYN 报文后, 发送给处于 LISTEN  状态的套接字，应用进程通过 <code>accept</code> 函数激发 TCP 协议栈发送 SYN+ACK 报文，接受连接请求；客户机收到服务器 SYN+ACK 报文后发送确认 ACK 报文，进入 ESTABLISHED 状态；当服务器收到客户机 ACK 报文后，也进入ESTABLISHED 状态，<code>accept</code> 函数返回。</p></li>
+<li><p>数据传输阶段：这一阶段主要的任务就是通过调用 <code>read</code>，<code>write</code> 函数收发消息。</p></li>
+<li><p>四次挥手断开连接阶段：客户端发送一个 FIN，用来关闭客户到服务器的数据传送；服务器收到这个 FIN，它发回一个 ACK，确认序号为收到的序号加1。和SYN一样，一个FIN将占用一个序号；服务器关闭与客户端的连接，发送一个FIN给客户端；客户端发回ACK报文确认，并将确认序号设置为收到序号加1。</p></li>
+</ol>
+</blockquote>
+<p><img src="./套接字联网基本知识 - 实验楼_files/wm(3)" alt="1-2.1.4-1"></p><ul>
+<li>本项目的第二和第三个实验的编程将基于该流程进行。客户机创建套接字（<code>socket</code>），与服务器连接（<code>connnect</code>），成功后和内核 TCP 协议栈进行读写交互（<code>write</code>、<code>read</code>）来收发信息。</li>
+<li>服务器创建套接字（<code>socket</code>）、绑定到特定的服务器 IP 地址和端口（<code>bind</code>），然后将其设置为监听客户请求的状态（<code>listen</code>）。如果有来自客户机的请求，则接收连接（<code>accept</code>），成功后和内核 TCP 协议栈进行读写交互（<code>write</code>、<code>read</code>）来收发信息。</li>
+</ul>
+<h3 id="labdoc-header-3">2.2 套接字联网有关的函数调用</h3>
+<h4 id="2-2-1-socket-">2.2.1 <code>socket</code> 函数</h4>
+<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function">  </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">socket</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> protofamily, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> type, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> protocol)</span></span></span></span>;<span class="hljs-comment"><span class="hljs-comment">//返回sockfd,sockfd是描述符。  </span></span>
+</code></pre><blockquote>
+<ul>
+<li><p>功能： 
+<code>socket</code> 函数对应于普通文件的打开操作。普通文件的打开操作返回一个文件描述字，而 <code>socket()</code> 用于创建一个 <code>socket</code> 描述符（socket descriptor），它唯一标识一个 <code>socket</code>。这个 <code>socket</code> 描述字跟文件描述符一样，后续的操作都有用到它，把它作为参数，通过它来进行一些读写操作。</p></li>
+<li><p>参数：</p></li>
+</ul>
+<ol>
+<li><p><code>protofamily</code>：即协议域，又称为协议族（family）。常用的协议族有，<code>AF_INET</code>(IPV4)、<code>AF_INET6</code>(IPV6)、<code>AF_LOCAL</code>（或称 <code>AF_UNIX</code>，Unix域socket）、<code>AF_ROUTE</code>等等。协议族决定了socket的地址类型，在通信中必须采用对应的地址，如 <code>AF_INET</code> 决定了要用 <code>ipv4</code> 地址（32位的）与端口号（16位的）的组合、<code>AF_UNIX</code> 决定了要用一个绝对路径名作为地址。</p></li>
+<li><p><code>type</code>：指定 socket 类型。常用的 socket 类型有，<code>SOCK_STREAM</code>、<code>SOCK_DGRAM</code>、<code>SOCK_RAW</code>、<code>SOCK_PACKET</code>、<code>SOCK_SEQPACKET</code>等等。</p></li>
+<li><p><code>protocol</code>：故名思意，就是指定协议。常用的协议有，<code>IPPROTO_TCP</code>、<code>IPPTOTO_UDP</code>、<code>IPPROTO_SCTP</code>、<code>IPPROTO_TIPC</code> 等，它们分别对应 TCP 传输协议、UDP 传输协议、STCP 传输协议、TIPC 传输协议。</p></li>
+</ol>
+</blockquote>
+<h4 id="2-2-2-bind-">2.2.2 <code>bind</code> 函数</h4>
+<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">bind</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> sockfd, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> <span class="hljs-keyword">struct</span> sockaddr *addr, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">socklen_t</span></span></span></span><span class="hljs-function"><span class="hljs-params"> addrlen)</span></span></span></span>;
+</code></pre><blockquote>
+<ul>
+<li>功能：
+<code>bind()</code> 函数把一个地址族中的特定地址赋给socket。例如对应 <code>AF_INET</code>、<code>AF_INET6</code> 就是把一个 ipv4 或 ipv6 地址和端口号组合赋给 socket。 </li>
+<li>参数：</li>
+</ul>
+<ol>
+<li><code>sockfd</code>：即 socket 描述字，它是通过 <code>socket()</code> 函数创建了，唯一标识一个 socket。<code>bind()</code> 函数就是将给这个描述字绑定一个名字。</li>
+</ol>
+<ul>
+<li><code>addr</code>：一个 <code>const struct sockaddr *</code> 指针，指向要绑定给 sockfd 的协议地址。这个地址结构根据地址创建 socket 时的地址协议族的不同而不同。  </li>
+</ul>
+</blockquote>
+<p>ipv4 对应的是：</p><blockquote>
+<pre><code class="hljs cpp"> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">sockaddr_in</span> {</span>
+    <span class="hljs-keyword"><span class="hljs-keyword">sa_family_t</span></span>    sin_family; <span class="hljs-comment"><span class="hljs-comment">/* address family: AF_INET */</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">in_port_t</span></span>      sin_port;   <span class="hljs-comment"><span class="hljs-comment">/* port in network byte order */</span></span>
+    <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">in_addr</span> <span class="hljs-title">sin_addr</span>;</span>   <span class="hljs-comment"><span class="hljs-comment">/* internet address */</span></span>
+};
+<span class="hljs-comment"><span class="hljs-comment">/* Internet address. */</span></span>
+<span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">in_addr</span> {</span>
+    <span class="hljs-keyword"><span class="hljs-keyword">uint32_t</span></span>       s_addr;     <span class="hljs-comment"><span class="hljs-comment">/* address in network byte order */</span></span>
+};
+</code></pre></blockquote>
+<p>ipv6对应的是：</p><blockquote>
+<pre><code class="hljs cpp"> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">sockaddr_in6</span> {</span> 
+    <span class="hljs-keyword"><span class="hljs-keyword">sa_family_t</span></span>     sin6_family;   <span class="hljs-comment"><span class="hljs-comment">/* AF_INET6 */</span></span> 
+    <span class="hljs-keyword"><span class="hljs-keyword">in_port_t</span></span>       sin6_port;     <span class="hljs-comment"><span class="hljs-comment">/* port number */</span></span> 
+    <span class="hljs-keyword"><span class="hljs-keyword">uint32_t</span></span>        sin6_flowinfo; <span class="hljs-comment"><span class="hljs-comment">/* IPv6 flow information */</span></span> 
+    <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">in6_addr</span> <span class="hljs-title">sin6_addr</span>;</span>     <span class="hljs-comment"><span class="hljs-comment">/* IPv6 address */</span></span> 
+    <span class="hljs-keyword"><span class="hljs-keyword">uint32_t</span></span>        sin6_scope_id; <span class="hljs-comment"><span class="hljs-comment">/* Scope ID (new in 2.4) */</span></span> 
+};
+
+<span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">in6_addr</span> {</span> 
+    <span class="hljs-keyword"><span class="hljs-keyword">unsigned</span></span> <span class="hljs-keyword"><span class="hljs-keyword">char</span></span>   s6_addr[<span class="hljs-number"><span class="hljs-number">16</span></span>];   <span class="hljs-comment"><span class="hljs-comment">/* IPv6 address */</span></span> 
+};
+</code></pre></blockquote>
+<p>Unix域对应的是：</p><blockquote>
+<pre><code class="hljs cpp"> <span class="hljs-meta"><span class="hljs-meta">#</span><span class="hljs-meta-keyword"><span class="hljs-meta"><span class="hljs-meta-keyword">define</span></span></span><span class="hljs-meta"> UNIX_PATH_MAX    108</span></span>
+
+<span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">sockaddr_un</span> {</span> 
+    <span class="hljs-keyword"><span class="hljs-keyword">sa_family_t</span></span> sun_family;               <span class="hljs-comment"><span class="hljs-comment">/* AF_UNIX */</span></span> 
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span>        sun_path[UNIX_PATH_MAX];  <span class="hljs-comment"><span class="hljs-comment">/* pathname */</span></span> 
+}; 
+</code></pre></blockquote>
+<p>addrlen对应的是：</p><blockquote>
+<p>地址的长度。</p></blockquote>
+<h4 id="2-2-3-listen-">2.2.3 <code>listen</code> 函数</h4>
+<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">listen</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> sockfd, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> backlog)</span></span></span></span>;
+</code></pre><ul>
+<li><code>listen</code> 函数的第一个参数即为要监听的 socket 描述符，第二个参数为相应 socket 可以排队的最大连接个数。<code>socket()</code> 函数创建的 socket 默认是一个主动类型的，<code>listen</code> 函数将socket 变为被动类型的，等待客户的连接请求。 </li>
+</ul>
+<h4 id="2-2-4-connect-">2.2.4 <code>connect</code> 函数</h4>
+<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">connect</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> sockfd, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> <span class="hljs-keyword">struct</span> sockaddr *addr, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">socklen_t</span></span></span></span><span class="hljs-function"><span class="hljs-params"> addrlen)</span></span></span></span>;
+</code></pre><p><code>connect</code> 函数的第一个参数即为客户端的 socket 描述符，第二参数为服务器的 socket 地址，第三个参数为 socket 地址的长度。客户端通过调用 <code>connect</code> 函数来建立与 TCP 服务器的连接。</p><h4 id="2-2-5-accept-">2.2.5 <code>accept</code> 函数</h4>
+<pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">int</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">accept</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> sockfd, <span class="hljs-keyword">struct</span> sockaddr *addr, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">socklen_t</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *addrlen)</span></span></span></span>; <span class="hljs-comment"><span class="hljs-comment">//返回连接connect_fd</span></span>
+</code></pre><ul>
+<li><p>功能：</p><blockquote>
+<p>TCP 服务器端依次调用 <code>socket()</code>、<code>bind()</code>、<code>listen()</code> 之后，就会监听指定的 socket 地址了。TCP 客户端依次调用 <code>socket()</code>、<code>connect()</code> 之后就向 TCP 服务器发送了一个连接请求。TCP 服务器监听到这个请求之后，就会调用 <code>accept()</code> 函数取接收请求，这样连接就建立好了。之后就可以开始网络 I/O 操作了，即类同于普通文件的读写 I/O 操作。</p></blockquote>
+</li>
+<li><p>参数：</p><blockquote>
+<ol>
+<li><p>参数 <code>sockfd</code>
+参数 <code>sockfd</code> 就是上面解释中的监听套接字，这个套接字用来监听一个端口，当有一个客户与服务器连接时，它使用这个一个端口号，而此时这个端口号正与这个套接字关联。当然客户不知道套接字这些细节，它只知道一个地址和一个端口号。</p></li>
+<li><p>参数 <code>addr</code>
+这是一个结果参数，它用来接受一个返回值，这返回值指定客户端的地址，当然这个地址是通过某个地址结构来描述的，用户应该知道这一个什么样的地址结构。如果对客户的地址不感兴趣，那么可以把这个值设置为 <code>NULL</code>。</p></li>
+<li><p>参数 <code>len</code>
+如同大家所认为的，它也是结果的参数，用来接受上述 <code>addr</code> 的结构的大小的，它指明 <code>addr</code> 结构所占有的字节个数。同样的，它也可以被设置为 <code>NULL</code>。</p><p>如果 <code>accept</code> 成功返回，则服务器与客户已经正确建立连接了，此时服务器通过 <code>accept</code> 返回的套接字来完成与客户的通信。</p></li>
+</ol>
+</blockquote>
+</li>
+</ul>
+<h2 id="labdoc-header-4">三、实验总结</h2>
+<p>本实验讲解了套接字联网的基本知识，并细致的讲解了几个重要的套接字函数。</p><ul>
+<li>本实验的知识点总结如下图：  </li>
+</ul>
+<p>客户机创建套接字（<code>socket</code>），与服务器连接（<code>connnect</code>），成功后和内核 TCP 协议栈进行读写交互（<code>write</code>、<code>read</code>）来收发信息。<br>服务器创建套接字（<code>socket</code>）、绑定到特定的服务器 IP 地址和端口（<code>bind</code>），然后将其设置为监听客户请求的状态（<code>listen</code>）。如果有来自客户机的请求，则接收连接（<code>accept</code>），成功后和内核 TCP 协议栈进行读写交互（<code>write</code>、<code>read</code>）来收发信息。</p><p><img src="./套接字联网基本知识 - 实验楼_files/wm(4)" alt="1-3-1"></p><h4 id="-">参考资料</h4>
+<ul>
+<li><a href="https://book.douban.com/subject/1788421/" target="_blank">《UNIX环境高级编程》</a></li>
+</ul>
+</div><div class="labdoc-copyright">*本课程内容，由作者授权实验楼发布，未经允许，禁止转载、下载及非法传播。</div></div>
+    
+    
+    
+    <a class="pull-right labdoc-page" href="https://www.shiyanlou.com/courses/602/labs/1992/document">
+        下一节：聊天室服务器端程序
+    </a>
+    
+</div>
+
+</div>
+
+
+        
+        
+
+        
+        
+        </div>
+
+        <div class="modal fade" id="flash-message" tabindex="-1" role="dialog">
+            <div class="modal-dialog" rolw="document">
+            </div>
+        </div>
+        <div class="modal fade" id="modal-message" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">注意</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary confirm" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="new-loading new-loading-modal" id="new-loading-modal">
+            <div class="loading-wrapper">
+                <p class="loading-icon-lion">
+                    <img src="./套接字联网基本知识 - 实验楼_files/icon_loading.png" alt="">
+                </p>
+                <div class="progress">
+                    <div class="progress-bar load-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                        <span class="sr-only">0% Complete</span>
+                    </div>
+                </div>
+              <p class="loading-txt">
+                    加载中，精彩就在后面...
+              </p>
+              <p class="progress-reload">
+                  <a href="javascript:;" type="button" class="btn-progress-reload" title="">卡住了？点击重试</a>
+              </p>
+            </div>
+        </div>
+
+        
+<div class="modal fade" id="start-newlab">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始新实验</h3>
+			</div>
+			<div class="modal-body">
+                <p>一个实验正在进行，是否停止它，开始新实验？</p>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-newlab-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="start-evaluation-course">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始评估课实验</h3>
+			</div>
+			<div class="modal-body">
+                <div>
+                    <p>为了让评估结果更加准确，请注意以下操作：</p>
+                    <ul>
+                        <li>完成实验后点击「停止实验」按钮</li>
+                        <li>将代码提交到代码库</li>
+                        <li>尽可能详尽的撰写实验报告</li>
+                        <li>尽可能在实验操作的关键步骤截图</li>
+                        <li>尽可能减少无用操作</li>
+                        <li>尽可能高效的利用内存/CPU资源</li>
+                    </ul>
+                    <p>评估课还在不断完善中，我们真挚希望你能通过我们提供的这个平台，找到更好的发展机会。</p>
+                </div>
+                <br>
+                <div class="start-newlab"></div>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="vip-startlab-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4>请选择想使用的环境</h4>
+			</div>
+			<div class="modal-body">
+                <div class="start-newlab"></div>
+                
+                <div class="use-saved-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 oldvm">已保存的环境</button>
+                    <small class="last-saved-vm">
+                        最近保存：Django简介
+                    </small>
+                </div>
+                
+                <div class="use-tmp-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 newvm">该实验默认环境</button>
+                </div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade askquestion-modal" id="askquestion" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">发帖</h4>
+            </div>
+            <div class="modal-body words-ctrl">
+                <form class="form-horizontal" action="https://www.shiyanlou.com/questions/">
+                    <input name="_csrf_token" type="hidden" value="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqzIng.a9TUuDaoj1xYgF11rl3q88L-nfo">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">标题</label>
+                        <div class="col-md-10">
+                            <input type="text" name="title" min="5" max="100" class="form-control syl-input" placeholder="至少输入5个字" value="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">描述</label>
+                        <div class="col-md-10">
+                              
+<div class="tabpanel mkeditor">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="https://www.shiyanlou.com/courses/602/labs/1991/document#mkeditor-editor" role="tab" data-toggle="tab">编辑</a>
+        </li>
+        <li role="presentation">
+            <a class="mkeditor-btn-view" href="https://www.shiyanlou.com/courses/602/labs/1991/document#mkeditor-viewer" role="tab" data-toggle="tab">预览</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active mkeditor-editor" id="mkeditor-editor" role="tabpanel">
+            
+            <div class="btn-group" role="group">
+            
+                <button type="button" class="btn btn-default mkeditor-btn-bold">
+                    <i class="fa fa-bold"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-italic">
+                    <i class="fa fa-italic"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-link">
+                    <i class="fa fa-link"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-quote">
+                    <i class="fa fa-quote-left"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-code">
+                    <i class="fa fa-code"></i>
+                </button>
+                <button type="button" style="display: none;position: relative;outline: 0;" class="btn btn-default question-btn-img">
+                    <i class="fa fa-image"></i>
+                    <div class="img-btn-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div type="button" class="btn btn-default screenshot-btn">
+                                    <i class="fa fa-cut"></i> 截取实验桌面
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="btn btn-default upload-image-btn">
+                                    <i class="fa fa-upload"></i> 上传本地图片
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <button id="mkeditor-pickfile" type="button" class="btn btn-default mkeditor-btn-img" style="z-index: 1;">
+                    <i class="fa fa-image"></i>
+                </button>
+                
+                <button type="button" class="btn btn-default mkeditor-btn-listol">
+                    <i class="fa fa-list-ol"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-listul">
+                    <i class="fa fa-list-ul"></i>
+                </button>
+            <div id="html5_1cq8sun2062l15s71c3oo50qbg3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;"><input id="html5_1cq8sun2062l15s71c3oo50qbg3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept=""></div></div>
+            <div class="btn-group pull-right" role="group">
+                <a style="font-size:12px; color:#666; text-decoration:underline;" href="https://www.shiyanlou.com/questions/764" target="_blank">
+                    <i class="fa fa-question-circle"></i>Markdown 语法
+                </a>
+            </div>
+            <textarea name="content" class="form-control syl-input content" min="0" max="20000" placeholder="推荐使用 Markdown 语法，至少输入 5 个字"></textarea>
+            <div class="help-block"></div>
+        </div>
+        <div class="tab-pane mkeditor-viewer markdown-body" id="mkeditor-viewer" role="tabpanel">
+            <div></div>
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none;">
+                        <label class="col-md-2 control-label">板块</label>
+                        <div class="col-md-10">
+                            <div class="q-types" data-type="">
+                            </div>
+                        </div>
+                    </div>
+                      
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span class="bottom-link" style="display:none;color:#999;background:#FFFFFF;font-size:14px;;border:none;float:left;padding-left:0;">
+                    😀 若纠错被确认，您将得到 3 个实验豆作为奖励
+                    <a type="button" href="https://www.shiyanlou.com/questions/16351" target="_blank" style="color:#00CC99;">
+                        了解详情
+                    </a>
+                </span>
+                <button type="button" class="btn syl-btn-default no-bg" data-dismiss="modal">取消</button>
+                <button type="button" class="submit-question btn syl-btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        
+        
+        
+        
+        
+
+        
+        <div class="modal fade" id="invite-user" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">邀请好友，双方都可获赠实验豆！</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="form-label">
+                            分享专属链接给好友，或粘贴到QQ群/微博/论坛，好友注册后，您和好友将分别获赠3个实验豆！
+                        </div>
+                        <input type="text" id="bstext" class="form-invite" value="https://www.shiyanlou.com/register?inviter=NTY0MzE5NjY5MzY4">
+                        
+                        <div id="msg-modal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade invite-vip-modal" id="invite-vip-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <img src="./套接字联网基本知识 - 实验楼_files/invite-vip-title.png" style="width:100%;">
+                    </div>
+                    <div class="modal-body">
+                        <div class="invite-vip-content">好友输入你的邀请码开通会员后，您将获赠30天标准会员兑换卡一张，多邀多得。好友可享受30元优惠！</div>
+                        <div class="invite-vip-code">
+                            您的专属邀请码：<span>8862XMF</span>
+                            <input style="position:fixed;left:10000px" type="text" id="copy-input" value="输入我的邀请码加入实验楼会员，可享受30元优惠！邀请码：8862XMF。3000多个编程实验在线实践，开始学习：https://www.shiyanlou.com/vip">
+                            <button class="btn btn-primary invite-vip-copy" data-clipboard-target="#copy-input">复制</button>
+                            <div class="invite-vip-copied">
+                                复制成功！
+                            </div>
+                        </div>
+                        <div class="invite-vip-share">
+                            <span>或分享到</span>
+                            <a href="https://www.shiyanlou.com/courses/602/labs/1991/document#" class="invite-vip-weibo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#F47166"></circle>
+                                        <path fill="#FFF" d="M11.811 18C8.601 18 6 16.403 6 14.434c0-1.97 3.897-5.08 5.387-5.08.626 0 1.852.444.994 1.848-.06.098 1.935-.816 3.026-.215 1.091.602 0 1.568 0 1.676 0 .107 2.19.107 2.19 1.77 0 1.97-2.576 3.567-5.786 3.567zm5.019-7.872c.678.58.391 1.611.391 1.611a.353.353 0 0 1-.338.28h-.22c-.161 0-.247-.119-.2-.264 0 0 .277-.639-.085-1.047-.361-.408-1.098-.314-1.098-.314a.268.268 0 0 1-.282-.263v-.057c0-.159.124-.294.276-.315 0 0 .879-.211 1.556.369zm1.265-1.16c1.242 1.117.843 3.088.843 3.088-.024.22-.244.413-.48.413h-.14c-.235 0-.397-.185-.36-.414 0 0 .317-1.24-.428-2.257-.745-1.017-2.495-.844-2.495-.844a.405.405 0 0 1-.412-.407v-.111c0-.237.185-.424.412-.429 0 0 1.818-.156 3.06.961zm-5.861 8.437c2.05-.288 3.568-1.55 3.39-2.817-.178-1.268-1.985-2.062-4.035-1.774-2.05.288-3.569 1.55-3.39 2.817.178 1.268 1.984 2.062 4.035 1.774zm-.367-.448c-1.22.237-2.36-.354-2.549-1.32-.188-.967.649-1.943 1.868-2.18 1.22-.237 2.361.354 2.549 1.32.188.967-.649 1.943-1.868 2.18zm-.243-2.166c.207 0 .375-.16.375-.357a.366.366 0 0 0-.375-.357.366.366 0 0 0-.375.357c0 .197.168.357.375.357zm-.72 1.079c.376-.175.579-.534.454-.802-.125-.268-.53-.343-.906-.168-.375.175-.578.534-.453.802.125.267.53.343.905.168z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a href="https://www.shiyanlou.com/courses/602/labs/1991/document#" class="invite-vip-qq">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#76C1FF"></circle>
+                                        <path fill="#FFF" d="M8.293 11.189c-.061.17.028.277 0 .924-.008.174-.718.962-1 1.78-.279.812-.317 1.66.114 1.993.432.334.833-1.109.886-.9.022.092.051.188.085.286.138.393.37.828.706 1.235.068.083-.416.234-.706.756s.083 1.471 1.526 1.471c1.861 0 2.278-.692 2.315-.689.14.011.149 0 .296 0 .18 0 .105.016.272 0 .09-.008.995.829 2.247.69 2.134-.238 1.808-.994 1.64-1.472-.175-.498-.793-.731-.766-.763.512-.598.593-.964.766-1.513.071-.226.566 1.24.948.9.159-.143.476-.736.159-1.994-.318-1.257-.933-1.544-.92-1.78.029-.49.012-.835-.011-.924-.113-.432-.35-.337-.35-.432 0-2.49-1.77-4.507-3.953-4.507s-3.953 2.018-3.953 4.507c0 .197-.165.051-.301.432z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a class="qq-zone invite-vip-qzone" href="https://www.shiyanlou.com/courses/602/labs/1991/document#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path fill="#FFDB59" d="M12.5 0C19.403 0 25 5.597 25 12.5S19.403 25 12.5 25 0 19.403 0 12.5 5.597 0 12.5 0"></path>
+                                        <path fill="#FFF" d="M12.5 17.417s-4.606 2.785-4.89 2.558c-.285-.228.934-5.418.934-5.418S4.419 11.14 4.588 10.72c.17-.42 5.468-.79 5.468-.79S12.023 5 12.5 5c.477 0 2.445 4.93 2.445 4.93s5.322.372 5.468.79c.145.417-3.956 3.837-3.956 3.837s.05.332.11.579c.004.017-1.916.06-3.489 0-.825-.03-1.82-.184-1.82-.184l4.553-3.23s-1.646-.295-3.31-.354c-1.824-.065-3.69.11-3.957.177-.168.042 1.178.038 2.714.176 1.076.098 2.491.355 2.491.355L9.196 15.45s1.95.117 3.698.105c1.969-.013 3.746-.256 3.757-.21.343 1.477.975 4.392.74 4.63-.32.325-4.89-2.557-4.89-2.557"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        <div id="base-data" data-flash="false" data-is-login="true" data-jwt-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NTY2OTMiLCJpc3MiOiJzaGl5YW5sb3U6d2ViOmFwcCIsInVuYW1lIjoiXHU2NTcwXHU2MzZlXHU1MjA2XHU2NzkwXHU1ZTA4IiwiaXNfYWRtaW4iOmZhbHNlLCJleHAiOjE1NDAxMzA5NzQsImlhdCI6MTU0MDA0NDU3NH0.RlX-Xxe7xxNPzSLfkr9xSA8nrcWz87EM74uUQtAoJnY" data-user-id="656693" data-is-jwt="true" data-socket-url="wss://comet.shiyanlou.com" data-msg-user="" data-msg-system="" data-invite-code="8862XMF"></div>
+
+        <!-- 不带 CSS 的库 -->
+        <script async="" src="./套接字联网基本知识 - 实验楼_files/analytics.js.下载"></script><script src="./套接字联网基本知识 - 实验楼_files/polyfill.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/manifest.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/vendor.js.下载"></script>
+
+        <script src="./套接字联网基本知识 - 实验楼_files/jquery.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/jquery.form.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/jquery.menu-aim.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/jquery.qrcode.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/html2canvas.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/jspdf.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/clipboard.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/qiniu.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/plupload.full.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/echarts.min.js.下载"></script>
+        <!-- 不带 CSS 的库 end -->
+
+        <!-- 带有 CSS 的库 -->
+        <script src="./套接字联网基本知识 - 实验楼_files/bootstrap.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/bootstrap-switch.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/bootstrap-tour.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/bootstrap-table.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/bootstrap-table-zh-CN.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/bootstrap-table-filter-control.min.js.下载"></script>
+
+        <script src="./套接字联网基本知识 - 实验楼_files/ace.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/video.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/videojs-flash.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/katex.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/highlight.min.js.下载"></script>
+        <!-- 带有 CSS 的库 end -->
+
+        <script src="./套接字联网基本知识 - 实验楼_files/d3.min.js.下载"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/moment.min.js.下载" charset="utf-8"></script>
+        <script src="./套接字联网基本知识 - 实验楼_files/calendar-heatmap.js.下载"></script>
+
+        <script src="./套接字联网基本知识 - 实验楼_files/raven.min.js.下载" crossorigin="anonymous"></script>
+        <script>
+            Raven.config('https://7748db6c507a45cca1ba53ccb7dc0d51@sentry.shiyanlou.com/5', {
+                whitelistUrls: [/console/, /running/]
+            }).install();
+        </script>
+
+        
+        
+
+        
+<div id="jinja-data" data-qiniu-token-url="/api/qiniu/token" data-labid="1991" data-is-authenticated="true" data-tencent-labid="[877]" data-course-detail="/courses/602" data-left-time="0" data-course-id="602" data-userlab-id="None" data-question-form="/questions/meta" data-start-newlab-url="/courses/clear" data-courses-doc="/courses/labs/1991/document"></div>
+<script src="./套接字联网基本知识 - 实验楼_files/labDoc.js.下载"></script><div class="showTimeOut" style="display: none; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background: rgba(0, 0, 0, 0.8); text-align: center; z-index: 1600;"><i class="fa fa-spinner fa-pulse" style="margin-top: 359.6px; color: rgb(255, 255, 255); font-size: 35px;"></i></div>
+
+
+
+        
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-89338452-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+</body></html>

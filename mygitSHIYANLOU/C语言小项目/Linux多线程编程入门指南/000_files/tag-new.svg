@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="17" viewBox="0 0 16 17">
+    <g fill="none" fill-rule="evenodd">
+        <path fill="#F35555" d="M0 0h16v14H5.364L0 16.125V14z"/>
+        <text fill="#FFF" font-family="MicrosoftYaHei, Microsoft YaHei" font-size="10">
+            <tspan x="4" y="11">N</tspan>
+        </text>
+    </g>
+</svg>

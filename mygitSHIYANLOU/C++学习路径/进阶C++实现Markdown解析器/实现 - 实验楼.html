@@ -1,0 +1,1918 @@
+<!DOCTYPE html>
+<!-- saved from url=(0056)https://www.shiyanlou.com/courses/569/labs/1959/document -->
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style class="vjs-styles-defaults">
+      .video-js {
+        width: 300px;
+        height: 150px;
+      }
+
+      .vjs-fluid {
+        padding-top: 56.25%
+      }
+    </style>
+        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="o-transform">
+        <meta http-equiv="Cache-Control" content="no-siteapp">
+        <meta name="csrf-token" content="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqyrFw.CDARK1-geNu3gEcfiGHNZdp26Bg">
+        
+            
+                <title>实现 - 实验楼</title>
+            
+        
+
+        
+        <meta content="实验楼是国内领先的IT在线编程及在线实训学习平台，专业导师提供精选的实践项目，创新的技术使得学习者无需配置繁琐的本地环境，随时在线流畅使用。以就业为导向，提供编程、运维、测试、云计算、大数据、数据库等全面的IT技术动手实践环境，提供Linux、Python、Java、C语言、Node.js、Hadoop、PHP、Docker、Git、R、SQL、MongoDB、Redis、Swift、Spark等千门热门课程。" name="description">
+        <meta content="实验楼,IT培训,IT教育,编程,在线编程,Linux,Linux教程,Linux操作系统,Python,Python教程,Python基础教程,Java,Java编程,C语言,大数据,Node.js,Hadoop,PHP,Docker,Git,R,SQL,MongoDB,Redis,Swift,Spark,在线实验,IT在线教育,编程入门,项目训练,项目实践,webIDE,软件开发" name="keywords">
+        
+        <meta content="实验楼，琛石科技" name="author">
+
+        <link rel="shortcut icon" type="image/x-icon" href="https://static.shiyanlou.com/favicon.ico">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/fontawesome-all.min.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/font-awesome.min.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/bootstrap.min.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/bootstrap-switch.min.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/bootstrap-tour.min.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/bootstrap-table.min.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/katex.min.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/video-js.min.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/monokai-sublime.min.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/calendar-heatmap.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/styles.css">
+        <link rel="stylesheet" href="./实现 - 实验楼_files/syl-styles.css">
+
+        
+<style>
+    .layout-fullscreen {
+        margin-top: 0;
+    }
+    .labdoc-header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        padding: 18px;
+        color: #666;
+        background: #fff;
+        font-size: 16px;
+        border-bottom: solid 1px #eee;
+        z-index: 10;
+    }
+    .labdoc-header a {
+        color: #666;
+    }
+    .labdoc-header a:hover,
+    .labdoc-header a:focus {
+        color: #08bf91;;
+        text-decoration: none;
+    }
+    .labdoc-nav {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        width: 20%;
+        height: calc(100% - 60px);
+        padding: 0 10px;
+        background-color: #f7f7f7;
+        background-image: url(https://static.shiyanlou.com/img/logo-water-mark.png);
+        background-repeat: no-repeat;
+        background-position: 50% calc(100% - 20px);
+        overflow: auto;
+    }
+    .labdoc-nav-content {
+        margin-left: 10px;
+    }
+    .labdoc-nav h2 {
+        padding: 5px 0;
+        font-size: 16px;
+    }
+    .labdoc-nav h3 {
+        padding: 5px 0;
+        margin-left: 20px;
+        font-size: 14px;
+    }
+    .labdoc-nav h2 a,
+    .labdoc-nav h3 a {
+        color: #666;
+        text-decoration: none;
+    }
+    .labdoc-nav h2:hover a,
+    .labdoc-nav h2:focus a,
+    .labdoc-nav h3:hover a,
+    .labdoc-nav h3:focus a,
+    .labdoc-nav h2.active a,
+    .labdoc-nav h3.active a {
+        color: #08bf91;
+        text-decoration: none;
+    }
+    .labdoc-content-container {
+        float: right;
+        width: 100%;
+        padding: 0;
+        margin-top: 60px;
+    }
+    .labdoc-content {
+        padding: 0 10px 20px;
+        background: #fff;
+    }
+    .labdoc-copyright {
+        margin-top: 30px;
+        color: #999;
+        font-size: 12px;
+        font-style:italic;
+    }
+    .lab-btns {
+        display: none;
+        position: fixed;
+        top: 30%;
+        right: 10px;
+        width: 56px;
+        text-align: center;
+        z-index: 10;
+    }
+    .lab-btns div {
+        margin-bottom: 4px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.20);
+    }
+    .lab-btns a {
+        display: block;
+        padding: 0 2px;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .lab-btns a:hover,
+    .lab-btns a:focus {
+        text-decoration: none;
+    }
+
+    .lab-btns img {
+        display: inline-block;
+        border-radius: 5px;
+    }
+    .lab-btns a img {
+        padding: 11px 0;
+    }
+    .lab-btns span {
+        display: none;
+        color: #08bf91;
+    }
+    .lab-btns a:hover img {
+        display: none;
+    }
+    .lab-btns a:hover span {
+        display: block;
+        width: 52px;
+        height: 52px;
+        padding-top: 8px;
+        text-align: center;
+    }
+    .labinfo {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 20%;
+        padding: 5px 20px;
+        background: cornsilk;
+        z-index: 10;
+    }
+    .labinfo-header {
+        margin-bottom: 20px;
+    }
+    .labinfo-body div {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+    .labinfo-body div {
+        margin: 10px 0;
+        font-size: 16px;
+    }
+    .labinfo-body a {
+        margin: 10px 0;
+    }
+    .left-time a {
+        position: relative;
+        bottom: 1px;
+        padding: 4px 10px;
+        margin-left: 4px;
+        color: #fff;
+        background: #f66;
+        font-size: 14px;
+    }
+    .left-time a:hover,
+    .left-time a:focus {
+        color: #fff;
+    }
+    .labdoc-page,
+    .labdoc-page:focus,
+    .labdoc-page:hover {
+        padding: 20px;
+        color: #08bf91;
+        font-size: 16px;
+        text-decoration: none;
+    }
+    .course-warning {
+        width: 40%;
+        margin: 10px auto;
+        font-size: 18px;
+        text-align: center;
+    }
+    @media (min-width: 768px) {
+        .labdoc-nav,
+        .lab-btns {
+            display: block;
+        }
+        .labdoc-content-container {
+            width: 80%;
+        }
+        .labdoc-content {
+            padding: 0 100px 20px;
+        }
+    }
+</style>
+
+
+        
+        
+    <style type="text/css" abt="234"></style><style id="ace_editor.css">.ace_editor {position: relative;overflow: hidden;font: 12px/normal 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;direction: ltr;text-align: left;}.ace_scroller {position: absolute;overflow: hidden;top: 0;bottom: 0;background-color: inherit;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;cursor: text;}.ace_content {position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;min-width: 100%;}.ace_dragging .ace_scroller:before{position: absolute;top: 0;left: 0;right: 0;bottom: 0;content: '';background: rgba(250, 250, 250, 0.01);z-index: 1000;}.ace_dragging.ace_dark .ace_scroller:before{background: rgba(0, 0, 0, 0.01);}.ace_selecting, .ace_selecting * {cursor: text !important;}.ace_gutter {position: absolute;overflow : hidden;width: auto;top: 0;bottom: 0;left: 0;cursor: default;z-index: 4;-ms-user-select: none;-moz-user-select: none;-webkit-user-select: none;user-select: none;}.ace_gutter-active-line {position: absolute;left: 0;right: 0;}.ace_scroller.ace_scroll-left {box-shadow: 17px 0 16px -16px rgba(0, 0, 0, 0.4) inset;}.ace_gutter-cell {padding-left: 19px;padding-right: 6px;background-repeat: no-repeat;}.ace_gutter-cell.ace_error {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAABOFBMVEX/////////QRswFAb/Ui4wFAYwFAYwFAaWGAfDRymzOSH/PxswFAb/SiUwFAYwFAbUPRvjQiDllog5HhHdRybsTi3/Tyv9Tir+Syj/UC3////XurebMBIwFAb/RSHbPx/gUzfdwL3kzMivKBAwFAbbvbnhPx66NhowFAYwFAaZJg8wFAaxKBDZurf/RB6mMxb/SCMwFAYwFAbxQB3+RB4wFAb/Qhy4Oh+4QifbNRcwFAYwFAYwFAb/QRzdNhgwFAYwFAbav7v/Uy7oaE68MBK5LxLewr/r2NXewLswFAaxJw4wFAbkPRy2PyYwFAaxKhLm1tMwFAazPiQwFAaUGAb/QBrfOx3bvrv/VC/maE4wFAbRPBq6MRO8Qynew8Dp2tjfwb0wFAbx6eju5+by6uns4uH9/f36+vr/GkHjAAAAYnRSTlMAGt+64rnWu/bo8eAA4InH3+DwoN7j4eLi4xP99Nfg4+b+/u9B/eDs1MD1mO7+4PHg2MXa347g7vDizMLN4eG+Pv7i5evs/v79yu7S3/DV7/498Yv24eH+4ufQ3Ozu/v7+y13sRqwAAADLSURBVHjaZc/XDsFgGIBhtDrshlitmk2IrbHFqL2pvXf/+78DPokj7+Fz9qpU/9UXJIlhmPaTaQ6QPaz0mm+5gwkgovcV6GZzd5JtCQwgsxoHOvJO15kleRLAnMgHFIESUEPmawB9ngmelTtipwwfASilxOLyiV5UVUyVAfbG0cCPHig+GBkzAENHS0AstVF6bacZIOzgLmxsHbt2OecNgJC83JERmePUYq8ARGkJx6XtFsdddBQgZE2nPR6CICZhawjA4Fb/chv+399kfR+MMMDGOQAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: 2px center;}.ace_gutter-cell.ace_warning {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAmVBMVEX///8AAAD///8AAAAAAABPSzb/5sAAAAB/blH/73z/ulkAAAAAAAD85pkAAAAAAAACAgP/vGz/rkDerGbGrV7/pkQICAf////e0IsAAAD/oED/qTvhrnUAAAD/yHD/njcAAADuv2r/nz//oTj/p064oGf/zHAAAAA9Nir/tFIAAAD/tlTiuWf/tkIAAACynXEAAAAAAAAtIRW7zBpBAAAAM3RSTlMAABR1m7RXO8Ln31Z36zT+neXe5OzooRDfn+TZ4p3h2hTf4t3k3ucyrN1K5+Xaks52Sfs9CXgrAAAAjklEQVR42o3PbQ+CIBQFYEwboPhSYgoYunIqqLn6/z8uYdH8Vmdnu9vz4WwXgN/xTPRD2+sgOcZjsge/whXZgUaYYvT8QnuJaUrjrHUQreGczuEafQCO/SJTufTbroWsPgsllVhq3wJEk2jUSzX3CUEDJC84707djRc5MTAQxoLgupWRwW6UB5fS++NV8AbOZgnsC7BpEAAAAABJRU5ErkJggg==");background-position: 2px center;}.ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAAAAAA6mKC9AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAJ0Uk5TAAB2k804AAAAPklEQVQY02NgIB68QuO3tiLznjAwpKTgNyDbMegwisCHZUETUZV0ZqOquBpXj2rtnpSJT1AEnnRmL2OgGgAAIKkRQap2htgAAAAASUVORK5CYII=");background-position: 2px center;}.ace_dark .ace_gutter-cell.ace_info {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQBAMAAADt3eJSAAAAJFBMVEUAAAChoaGAgIAqKiq+vr6tra1ZWVmUlJSbm5s8PDxubm56enrdgzg3AAAAAXRSTlMAQObYZgAAAClJREFUeNpjYMAPdsMYHegyJZFQBlsUlMFVCWUYKkAZMxZAGdxlDMQBAG+TBP4B6RyJAAAAAElFTkSuQmCC");}.ace_scrollbar {position: absolute;right: 0;bottom: 0;z-index: 6;}.ace_scrollbar-inner {position: absolute;cursor: text;left: 0;top: 0;}.ace_scrollbar-v{overflow-x: hidden;overflow-y: scroll;top: 0;}.ace_scrollbar-h {overflow-x: scroll;overflow-y: hidden;left: 0;}.ace_print-margin {position: absolute;height: 100%;}.ace_text-input {position: absolute;z-index: 0;width: 0.5em;height: 1em;opacity: 0;background: transparent;-moz-appearance: none;appearance: none;border: none;resize: none;outline: none;overflow: hidden;font: inherit;padding: 0 1px;margin: 0 -1px;text-indent: -1em;-ms-user-select: text;-moz-user-select: text;-webkit-user-select: text;user-select: text;white-space: pre!important;}.ace_text-input.ace_composition {background: inherit;color: inherit;z-index: 1000;opacity: 1;text-indent: 0;}.ace_layer {z-index: 1;position: absolute;overflow: hidden;word-wrap: normal;white-space: pre;height: 100%;width: 100%;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;pointer-events: none;}.ace_gutter-layer {position: relative;width: auto;text-align: right;pointer-events: auto;}.ace_text-layer {font: inherit !important;}.ace_cjk {display: inline-block;text-align: center;}.ace_cursor-layer {z-index: 4;}.ace_cursor {z-index: 4;position: absolute;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;border-left: 2px solid;transform: translatez(0);}.ace_slim-cursors .ace_cursor {border-left-width: 1px;}.ace_overwrite-cursors .ace_cursor {border-left-width: 0;border-bottom: 1px solid;}.ace_hidden-cursors .ace_cursor {opacity: 0.2;}.ace_smooth-blinking .ace_cursor {-webkit-transition: opacity 0.18s;transition: opacity 0.18s;}.ace_editor.ace_multiselect .ace_cursor {border-left-width: 1px;}.ace_marker-layer .ace_step, .ace_marker-layer .ace_stack {position: absolute;z-index: 3;}.ace_marker-layer .ace_selection {position: absolute;z-index: 5;}.ace_marker-layer .ace_bracket {position: absolute;z-index: 6;}.ace_marker-layer .ace_active-line {position: absolute;z-index: 2;}.ace_marker-layer .ace_selected-word {position: absolute;z-index: 4;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;}.ace_line .ace_fold {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;display: inline-block;height: 11px;margin-top: -2px;vertical-align: middle;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACJJREFUeNpi+P//fxgTAwPDBxDxD078RSX+YeEyDFMCIMAAI3INmXiwf2YAAAAASUVORK5CYII=");background-repeat: no-repeat, repeat-x;background-position: center center, top left;color: transparent;border: 1px solid black;border-radius: 2px;cursor: pointer;pointer-events: auto;}.ace_dark .ace_fold {}.ace_fold:hover{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABEAAAAJCAYAAADU6McMAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAJpJREFUeNpi/P//PwOlgAXGYGRklAVSokD8GmjwY1wasKljQpYACtpCFeADcHVQfQyMQAwzwAZI3wJKvCLkfKBaMSClBlR7BOQikCFGQEErIH0VqkabiGCAqwUadAzZJRxQr/0gwiXIal8zQQPnNVTgJ1TdawL0T5gBIP1MUJNhBv2HKoQHHjqNrA4WO4zY0glyNKLT2KIfIMAAQsdgGiXvgnYAAAAASUVORK5CYII="),url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAA3CAYAAADNNiA5AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAACBJREFUeNpi+P//fz4TAwPDZxDxD5X4i5fLMEwJgAADAEPVDbjNw87ZAAAAAElFTkSuQmCC");}.ace_tooltip {background-color: #FFF;background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.1));background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.1));border: 1px solid gray;border-radius: 1px;box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);color: black;max-width: 100%;padding: 3px 4px;position: fixed;z-index: 999999;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;cursor: default;white-space: pre;word-wrap: break-word;line-height: normal;font-style: normal;font-weight: normal;letter-spacing: normal;pointer-events: none;}.ace_folding-enabled > .ace_gutter-cell {padding-right: 13px;}.ace_fold-widget {-moz-box-sizing: border-box;-webkit-box-sizing: border-box;box-sizing: border-box;margin: 0 -12px 0 1px;display: none;width: 11px;vertical-align: top;background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42mWKsQ0AMAzC8ixLlrzQjzmBiEjp0A6WwBCSPgKAXoLkqSot7nN3yMwR7pZ32NzpKkVoDBUxKAAAAABJRU5ErkJggg==");background-repeat: no-repeat;background-position: center;border-radius: 3px;border: 1px solid transparent;cursor: pointer;}.ace_folding-enabled .ace_fold-widget {display: inline-block;   }.ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAANElEQVR42m3HwQkAMAhD0YzsRchFKI7sAikeWkrxwScEB0nh5e7KTPWimZki4tYfVbX+MNl4pyZXejUO1QAAAABJRU5ErkJggg==");}.ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAGCAYAAAAG5SQMAAAAOUlEQVR42jXKwQkAMAgDwKwqKD4EwQ26sSOkVWjgIIHAzPiCgaqiqnJHZnKICBERHN194O5b9vbLuAVRL+l0YWnZAAAAAElFTkSuQmCCXA==");}.ace_fold-widget:hover {border: 1px solid rgba(0, 0, 0, 0.3);background-color: rgba(255, 255, 255, 0.2);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.7);}.ace_fold-widget:active {border: 1px solid rgba(0, 0, 0, 0.4);background-color: rgba(0, 0, 0, 0.05);box-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);}.ace_dark .ace_fold-widget {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHklEQVQIW2P4//8/AzoGEQ7oGCaLLAhWiSwB146BAQCSTPYocqT0AAAAAElFTkSuQmCC");}.ace_dark .ace_fold-widget.ace_end {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAH0lEQVQIW2P4//8/AxQ7wNjIAjDMgC4AxjCVKBirIAAF0kz2rlhxpAAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget.ace_closed {background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAAFCAYAAACAcVaiAAAAHElEQVQIW2P4//+/AxAzgDADlOOAznHAKgPWAwARji8UIDTfQQAAAABJRU5ErkJggg==");}.ace_dark .ace_fold-widget:hover {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);background-color: rgba(255, 255, 255, 0.1);}.ace_dark .ace_fold-widget:active {box-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);}.ace_fold-widget.ace_invalid {background-color: #FFB4B4;border-color: #DE5555;}.ace_fade-fold-widgets .ace_fold-widget {-webkit-transition: opacity 0.4s ease 0.05s;transition: opacity 0.4s ease 0.05s;opacity: 0;}.ace_fade-fold-widgets:hover .ace_fold-widget {-webkit-transition: opacity 0.05s ease 0.05s;transition: opacity 0.05s ease 0.05s;opacity:1;}.ace_underline {text-decoration: underline;}.ace_bold {font-weight: bold;}.ace_nobold .ace_bold {font-weight: normal;}.ace_italic {font-style: italic;}.ace_error-marker {background-color: rgba(255, 0, 0,0.2);position: absolute;z-index: 9;}.ace_highlight-marker {background-color: rgba(255, 255, 0,0.2);position: absolute;z-index: 8;}.ace_br1 {border-top-left-radius    : 3px;}.ace_br2 {border-top-right-radius   : 3px;}.ace_br3 {border-top-left-radius    : 3px; border-top-right-radius:    3px;}.ace_br4 {border-bottom-right-radius: 3px;}.ace_br5 {border-top-left-radius    : 3px; border-bottom-right-radius: 3px;}.ace_br6 {border-top-right-radius   : 3px; border-bottom-right-radius: 3px;}.ace_br7 {border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px;}.ace_br8 {border-bottom-left-radius : 3px;}.ace_br9 {border-top-left-radius    : 3px; border-bottom-left-radius:  3px;}.ace_br10{border-top-right-radius   : 3px; border-bottom-left-radius:  3px;}.ace_br11{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-left-radius:  3px;}.ace_br12{border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br13{border-top-left-radius    : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br14{border-top-right-radius   : 3px; border-bottom-right-radius: 3px; border-bottom-left-radius:  3px;}.ace_br15{border-top-left-radius    : 3px; border-top-right-radius:    3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px;}
+/*# sourceURL=ace/css/ace_editor.css */</style><style id="ace-tm">.ace-tm .ace_gutter {background: #f0f0f0;color: #333;}.ace-tm .ace_print-margin {width: 1px;background: #e8e8e8;}.ace-tm .ace_fold {background-color: #6B72E6;}.ace-tm {background-color: #FFFFFF;color: black;}.ace-tm .ace_cursor {color: black;}.ace-tm .ace_invisible {color: rgb(191, 191, 191);}.ace-tm .ace_storage,.ace-tm .ace_keyword {color: blue;}.ace-tm .ace_constant {color: rgb(197, 6, 11);}.ace-tm .ace_constant.ace_buildin {color: rgb(88, 72, 246);}.ace-tm .ace_constant.ace_language {color: rgb(88, 92, 246);}.ace-tm .ace_constant.ace_library {color: rgb(6, 150, 14);}.ace-tm .ace_invalid {background-color: rgba(255, 0, 0, 0.1);color: red;}.ace-tm .ace_support.ace_function {color: rgb(60, 76, 114);}.ace-tm .ace_support.ace_constant {color: rgb(6, 150, 14);}.ace-tm .ace_support.ace_type,.ace-tm .ace_support.ace_class {color: rgb(109, 121, 222);}.ace-tm .ace_keyword.ace_operator {color: rgb(104, 118, 135);}.ace-tm .ace_string {color: rgb(3, 106, 7);}.ace-tm .ace_comment {color: rgb(76, 136, 107);}.ace-tm .ace_comment.ace_doc {color: rgb(0, 102, 255);}.ace-tm .ace_comment.ace_doc.ace_tag {color: rgb(128, 159, 191);}.ace-tm .ace_constant.ace_numeric {color: rgb(0, 0, 205);}.ace-tm .ace_variable {color: rgb(49, 132, 149);}.ace-tm .ace_xml-pe {color: rgb(104, 104, 91);}.ace-tm .ace_entity.ace_name.ace_function {color: #0000A2;}.ace-tm .ace_heading {color: rgb(12, 7, 255);}.ace-tm .ace_list {color:rgb(185, 6, 144);}.ace-tm .ace_meta.ace_tag {color:rgb(0, 22, 142);}.ace-tm .ace_string.ace_regex {color: rgb(255, 0, 0)}.ace-tm .ace_marker-layer .ace_selection {background: rgb(181, 213, 255);}.ace-tm.ace_multiselect .ace_selection.ace_start {box-shadow: 0 0 3px 0px white;}.ace-tm .ace_marker-layer .ace_step {background: rgb(252, 255, 0);}.ace-tm .ace_marker-layer .ace_stack {background: rgb(164, 229, 101);}.ace-tm .ace_marker-layer .ace_bracket {margin: -1px 0 0 -1px;border: 1px solid rgb(192, 192, 192);}.ace-tm .ace_marker-layer .ace_active-line {background: rgba(0, 0, 0, 0.07);}.ace-tm .ace_gutter-active-line {background-color : #dcdcdc;}.ace-tm .ace_marker-layer .ace_selected-word {background: rgb(250, 250, 255);border: 1px solid rgb(200, 200, 250);}.ace-tm .ace_indent-guide {background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAE0lEQVQImWP4////f4bLly//BwAmVgd1/w11/gAAAABJRU5ErkJggg==") right repeat-y;}
+/*# sourceURL=ace/css/ace-tm */</style><style>    .error_widget_wrapper {        background: inherit;        color: inherit;        border:none    }    .error_widget {        border-top: solid 2px;        border-bottom: solid 2px;        margin: 5px 0;        padding: 10px 40px;        white-space: pre-wrap;    }    .error_widget.ace_error, .error_widget_arrow.ace_error{        border-color: #ff5a5a    }    .error_widget.ace_warning, .error_widget_arrow.ace_warning{        border-color: #F1D817    }    .error_widget.ace_info, .error_widget_arrow.ace_info{        border-color: #5a5a5a    }    .error_widget.ace_ok, .error_widget_arrow.ace_ok{        border-color: #5aaa5a    }    .error_widget_arrow {        position: absolute;        border: solid 5px;        border-top-color: transparent!important;        border-right-color: transparent!important;        border-left-color: transparent!important;        top: -5px;    }</style><style type="text/css">
+.sidebox-my-contest-history[data-v-530b5260] {
+  overflow: hidden;
+}
+.sidebox-my-contest-record[data-v-530b5260] {
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.sidebox-my-contest-record .pull-left[data-v-530b5260] {
+    width: 39%;
+    margin-right: 1%;
+    color: #666;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.sidebox-my-contest-record .pull-right[data-v-530b5260] {
+    width: 60%;
+}
+.sidebox-my-contest-record .challenge-meta-status[data-v-530b5260] {
+    position: relative;
+    bottom: 1px;
+}
+.sidebox-record-time[data-v-530b5260] {
+  display: inline-block;
+  margin-left: 4px;
+  color: #666;
+  font-size: 14px;
+}
+.sidebox-footer[data-v-530b5260] {
+  text-align: right;
+}
+.sidebox-footer a[data-v-530b5260] {
+    font-size: 14px;
+}
+</style><style type="text/css">
+.fade-enter-active[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-07a2dd56],
+.fade-leave-active[data-v-07a2dd56] {
+  opacity: 0;
+}
+.header-message[data-v-07a2dd56] {
+  position: relative;
+}
+.header-message > a[data-v-07a2dd56] {
+  position: relative;
+  padding-top: 23px !important;
+}
+.header-message > a .icon[data-v-07a2dd56] {
+    width: 22px;
+}
+.popover[data-v-07a2dd56] {
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: -66px;
+  width: 180px;
+  background: #fff;
+}
+.popover .msg-content[data-v-07a2dd56] {
+    padding: 8px;
+    font-size: 14px;
+    text-align: center;
+}
+.popover .msg-content a[data-v-07a2dd56] {
+      color: #f66;
+}
+.popover .msg-content a[data-v-07a2dd56]:focus, .popover .msg-content a[data-v-07a2dd56]:hover {
+        text-decoration: none;
+}
+.mark[data-v-07a2dd56] {
+  position: absolute;
+  top: 26px;
+  left: 26px;
+  padding: 0 5px;
+  color: #fff;
+  background: #f66;
+  font-size: 12px;
+  border-radius: 10px;
+  line-height: 16px;
+}
+@media (max-width: 768px) {
+.mark[data-v-07a2dd56] {
+    top: 14px;
+    right: calc(50% - 8px);
+}
+}
+</style><style type="text/css">
+.hidden[data-v-815c5224] {
+  display: none;
+}
+.show[data-v-815c5224] {
+  display: block;
+}
+.fade-enter-active[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  transition: opacity 0.5s;
+}
+.fade-enter[data-v-815c5224],
+.fade-leave-active[data-v-815c5224] {
+  opacity: 0;
+}
+.header-userbox a[data-v-815c5224] {
+  display: block;
+  padding: 11px 0 11px 10px !important;
+}
+.header-avatar[data-v-815c5224] {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.vip-icon[data-v-815c5224] {
+  position: absolute;
+  bottom: 5px;
+  right: calc(50% - 30px);
+  width: 20px;
+  height: 20px;
+}
+@media (min-width: 768px) {
+.vip-icon[data-v-815c5224] {
+    right: 0;
+}
+}
+.user[data-v-815c5224] {
+  display: block;
+  position: absolute;
+  top: 60px;
+  left: -140px;
+  width: 300px;
+  height: 300px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 4px 1px #ccc;
+  z-index: 999 !important;
+}
+.user[data-v-815c5224]:before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 220px;
+    height: 50px;
+}
+.user.popover > .arrow[data-v-815c5224] {
+    left: 63%;
+}
+.user-info[data-v-815c5224] {
+  overflow: hidden;
+}
+.user-info a[data-v-815c5224] {
+    float: left;
+    padding: 0 !important;
+}
+.user-info a img[data-v-815c5224] {
+      width: 50px;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 50%;
+}
+.username[data-v-815c5224] {
+  position: relative;
+}
+.username > img[data-v-815c5224] {
+    width: 20px;
+    position: absolute;
+    left: -30px;
+    bottom: 5px;
+}
+.username > span[data-v-815c5224] {
+    display: inline-block;
+    max-width: 150px;
+    color: #666;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+.username > span.user-level[data-v-815c5224] {
+      color: #fec42d;
+      font-size: 14px;
+      font-weight: 700;
+}
+.username > p[data-v-815c5224] {
+    color: #a4a4a4;
+    font-size: 12px;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 150px;
+    text-overflow: ellipsis;
+}
+.start-experiment[data-v-815c5224] {
+  margin-bottom: 10px;
+}
+.start-experiment > a[data-v-815c5224] {
+    display: inline-block;
+    width: 100%;
+    padding: 8px 0 !important;
+    margin: 10px 0;
+    background-color: #08bf91;
+    border-radius: 100px;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+}
+.start-experiment > a[data-v-815c5224]:hover, .start-experiment > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #fff;
+}
+.marked-words[data-v-815c5224] {
+  width: 100%;
+  color: #a4a4a4 !important;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  position: absolute;
+  top: 130px;
+  left: 0;
+}
+.marked-words > a[data-v-815c5224] {
+    color: #a4a4a4 !important;
+    font-size: 12px;
+    padding: 0 !important;
+}
+.marked-words > a[data-v-815c5224]:hover, .marked-words > a[data-v-815c5224]:focus {
+      text-decoration: none;
+      color: #a4a4a4;
+}
+.user-links a[data-v-815c5224] {
+  padding: 4px 0 !important;
+  margin-top: 15px;
+  color: #3a3a3a;
+  text-align: center;
+  border: solid 1px #ccc;
+  border-radius: 20px;
+}
+.user-links a.member-index[data-v-815c5224] {
+    color: #f66;
+    border-color: #f66;
+}
+.user-links a[data-v-815c5224]:hover {
+    text-decoration: none;
+}
+.user-links .log-out[data-v-815c5224] {
+  padding-top: 20px;
+}
+.user-links .log-out a[data-v-815c5224] {
+    border: none;
+    padding: 0 !important;
+    color: #a4a4a4;
+    text-align: right;
+}
+</style><style type="text/css">
+.header-learn-info[data-v-33ac7940] {
+  float: right;
+  width: 100%;
+  padding: 23.5px 10px;
+  margin: 0;
+  position: relative;
+}
+.header-learn-info > span[data-v-33ac7940] {
+    font-size: 16px;
+    color: #666;
+}
+.header-learn-info > span img[data-v-33ac7940] {
+      transform: rotate(-90deg);
+}
+.header-learn-info > span[data-v-33ac7940]:hover {
+      cursor: pointer;
+}
+.home-page[data-v-33ac7940] {
+  color: #666;
+}
+.home-page[data-v-33ac7940]:hover {
+    text-decoration: none;
+    color: #08bf91;
+}
+@media (min-width: 768px) {
+.header-learn-info[data-v-33ac7940] {
+    width: auto;
+}
+}
+@media (max-width: 1200px) {
+.header-learn-info[data-v-33ac7940] {
+    display: none;
+}
+}
+.fade-enter-active[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  transition: opacity .5s;
+}
+.fade-enter[data-v-33ac7940],
+.fade-leave-active[data-v-33ac7940] {
+  opacity: 0;
+}
+.learninfo-box[data-v-33ac7940] {
+  display: block;
+  width: 223px;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  padding: 20px;
+  left: 35px;
+  background: #fff;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+  border: none;
+}
+.learninfo-box .lab-running > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .lab-running .lab-running-name[data-v-33ac7940] {
+    font-size: 14px;
+    padding: 10px 0;
+}
+.learninfo-box .lab-running .lab-running-name > span[data-v-33ac7940] {
+      max-width: 60%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      display: inline-block;
+}
+.learninfo-box .lab-running .lab-running-name .lab-continue[data-v-33ac7940] {
+      background: #08bf91;
+      font-size: 12px;
+      color: #fff;
+      border: none;
+      padding: 2px 12px;
+      margin-top: -1px;
+}
+.learninfo-box .learn-records > span[data-v-33ac7940] {
+    font-size: 14px;
+    color: #a4a4a4;
+}
+.learninfo-box .learn-records .records-list[data-v-33ac7940] {
+    margin-top: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940] {
+      display: inline-block;
+      font-size: 14px;
+      color: #666;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-bottom: 10px;
+}
+.learninfo-box .learn-records .records-list .record-item[data-v-33ac7940]:hover {
+        text-decoration: none;
+        background-color: #f5f5f5;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940] {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 12px;
+}
+.learninfo-box .learn-records .record-view-all[data-v-33ac7940]:hover {
+      text-decoration: none;
+}
+@media (min-width: 768px) {
+.learninfo-box[data-v-33ac7940] {
+    left: -30px;
+    margin-bottom: 0;
+}
+}
+</style><style type="text/css">
+.input-group[data-v-68b3bbad] {
+  position: relative;
+}
+ul[data-v-68b3bbad] {
+  position: absolute;
+  top: 33px;
+  z-index: 100;
+  width: calc(100% - 46px);
+  padding: 0;
+  color: #7f7f7f;
+  background: #fff;
+  font-size: 14px;
+  border: solid 1px #ccc;
+  list-style: none;
+}
+ul li[data-v-68b3bbad] {
+    padding: 5px 11px;
+    cursor: pointer;
+}
+ul li.active[data-v-68b3bbad] {
+      background: #eee;
+}
+</style><style type="text/css">
+.side-new-contest .sidebox-body[data-v-7d67fa2d] {
+  overflow: hidden;
+}
+.side-new-contest .sidebox-body span[data-v-7d67fa2d] {
+    position: relative;
+    top: 4px;
+    color: #3a3a3a;
+    font-size: 14px;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d] {
+    padding: 2px 10px;
+    color: #08bf91;
+    font-size: 14px;
+    border: solid 1px #08bf91;
+}
+.side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:hover, .side-new-contest .sidebox-body .btn[data-v-7d67fa2d]:focus {
+      color: #fff;
+      background: #09bf91;
+}
+</style><style type="text/css">
+a[data-v-9b3c8994] {
+    display: inline-block;
+    vertical-align: middle;
+}
+@media (max-width: 768px) {
+a[data-v-9b3c8994] {
+        display: none;
+}
+}
+.fa[data-v-9b3c8994] {
+    padding: 4px;
+    color: #274a59;
+    background: #fff;
+    font-size: 14px;
+    border-radius: 4px;
+}
+.fa[data-v-9b3c8994]:hover {
+    color: #ec5353;
+}
+.pull-left[data-v-9b3c8994] {
+    margin-left: 10px;
+}
+
+/*# sourceURL=/home/shiyanlou/shiyanlou/simplecloud/app/src/base/components/weibo.vue?211347e4 */
+/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9ob21lL3NoaXlhbmxvdS9zaGl5YW5sb3Uvc2ltcGxlY2xvdWQvYXBwL3NyYy9iYXNlL2NvbXBvbmVudHMvd2VpYm8udnVlPzIxMTM0N2U0Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7QUFtQ0E7SUFDQSxzQkFBQTtJQUNBLHVCQUFBO0NBQ0E7QUFDQTtBQUNBO1FBQ0EsY0FBQTtDQUNBO0NBQ0E7QUFDQTtJQUNBLGFBQUE7SUFDQSxlQUFBO0lBQ0EsaUJBQUE7SUFDQSxnQkFBQTtJQUNBLG1CQUFBO0NBQ0E7QUFDQTtJQUNBLGVBQUE7Q0FDQTtBQUNBO0lBQ0Esa0JBQUE7Q0FDQSIsImZpbGUiOiJ3ZWliby52dWUiLCJzb3VyY2VzQ29udGVudCI6WyI8dGVtcGxhdGU+XG48YSA6aHJlZj1cImhyZWZcIiA6Y2xhc3M9XCJ7ICdidG4gYnRuLXByaW1hcnknOiBpc0J0biAsICdwdWxsLWxlZnQnOiBpc0xlZnR9XCIgdGFyZ2V0PVwiX2JsYW5rXCI+XG4gICAgPHNwYW4gdi1pZj1cImlzQnRuXCI+5YiG5Lqr5Yiw5b6u5Y2aPC9zcGFuPlxuICAgIDxpbWcgOnNyYz1cImljb25cIiBhbHQ9XCJcIj5cbjwvYT5cbjwvdGVtcGxhdGU+XG5cbjxzY3JpcHQ+XG5leHBvcnQgZGVmYXVsdCB7XG4gICAgcHJvcHM6IFsnaXNCdG4nLCAncGF0aCcsICd0aXRsZScsICdwaWMnLCAnaWNvbicsICdpc0xlZnQnLCAndXJsJ10sXG4gICAgZGF0YSgpIHtcbiAgICAgICAgcmV0dXJuIHtcbiAgICAgICAgICAgIGhyZWY6ICcnLFxuICAgICAgICAgICAgcGFyYW1zOiB7XG4gICAgICAgICAgICAgICAgdGl0bGU6IHRoaXMudGl0bGUsXG4gICAgICAgICAgICAgICAgYXBwa2V5OiAnMTM0MzcxMzA1MycsXG4gICAgICAgICAgICAgICAgcGljOiAodGhpcy5waWMgJiYgdGhpcy5waWMubGVuZ3RoKSA/IHRoaXMucGljIDogWydodHRwczovL3N0YXRpYy5zaGl5YW5sb3UuY29tL2ltZy9sb2dvLWJhc2UucG5nJ10sXG4gICAgICAgICAgICAgICAgc2VhcmNoUGljOiBmYWxzZSxcbiAgICAgICAgICAgICAgICB1cmw6IHRoaXMudXJsXG4gICAgICAgICAgICB9LFxuICAgICAgICAgICAgd2VpYm9Vcmw6IHRoaXMudXJsID8gYGh0dHA6Ly9zZXJ2aWNlLndlaWJvLmNvbS9zaGFyZS9zaGFyZS5waHA/dXJsPSR7dGhpcy51cmx9IGA6IGBodHRwOi8vc2VydmljZS53ZWliby5jb20vc2hhcmUvc2hhcmUucGhwP3VybD1odHRwczovL3d3dy5zaGl5YW5sb3UuY29tYCxcbiAgICAgICAgfTtcbiAgICB9LFxuICAgIG1vdW50ZWQoKSB7XG4gICAgICAgIHRoaXMuaHJlZiA9IGAke3RoaXMud2VpYm9Vcmx9JHt0aGlzLnBhdGh9YFxuICAgICAgICAgICAgKyBgJnRpdGxlPSR7ZW5jb2RlVVJJQ29tcG9uZW50KHRoaXMucGFyYW1zLnRpdGxlKX1gXG4gICAgICAgICAgICArIGAmYXBwa2V5PSR7dGhpcy5wYXJhbXMuYXBwa2V5fWBcbiAgICAgICAgICAgICsgYCZwaWM9JHt0aGlzLnBhcmFtcy5waWMuam9pbignfHwnKX1gXG4gICAgICAgICAgICArIGAmc2VhcmNoUGljPSR7dGhpcy5wYXJhbXMuc2VhcmNoUGljfWA7XG4gICAgICAgIHRoaXMuaHJlZiA9IGVuY29kZVVSSSh0aGlzLmhyZWYpXG4gICAgfVxufVxuPC9zY3JpcHQ+XG5cbjxzdHlsZSBzY29wZWQ+XG5hIHtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgdmVydGljYWwtYWxpZ246IG1pZGRsZTtcbn1cbkBtZWRpYSAobWF4LXdpZHRoOiA3NjhweCkge1xuICAgIGEge1xuICAgICAgICBkaXNwbGF5OiBub25lO1xuICAgIH1cbn1cbi5mYSB7XG4gICAgcGFkZGluZzogNHB4O1xuICAgIGNvbG9yOiAjMjc0YTU5O1xuICAgIGJhY2tncm91bmQ6ICNmZmY7XG4gICAgZm9udC1zaXplOiAxNHB4O1xuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbn1cbi5mYTpob3ZlciB7XG4gICAgY29sb3I6ICNlYzUzNTM7XG59XG4ucHVsbC1sZWZ0IHtcbiAgICBtYXJnaW4tbGVmdDogMTBweDtcbn1cbjwvc3R5bGU+XG5cbiJdLCJzb3VyY2VSb290IjoiIn0= */</style><style type="text/css">
+.navbar-form[data-v-72bea96c] {
+  float: left !important;
+  padding: 10px 0;
+  margin: 8px 10px;
+}
+.form-group[data-v-72bea96c] {
+  position: relative;
+}
+label[data-v-72bea96c] {
+  display: inline;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+  color: #3a3a3a;
+  font-size: 16px;
+}
+.form-control[data-v-72bea96c] {
+  width: 200px;
+  border-radius: 20px;
+}
+.search-autocomplete[data-v-72bea96c] {
+  position: absolute;
+  top: 35px;
+  left: 1px;
+  width: 195px;
+  padding: 4px;
+  border: solid 1px #ddd;
+  border-top: none;
+  background: #fff;
+  z-index: 1000;
+}
+.search-autocomplete a[data-v-72bea96c] {
+    display: block;
+    padding: 6px 8px;
+    color: #4c5157;
+    font-size: 13px;
+}
+.search-autocomplete a[data-v-72bea96c]:hover, .search-autocomplete a[data-v-72bea96c]:focus {
+      color: #fff;
+      background: #0c9;
+      text-decoration: none;
+}
+</style><script>//remove 17173 video ad
+doAdblock();
+function doAdblock(){
+    (function() {
+        function A() {}
+        A.prototype = {
+            rules: {
+                '17173_in':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFile(Customer)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_in_20150522.swf"
+                },
+                '17173_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/PreloaderFileFirstpage\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_out_20150522.swf"
+                },
+                '17173_live':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream(_firstpage)?\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173_stream_20150522.swf"
+                },
+                '17173_live_out':{
+                    'find':/http:\/\/f\.v\.17173cdn\.com\/(\d+\/)?flash\/Player_stream_(custom)?Out\.swf/,
+                    'replace':"http://swf.adtchrome.com/17173.out.Live.swf"
+                }
+            },
+            _done: null,
+            get done() {
+                if(!this._done) {
+                    this._done = new Array();
+                }
+                return this._done;
+            },
+            addAnimations: function() {
+                var style = document.createElement('style');
+                style.type = 'text/css';
+                style.innerHTML = 'object,embed{\
+                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;\
+                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;\
+                -o-animation-duration:.001s;-o-animation-name:playerInserted;\
+                animation-duration:.001s;animation-name:playerInserted;}\
+                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}\
+                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}';
+                document.getElementsByTagName('head')[0].appendChild(style);
+            },
+            animationsHandler: function(e) {
+                if(e.animationName === 'playerInserted') {
+                    this.replace(e.target);
+                }
+            },
+            replace: function(elem) {
+                if(this.done.indexOf(elem) != -1) return;
+                this.done.push(elem);
+                var player = elem.data || elem.src;
+                if(!player) return;
+                var i, find, replace = false;
+                for(i in this.rules) {
+                    find = this.rules[i]['find'];
+                    if(find.test(player)) {
+                        replace = this.rules[i]['replace'];
+                        if('function' === typeof this.rules[i]['preHandle']) {
+                            this.rules[i]['preHandle'].bind(this, elem, find, replace, player)();
+                        }else{
+                            this.reallyReplace.bind(this, elem, find, replace)();
+                        }
+                        break;
+                    }
+                }
+            },
+            reallyReplace: function(elem, find, replace) {
+                elem.data && (elem.data = elem.data.replace(find, replace)) || elem.src && ((elem.src = elem.src.replace(find, replace)) && (elem.style.display = 'block'));
+                var b = elem.querySelector("param[name='movie']");
+                this.reloadPlugin(elem);
+            },
+            reloadPlugin: function(elem) {
+                var nextSibling = elem.nextSibling;
+                var parentNode = elem.parentNode;
+                parentNode.removeChild(elem);
+                var newElem = elem.cloneNode(true);
+                this.done.push(newElem);
+                if(nextSibling) {
+                    parentNode.insertBefore(newElem, nextSibling);
+                } else {
+                    parentNode.appendChild(newElem);
+                }
+            },
+            init: function() {
+                var handler = this.animationsHandler.bind(this);
+                document.body.addEventListener('webkitAnimationStart', handler, false);
+                document.body.addEventListener('msAnimationStart', handler, false);
+                document.body.addEventListener('oAnimationStart', handler, false);
+                document.body.addEventListener('animationstart', handler, false);
+                this.addAnimations();
+            }
+        };
+        new A().init();
+    })();
+}
+//remove baidu search ad
+if(document.URL.indexOf('www.baidu.com') >= 0){
+    if(document && document.getElementsByTagName && document.getElementById && document.body){
+        var aa = function(){
+            var all = document.body.querySelectorAll("#content_left div,#content_left table");
+            for(var i = 0; i < all.length; i++){
+                if(/display:\s?(table|block)\s!important/.test(all[i].getAttribute("style"))){all[i].style.display= "none";all[i].style.visibility='hidden';}
+            }
+            all = document.body.querySelectorAll('.result.c-container[id="1"]');
+            //if(all.length == 1) return;
+            for(var i = 0; i < all.length; i++){
+                if(all[i].innerHTML && all[i].innerHTML.indexOf('广告')>-1){
+                    all[i].style.display= "none";all[i].style.visibility='hidden';
+                }
+            }
+        }
+        aa();
+        document.getElementById('wrapper_wrapper').addEventListener('DOMSubtreeModified',aa)
+    };
+}
+//remove sohu video ad
+if (document.URL.indexOf("tv.sohu.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//remove 56.com video ad
+if (document.URL.indexOf("56.com") >= 0){
+    if (document.cookie.indexOf("fee_status=true")==-1){document.cookie='fee_status=true'};
+}
+//fore iqiyi enable html5 player function
+if (document.URL.indexOf("iqiyi.com") >= 0){
+    if (document.cookie.indexOf("player_forcedType=h5_VOD")==-1){
+        document.cookie='player_forcedType=h5_VOD'
+        if(localStorage.reloadTime && Date.now() - parseInt(localStorage.reloadTime)<60000){
+            console.log('no reload')
+        }else{
+            location.reload()
+            localStorage.reloadTime = Date.now();
+        }
+    }
+}
+</script><style type="text/css">object,embed{                -webkit-animation-duration:.001s;-webkit-animation-name:playerInserted;                -ms-animation-duration:.001s;-ms-animation-name:playerInserted;                -o-animation-duration:.001s;-o-animation-name:playerInserted;                animation-duration:.001s;animation-name:playerInserted;}                @-webkit-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-ms-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @-o-keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}                @keyframes playerInserted{from{opacity:0.99;}to{opacity:1;}}</style></head>
+
+    <body>
+        <div style="height:0;width:0;visibility:hidden">
+            <img src="./实现 - 实验楼_files/weixin_logo.png" alt="">
+        </div>
+        
+            
+        
+
+        
+
+
+        <div class="content-box">
+        
+<style>
+.layout-fullscreen {
+    margin-top: -20px;
+}
+</style>
+<div class="layout layout-fullscreen">
+    <div class="container">
+        
+        
+    </div>
+    
+<div class="lab-btns">
+    
+        
+
+        
+            
+        
+
+        
+            
+        
+
+        
+        <div>
+            <img src="./实现 - 实验楼_files/best-study-way.png">
+            <a class=" member-vm lab-item-start  " data-mobile-url="/courses/569/labs/1959/document" data-url="/courses/start/1959" data-next="/courses/running">
+                <img src="./实现 - 实验楼_files/labdoc-start.png">
+                
+                    <span>开始<br>实验</span>
+                
+            </a>
+        </div>
+    
+    <div>
+        <a data-toggle="modal" href="https://www.shiyanlou.com/courses/569/labs/1959/document#askquestion">
+            <img src="./实现 - 实验楼_files/labdoc-question.png">
+            <span>我要<br>提问</span>
+        </a>
+    </div>
+    <div>
+        <a class="commit-error">
+            <img src="./实现 - 实验楼_files/labdoc-jiucuo.png">
+            <span>我要<br>纠错</span>
+        </a>
+    </div>
+</div>
+<div class="labdoc-header">
+    <a href="https://www.shiyanlou.com/courses/569">
+        <i class="fa fa-arrow-circle-left" aria-hidden="true"></i>
+        C++ 打造 Markdown 解析器
+    </a>
+    
+</div>
+<div class="labdoc-nav">
+    <div class="labdoc-nav-content">
+                <h2 class="">
+                    <a href="https://www.shiyanlou.com/courses/569/labs/1959/document#labdoc-header-0">一、实验介绍</a>
+                </h2>
+            
+                <h2 class="">
+                    <a href="https://www.shiyanlou.com/courses/569/labs/1959/document#labdoc-header-1">二、实验原理</a>
+                </h2>
+            
+                <h2 class="active">
+                    <a href="https://www.shiyanlou.com/courses/569/labs/1959/document#labdoc-header-2">三、实验步骤</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/569/labs/1959/document#labdoc-header-3">四、实验总结</a>
+                </h2>
+            
+                <h2>
+                    <a href="https://www.shiyanlou.com/courses/569/labs/1959/document#labdoc-header-4">参考资料</a>
+                </h2>
+            </div>
+    
+</div>
+<div class="labdoc-content-container">
+    <div class="markdown-body labdoc-content" id="labdoc-content"><div><h1 id="c-markdown-">C++ 打造 Markdown 解析器 - 实现</h1>
+<h2 id="labdoc-header-0">一、实验介绍</h2>
+<h4 id="-">实验内容</h4>
+<p>Markdown 已经是程序员的标配，其语法简单的特点让我们能够更加专注于内容输出与写作。
+本次项目我们将针对 Markdown 的一些最常用语法，手动实现一个 Markdown 解析器，作为展示，还将为文档生成目录，如图所示：</p><p><img src="./实现 - 实验楼_files/wm" alt="此处输入图片的描述"></p><h4 id="-">实验知识点</h4>
+<ul>
+<li>词法分析技术</li>
+<li>语法树</li>
+<li>DFS 深度优先搜索</li>
+<li>C++11</li>
+<li>使用指针进行字符流处理</li>
+</ul>
+<h4 id="-">上节回顾</h4>
+<p>上节实验中，我们完成了对整个类的基本设计工作。确定了相关词法的 token，这节我们将进一步实现这些内容。</p><h4 id="-">代码获取</h4>
+<p>为了方便起见，这里提供了整套代码的下载，可以供你参考：</p><pre><code class="hljs nginx"><span class="hljs-attribute">wget</span> http:<span class="hljs-regexp">//</span>labfile.oss.aliyuncs.com<span class="hljs-regexp">/courses/</span><span class="hljs-number">569</span><span class="hljs-regexp">/md-parser.zip</span>
+</code></pre><p>这里是代码树结构</p><pre><code class="hljs css"><span class="hljs-selector-tag">src</span>
+├── <span class="hljs-selector-tag"><span class="hljs-selector-tag">a</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.out</span></span>
+├── <span class="hljs-selector-tag">main</span><span class="hljs-selector-class"><span class="hljs-selector-class">.cpp</span></span>
+├── <span class="hljs-selector-tag">mdtransform</span><span class="hljs-selector-class"><span class="hljs-selector-class">.hpp</span></span>
+├── <span class="hljs-selector-tag">output</span>
+│   ├── <span class="hljs-selector-tag">github-markdown</span><span class="hljs-selector-class"><span class="hljs-selector-class">.css</span></span>
+│   └── <span class="hljs-selector-tag">index</span><span class="hljs-selector-class"><span class="hljs-selector-class">.html</span></span>
+└── <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.md</span>
+</code></pre><h2 id="labdoc-header-1">二、实验原理</h2>
+<h4 id="2-1-">2.1 解析的实现</h4>
+<p>在上节实验中，我们已经确定好了 <code>getTableOfContents()</code> 和 <code>getContents()</code> 这两个获取解析内容的方法——它们直接从 <code>TOC</code> 和 <code>content</code> 这两个变量中获取被解析成 HTML 的内容。所以整个 Markdown 的解析工作就落在了构造函数的身上。</p><p>如同往常一样，我们的构造函数接口给定的是需要解析的文件名，那么我们自然就需要从文件流中读取。</p><p>在正式实现之前，我们需要思考一个问题，那就是如何来存储我们解析出来的内容。</p><h4 id="2-2-">2.2 基本的结构及成员</h4>
+<p>首先我们应该明确的一个概念就是，Markdown 其实和 HTML 类似，他们都有类似 DOM 树的结构，这也就不可避免的让我们需要去实现一个树结构，为此：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// 保存目录的结构</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">Cnode</span> {</span>
+    <span class="hljs-built_in"><span class="hljs-built_in">vector</span></span> &lt;Cnode *&gt; ch;
+    <span class="hljs-built_in"><span class="hljs-built_in">string</span></span> heading;
+    <span class="hljs-built_in"><span class="hljs-built_in">string</span></span> tag;
+    Cnode (<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> <span class="hljs-built_in"><span class="hljs-built_in">string</span></span> &amp;hd): heading(hd) {}
+} Cnode;
+
+<span class="hljs-comment"><span class="hljs-comment">// 保存正文内容的结构</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">typedef</span></span> <span class="hljs-class"><span class="hljs-keyword"><span class="hljs-keyword">struct</span></span> <span class="hljs-title">node</span> {</span>
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> type;                           <span class="hljs-comment"><span class="hljs-comment">// 节点代表的类型</span></span>
+    <span class="hljs-built_in"><span class="hljs-built_in">vector</span></span> &lt;node *&gt; ch;
+    <span class="hljs-built_in"><span class="hljs-built_in">string</span></span> elem[<span class="hljs-number"><span class="hljs-number">3</span></span>];                     <span class="hljs-comment"><span class="hljs-comment">// 用来存放三个重要的属性, elem[0] 保存了要显示的内容</span></span>
+                                        <span class="hljs-comment"><span class="hljs-comment">// elem[1] 保存了链接, elem[2] 则保存了 title</span></span>
+    node (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span> _type): type(_type) {}
+} node;
+</code></pre><p>毫无疑问，为了让整个解析顺利的进行，我们需要在 <code>MarkdownTransform</code> 类 中增加如下私有属性：</p><pre><code class="hljs cpp"><span class="hljs-keyword">private</span>:
+    <span class="hljs-keyword">node</span>  <span class="hljs-title">*root</span>, *now;
+    Cnode *Croot;
+</code></pre><p>同时，为了让目录能够正确的索引到 HTML 的内容位置，我们不妨引入一个 <code>cntTag</code> 的变量进行记录：</p><pre><code class="hljs cpp"><span class="hljs-attribute"><span class="hljs-keyword">int</span> cntTag</span> = <span class="hljs-number">0</span>;
+</code></pre><p>并与此同时，设置一个缓存数组，来缓存要处理的行：</p><pre><code class="hljs cpp"><span class="hljs-keyword">char</span> s<span class="hljs-selector-attr">[maxLength]</span>;
+</code></pre><p>其中，<code>#define maxLength 10000</code>。</p><h2 id="labdoc-header-2">三、实验步骤</h2>
+<h4 id="3-1-tab">3.1 处理每行开始处的一些空格和 Tab</h4>
+<p>空格其实并不影响我们整个 Markdown 的解析，所以最好的办法就是统一将每行开始处的空格和 Tab 进行一个预先处理。</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// 开始解析一行中开始的空格和 Tab</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// src: 源串</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// 返回值: 由空格数和有内容处的 char* 指针组成的 std::pair</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">inline</span></span> pair&lt;<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>, <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *&gt; start(<span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *src) {
+    <span class="hljs-comment"><span class="hljs-comment">// 如果该行内容为空，则直接返回</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> ((<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>)<span class="hljs-built_in"><span class="hljs-built_in">strlen</span></span>(src) == <span class="hljs-number"><span class="hljs-number">0</span></span>)
+        <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> make_pair(<span class="hljs-number"><span class="hljs-number">0</span></span>, <span class="hljs-literal"><span class="hljs-literal">nullptr</span></span>);
+    <span class="hljs-comment"><span class="hljs-comment">// 统计空格键和 Tab 键的个数</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> cntspace = <span class="hljs-number"><span class="hljs-number">0</span></span>, cnttab = <span class="hljs-number"><span class="hljs-number">0</span></span>;
+    <span class="hljs-comment"><span class="hljs-comment">// 从该行的第一个字符读其, 统计空格键和 Tab 键,</span></span>
+    <span class="hljs-comment"><span class="hljs-comment">// 当遇到不是空格和 Tab 时，立即停止</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span> i = <span class="hljs-number"><span class="hljs-number">0</span></span>; src[i] != <span class="hljs-string"><span class="hljs-string">'\0'</span></span>; i++) {
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (src[i] == <span class="hljs-string"><span class="hljs-string">' '</span></span>) cntspace++;
+        <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (src[i] == <span class="hljs-string"><span class="hljs-string">'\t'</span></span>) cnttab++;
+        <span class="hljs-comment"><span class="hljs-comment">// 如果内容前有空格和 Tab，那么将其统一按 Tab 的个数处理,</span></span>
+        <span class="hljs-comment"><span class="hljs-comment">// 其中, 一个 Tab = 四个空格</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">else</span></span> <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> make_pair(cnttab + cntspace / <span class="hljs-number"><span class="hljs-number">4</span></span>, src + i);
+    }
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> make_pair(<span class="hljs-number"><span class="hljs-number">0</span></span>, <span class="hljs-literal"><span class="hljs-literal">nullptr</span></span>);
+}
+</code></pre><blockquote>
+<p>此处感谢 wangerrr 在问答区中</p></blockquote>
+<blockquote>
+<p><a href="https://www.shiyanlou.com/questions/5507" target="_blank">https://www.shiyanlou.com/questions/5507</a></p></blockquote>
+<blockquote>
+<p>指出原代码的错误, 现已更新.</p></blockquote>
+<h4 id="3-2-">3.2 行类型判断</h4>
+<p>Markdown 的解析简单，就简单在此。关键性的语法关键词其实都是位于每行的行首的。
+比如标题的 <code>#</code>，又比如列表的 <code>-</code> 符号。</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// 判断当前行的类型</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// src: 源串</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// 返回值: 当前行的类型和除去行标志性关键字的正是内容的 char* 指针组成的 std::pair</span></span>
+<span class="hljs-keyword">inline</span> pair&lt;<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>, <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *&gt; JudgeType(<span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *src) {
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *ptr = src;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 跳过 `#`</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">while</span></span> (*ptr == <span class="hljs-string"><span class="hljs-string">'#'</span></span>) ptr++;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 如果出现空格, 则说明是 `&lt;h&gt;` 标签</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ptr - src &gt; <span class="hljs-number"><span class="hljs-number">0</span></span> &amp;&amp; *ptr == <span class="hljs-string"><span class="hljs-string">' '</span></span>)
+        <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-title">make_pair</span><span class="hljs-params">(ptr - src + h1 - <span class="hljs-number"><span class="hljs-number">1</span></span>, ptr + <span class="hljs-number"><span class="hljs-number">1</span></span>)</span></span>;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 重置分析位置</span></span>
+    ptr = src;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 如果出现 ``` 则说明是代码块</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (<span class="hljs-built_in">strncmp</span>(ptr, <span class="hljs-string"><span class="hljs-string">"```"</span></span>, <span class="hljs-number"><span class="hljs-number">3</span></span>) == <span class="hljs-number"><span class="hljs-number">0</span></span>)
+        <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-title">make_pair</span><span class="hljs-params">(blockcode, ptr + <span class="hljs-number"><span class="hljs-number">3</span></span>)</span></span>;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 如果出现 * + -, 并且他们的下一个字符为空格，则说明是列表</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (<span class="hljs-built_in">strncmp</span>(ptr, <span class="hljs-string"><span class="hljs-string">"- "</span></span>, <span class="hljs-number"><span class="hljs-number">2</span></span>) == <span class="hljs-number"><span class="hljs-number">0</span></span>)
+        <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-title">make_pair</span><span class="hljs-params">(ul, ptr + <span class="hljs-number"><span class="hljs-number">1</span></span>)</span></span>;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 如果出现 &gt; 且下一个字符为空格，则说明是引用</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (*ptr == <span class="hljs-string"><span class="hljs-string">'&gt;'</span></span> &amp;&amp; (ptr[<span class="hljs-number"><span class="hljs-number">1</span></span>] == <span class="hljs-string"><span class="hljs-string">' '</span></span>))
+        <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-title">make_pair</span><span class="hljs-params">(quote, ptr + <span class="hljs-number"><span class="hljs-number">1</span></span>)</span></span>;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 如果出现的是数字, 且下一个字符是 . 则说明是是有序列表</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *ptr1 = ptr;
+    <span class="hljs-keyword"><span class="hljs-keyword">while</span></span> (*ptr1 &amp;&amp; (<span class="hljs-built_in">isdigit</span>(*ptr1))) ptr1++;
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ptr1 != ptr &amp;&amp; *ptr1 == <span class="hljs-string"><span class="hljs-string">'.'</span></span> &amp;&amp; ptr1[<span class="hljs-number"><span class="hljs-number">1</span></span>] == <span class="hljs-string"><span class="hljs-string">' '</span></span>)
+        <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-title">make_pair</span><span class="hljs-params">(ol, ptr1 + <span class="hljs-number"><span class="hljs-number">1</span></span>)</span></span>;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 否则，就是普通段落</span></span>
+    <span class="hljs-function"><span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-title">make_pair</span><span class="hljs-params">(paragraph, ptr)</span></span>;
+}
+</code></pre><h4 id="3-3-">3.3 类型获取</h4>
+<pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// 判断是否为标题</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">inline</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">bool</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">isHeading</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(node *v)</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (v-&gt;type &gt;= h1 &amp;&amp; v-&gt;type &lt;= h6);
+}
+<span class="hljs-comment"><span class="hljs-comment">// 判断是否为图片</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">inline</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">bool</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">isImage</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(node *v)</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (v-&gt;type == image);
+}
+<span class="hljs-comment"><span class="hljs-comment">// 判断是否为超链接</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">inline</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">bool</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">isHref</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(node *v)</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (v-&gt;type == href);
+}
+</code></pre><h4 id="3-4-">3.4 节点搜索</h4>
+<p>当我们发现一个新的语法结构时，在造树的过程中，是有必要对我们需要的节点进行搜索的，通过给定一个深度，来找到我们想要查找的节点，所以我们需要实现这个逻辑：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// 给定树的深度寻找节点</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// depth: 树的深度</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// 返回值: 找到的节点指针</span></span>
+<span class="hljs-function"><span class="hljs-keyword">inline</span> node* <span class="hljs-title">findnode</span><span class="hljs-params">(</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> depth)</span> </span>{
+    node *ptr = root;
+    <span class="hljs-keyword"><span class="hljs-keyword">while</span></span> (!ptr-&gt;ch.<span class="hljs-keyword">empty</span>() &amp;&amp; depth != <span class="hljs-number"><span class="hljs-number">0</span></span>) {
+        ptr = ptr-&gt;ch.back();
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ptr-&gt;type == li)
+            depth--;
+    }
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> ptr;
+}
+</code></pre><h4 id="3-5-">3.5 新增节点的插入</h4>
+<p>节点的插入分为两种类型，一种是向 Cnode 结构的树种插入目录，另一种则是向 <code>node</code> 结构的树种插入解析内容，插入这些结构时，为了让目录能够正确跳转到正文所对应的内容，所以我们设置了 <code>tag</code> 标签来标记这个目录所指向的内容</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Cins</span><span class="hljs-params">(Cnode *v, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> x, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">const</span></span></span></span><span class="hljs-function"><span class="hljs-params"> <span class="hljs-built_in">string</span> &amp;hd, </span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">int</span></span></span></span><span class="hljs-function"><span class="hljs-params"> tag)</span> </span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> n = (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>)v-&gt;ch.size();
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (x == <span class="hljs-number"><span class="hljs-number">1</span></span>) {
+        v-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> Cnode(hd));
+        v-&gt;ch.back()-&gt;tag = <span class="hljs-string"><span class="hljs-string">"tag"</span></span> + to_string(tag);
+        <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> ;
+    }
+
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (!n || v-&gt;ch.back()-&gt;heading.<span class="hljs-keyword">empty</span>())
+        v-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> Cnode(<span class="hljs-string"><span class="hljs-string">""</span></span>));
+    Cins(v-&gt;ch.back(), x - <span class="hljs-number"><span class="hljs-number">1</span></span>, hd, tag);
+}
+</code></pre><p>而对于正文的部分，需要处理的复杂逻辑并不多，难度较大的属于如何在一个段落中处理图片和超链接的情况。这就意味着我们需要一个字符一个字符的进行判断和处理。这也是我们为什么在处理解析代码的时候，都是使用 C 风格的字符串以及字符指针来进行处理，而不是简单的使用 <code>std::string</code>。</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// 向指定的节点中插入要处理的串</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// v: 节点</span></span>
+<span class="hljs-comment"><span class="hljs-comment">// src: 要处理的串</span></span>
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(node *v, <span class="hljs-keyword">const</span> <span class="hljs-built_in">string</span> &amp;src)</span> </span>{
+    <span class="hljs-keyword">int</span> n = (<span class="hljs-keyword">int</span>)src.size();
+    <span class="hljs-keyword">bool</span> incode = <span class="hljs-literal"><span class="hljs-literal">false</span></span>,
+         inem = <span class="hljs-literal"><span class="hljs-literal">false</span></span>,
+         instrong = <span class="hljs-literal"><span class="hljs-literal">false</span></span>,
+         inautolink = <span class="hljs-literal"><span class="hljs-literal">false</span></span>;
+    <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span>ch.push_back(<span class="hljs-keyword">new</span> node(nul));
+
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number"><span class="hljs-number">0</span></span>; i &lt; n; i++) {
+        <span class="hljs-keyword">char</span> ch = src[i];
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ch == <span class="hljs-string"><span class="hljs-string">'\\'</span></span>) {
+            ch = src[++i];
+            <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>elem[<span class="hljs-number"><span class="hljs-number">0</span></span>] += <span class="hljs-built_in">string</span>(<span class="hljs-number"><span class="hljs-number">1</span></span>, ch);
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 处理行内代码</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ch == <span class="hljs-string"><span class="hljs-string">'`'</span></span> &amp;&amp; !inautolink) {
+            <span class="hljs-function"><span class="hljs-title">incode</span> ? v-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.push_back(<span class="hljs-keyword">new</span> node(nul)) : v-&gt;</span>ch.push_back(<span class="hljs-keyword">new</span> node(code));
+            incode = !incode;
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 处理加粗</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ch == <span class="hljs-string"><span class="hljs-string">'*'</span></span> &amp;&amp; (i &lt; n - <span class="hljs-number"><span class="hljs-number">1</span></span> &amp;&amp; (src[i + <span class="hljs-number"><span class="hljs-number">1</span></span>] == <span class="hljs-string"><span class="hljs-string">'*'</span></span>)) &amp;&amp; !incode &amp;&amp; !inautolink) {
+            ++i;
+            <span class="hljs-function"><span class="hljs-title">instrong</span> ? v-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.push_back(<span class="hljs-keyword">new</span> node(nul)) : v-&gt;</span>ch.push_back(<span class="hljs-keyword">new</span> node(strong));
+            instrong = !instrong;
+            <span class="hljs-keyword">continue</span>;
+        }
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ch == <span class="hljs-string"><span class="hljs-string">'_'</span></span> &amp;&amp; !incode &amp;&amp; !instrong &amp;&amp; !inautolink) {
+            <span class="hljs-function"><span class="hljs-title">inem</span> ? v-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.push_back(<span class="hljs-keyword">new</span> node(nul)) : v-&gt;</span>ch.push_back(<span class="hljs-keyword">new</span> node(em));
+            inem = !inem;
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 处理图片</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ch == <span class="hljs-string"><span class="hljs-string">'!'</span></span> &amp;&amp; (i &lt; n - <span class="hljs-number"><span class="hljs-number">1</span></span> &amp;&amp; src[i + <span class="hljs-number"><span class="hljs-number">1</span></span>] == <span class="hljs-string"><span class="hljs-string">'['</span></span>)
+           &amp;&amp; !incode &amp;&amp; !instrong &amp;&amp; !inem &amp;&amp; !inautolink) {
+            <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span>ch.push_back(<span class="hljs-keyword">new</span> node(image));
+            <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (i += <span class="hljs-number"><span class="hljs-number">2</span></span>; i &lt; n - <span class="hljs-number"><span class="hljs-number">1</span></span> &amp;&amp; src[i] != <span class="hljs-string"><span class="hljs-string">']'</span></span>; i++)
+                <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>elem[<span class="hljs-number"><span class="hljs-number">0</span></span>] += <span class="hljs-built_in">string</span>(<span class="hljs-number"><span class="hljs-number">1</span></span>, src[i]);
+            i++;
+            <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (i++; i &lt; n - <span class="hljs-number"><span class="hljs-number">1</span></span> &amp;&amp; src[i] != <span class="hljs-string"><span class="hljs-string">' '</span></span> &amp;&amp; src[i] != <span class="hljs-string"><span class="hljs-string">')'</span></span>; i++)
+                <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>elem[<span class="hljs-number"><span class="hljs-number">1</span></span>] += <span class="hljs-built_in">string</span>(<span class="hljs-number"><span class="hljs-number">1</span></span>, src[i]);
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (src[i] != <span class="hljs-string"><span class="hljs-string">')'</span></span>)
+                <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (i++; i &lt; n - <span class="hljs-number"><span class="hljs-number">1</span></span> &amp;&amp; src[i] != <span class="hljs-string"><span class="hljs-string">')'</span></span>; i++)
+                    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (src[i] != <span class="hljs-string"><span class="hljs-string">'"'</span></span>)
+                        <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>elem[<span class="hljs-number"><span class="hljs-number">2</span></span>] += <span class="hljs-built_in">string</span>(<span class="hljs-number"><span class="hljs-number">1</span></span>, src[i]);
+            <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span>ch.push_back(<span class="hljs-keyword">new</span> node(nul));
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 处理超链接</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ch == <span class="hljs-string"><span class="hljs-string">'['</span></span> &amp;&amp; !incode &amp;&amp; !instrong &amp;&amp; !inem &amp;&amp; !inautolink) {
+            <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span>ch.push_back(<span class="hljs-keyword">new</span> node(href));
+            <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (i++; i &lt; n - <span class="hljs-number"><span class="hljs-number">1</span></span> &amp;&amp; src[i] != <span class="hljs-string"><span class="hljs-string">']'</span></span>; i++)
+                <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>elem[<span class="hljs-number"><span class="hljs-number">0</span></span>] += <span class="hljs-built_in">string</span>(<span class="hljs-number"><span class="hljs-number">1</span></span>, src[i]);
+            i++;
+            <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (i++; i &lt; n - <span class="hljs-number"><span class="hljs-number">1</span></span> &amp;&amp; src[i] != <span class="hljs-string"><span class="hljs-string">' '</span></span> &amp;&amp; src[i] != <span class="hljs-string"><span class="hljs-string">')'</span></span>; i++)
+                <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>elem[<span class="hljs-number"><span class="hljs-number">1</span></span>] += <span class="hljs-built_in">string</span>(<span class="hljs-number"><span class="hljs-number">1</span></span>, src[i]);
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (src[i] != <span class="hljs-string"><span class="hljs-string">')'</span></span>)
+                <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (i++; i &lt; n - <span class="hljs-number"><span class="hljs-number">1</span></span> &amp;&amp; src[i] != <span class="hljs-string"><span class="hljs-string">')'</span></span>; i++)
+                    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (src[i] != <span class="hljs-string"><span class="hljs-string">'"'</span></span>)
+                        <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>elem[<span class="hljs-number"><span class="hljs-number">2</span></span>] += <span class="hljs-built_in">string</span>(<span class="hljs-number"><span class="hljs-number">1</span></span>, src[i]);
+            <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span>ch.push_back(<span class="hljs-keyword">new</span> node(nul));
+            <span class="hljs-keyword">continue</span>;
+        }
+
+        <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>elem[<span class="hljs-number"><span class="hljs-number">0</span></span>] += <span class="hljs-built_in">string</span>(<span class="hljs-number"><span class="hljs-number">1</span></span>, ch);
+        <span class="hljs-function"><span class="hljs-title"><span class="hljs-keyword">if</span></span> (inautolink) v-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>elem[<span class="hljs-number"><span class="hljs-number">1</span></span>] += <span class="hljs-built_in">string</span>(<span class="hljs-number"><span class="hljs-number">1</span></span>, ch);
+    }
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (src.size() &gt;= <span class="hljs-number"><span class="hljs-number">2</span></span>)
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (src.<span class="hljs-built_in">at</span>(src.size() - <span class="hljs-number"><span class="hljs-number">1</span></span>) == <span class="hljs-string"><span class="hljs-string">' '</span></span> &amp;&amp; src.<span class="hljs-built_in">at</span>(src.size() - <span class="hljs-number"><span class="hljs-number">2</span></span>) == <span class="hljs-string"><span class="hljs-string">' '</span></span>)
+            <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span>ch.push_back(<span class="hljs-keyword">new</span> node(br));
+}
+</code></pre><h4 id="3-6-">3.6 换行的处理和段落生成</h4>
+<p>是否换行在 Markdown 中十分重要，因为Markdown 支持使用 <code>---</code>进行人为分割，同时，在代码块中又不能破坏代码的属性，所以一行内容是否在 HTML 中需要换行，就变得十分的重要：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// 判断是否换行</span></span>
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">inline</span></span></span><span class="hljs-function"> </span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">bool</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">isCutline</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(</span></span><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-params"><span class="hljs-keyword">char</span></span></span></span><span class="hljs-function"><span class="hljs-params"> *src)</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">int</span></span> cnt = <span class="hljs-number"><span class="hljs-number">0</span></span>;
+    <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *ptr = src;
+    <span class="hljs-keyword"><span class="hljs-keyword">while</span></span> (*ptr) {
+        <span class="hljs-comment"><span class="hljs-comment">// 如果不是 空格、tab、- 或 *，那么则不需要换行</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (*ptr != <span class="hljs-string"><span class="hljs-string">' '</span></span> &amp;&amp; *ptr != <span class="hljs-string"><span class="hljs-string">'\t'</span></span> &amp;&amp; *ptr != <span class="hljs-string"><span class="hljs-string">'-'</span></span>)
+            <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> <span class="hljs-literal"><span class="hljs-literal">false</span></span>;
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (*ptr == <span class="hljs-string"><span class="hljs-string">'-'</span></span>)
+            cnt++;
+        ptr++;
+    }
+    <span class="hljs-comment"><span class="hljs-comment">// 如果出现 --- 则需要增加一个分割线, 这时需要换行</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> (cnt &gt;= <span class="hljs-number"><span class="hljs-number">3</span></span>);
+}
+</code></pre><p>大部分情况下，我们都会拿到一个段落文本，所以我们不妨将这个逻辑抽离出来：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">mkpara</span><span class="hljs-params">(node *v)</span> </span>{
+    <span class="hljs-function"><span class="hljs-title"><span class="hljs-keyword">if</span></span> (v-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.size() == <span class="hljs-number">1u</span> &amp;&amp; v-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span>.back()-&gt;</span>type == paragraph)
+        <span class="hljs-keyword">return</span>;
+    <span class="hljs-function"><span class="hljs-title"><span class="hljs-keyword">if</span></span> (v-&gt;</span>type == paragraph)
+        <span class="hljs-keyword">return</span>;
+    <span class="hljs-function"><span class="hljs-title"><span class="hljs-keyword">if</span></span> (v-&gt;</span>type == nul) {
+        <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span>type = paragraph;
+        <span class="hljs-keyword">return</span>;
+    }
+    node *x = <span class="hljs-keyword">new</span> node(paragraph);
+    <span class="hljs-function"><span class="hljs-title">x</span>-&gt;</span><span class="hljs-function"><span class="hljs-title">ch</span> = v-&gt;</span>ch;
+    <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span>ch.clear();
+    <span class="hljs-function"><span class="hljs-title">v</span>-&gt;</span>ch.push_back(x);
+}
+</code></pre><h4 id="3-7-">3.7 遍历与生成</h4>
+<p>语法树的遍历是需要深度优先的，而对目录的深度遍历和正文内容的深度遍历逻辑并不一样，所以我们还需要分开对这两部分逻辑进行实现：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(node *v)</span> </span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (v-&gt;type == paragraph &amp;&amp; v-&gt;elem[<span class="hljs-number"><span class="hljs-number">0</span></span>].<span class="hljs-keyword">empty</span>() &amp;&amp; v-&gt;ch.<span class="hljs-keyword">empty</span>())
+        <span class="hljs-keyword"><span class="hljs-keyword">return</span></span> ;
+
+    content += frontTag[v-&gt;type];
+    <span class="hljs-keyword"><span class="hljs-keyword">bool</span></span> flag = <span class="hljs-keyword"><span class="hljs-literal">true</span></span>;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 处理标题, 支持用目录进行跳转</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (isHeading(v)) {
+        content += <span class="hljs-string"><span class="hljs-string">"id=\""</span></span> + v-&gt;elem[<span class="hljs-number"><span class="hljs-number">0</span></span>] + <span class="hljs-string"><span class="hljs-string">"\"&gt;"</span></span>;
+        flag = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+    }
+
+    <span class="hljs-comment"><span class="hljs-comment">// 处理超链接</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (isHref(v)) {
+        content += <span class="hljs-string"><span class="hljs-string">"&lt;a href=\""</span></span> + v-&gt;elem[<span class="hljs-number"><span class="hljs-number">1</span></span>] + <span class="hljs-string"><span class="hljs-string">"\" title=\""</span></span> + v-&gt;elem[<span class="hljs-number"><span class="hljs-number">2</span></span>] + <span class="hljs-string"><span class="hljs-string">"\"&gt;"</span></span> + v-&gt;elem[<span class="hljs-number"><span class="hljs-number">0</span></span>] + <span class="hljs-string"><span class="hljs-string">"&lt;/a&gt;"</span></span>;
+        flag = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+    }
+
+    <span class="hljs-comment"><span class="hljs-comment">// 处理图片</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (isImage(v)) {
+        content += <span class="hljs-string"><span class="hljs-string">"&lt;img alt=\""</span></span> + v-&gt;elem[<span class="hljs-number"><span class="hljs-number">0</span></span>] + <span class="hljs-string"><span class="hljs-string">"\" src=\""</span></span> + v-&gt;elem[<span class="hljs-number"><span class="hljs-number">1</span></span>] + <span class="hljs-string"><span class="hljs-string">"\" title=\""</span></span> + v-&gt;elem[<span class="hljs-number"><span class="hljs-number">2</span></span>] + <span class="hljs-string"><span class="hljs-string">"\" /&gt;"</span></span>;
+        flag = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+    }
+
+    <span class="hljs-comment"><span class="hljs-comment">// 如果上面三者都不是, 则直接添加内容</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (flag) {
+        content += v-&gt;elem[<span class="hljs-number"><span class="hljs-number">0</span></span>];
+        flag = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+    }
+
+    <span class="hljs-comment"><span class="hljs-comment">// 递归遍历所有</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span> i = <span class="hljs-number"><span class="hljs-number">0</span></span>; i &lt; (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>)v-&gt;ch.size(); i++)
+        dfs(v-&gt;ch[i]);
+
+    <span class="hljs-comment"><span class="hljs-comment">// 拼接为结束标签</span></span>
+    content += backTag[v-&gt;type];
+}
+</code></pre><p>目录的遍历和正文内容的遍历差别在于，目录的展示方式是需要使用无需列表的形式被展示在 HTML 中，因此：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Cdfs</span><span class="hljs-params">(Cnode *v, </span></span><span class="hljs-type"><span class="hljs-function"><span class="hljs-params"><span class="hljs-built_in">string</span></span></span></span><span class="hljs-function"><span class="hljs-params"> index)</span> </span>{
+    TOC += <span class="hljs-string"><span class="hljs-string">"&lt;li&gt;</span><span class="hljs-subst"><span class="hljs-string">\n</span></span><span class="hljs-string">"</span></span>;
+    TOC += <span class="hljs-string"><span class="hljs-string">"&lt;a href=</span><span class="hljs-subst"><span class="hljs-string">\"</span></span><span class="hljs-string">#"</span></span> + v-&gt;tag + <span class="hljs-string"><span class="hljs-string">"</span><span class="hljs-subst"><span class="hljs-string">\"</span></span><span class="hljs-string">&gt;"</span></span> + index + <span class="hljs-string"><span class="hljs-string">" "</span></span> + v-&gt;heading + <span class="hljs-string"><span class="hljs-string">"&lt;/a&gt;</span><span class="hljs-subst"><span class="hljs-string">\n</span></span><span class="hljs-string">"</span></span>;
+    <span class="hljs-keyword">int</span> n = (<span class="hljs-keyword">int</span>)v-&gt;ch.size();
+    <span class="hljs-keyword">if</span> (n) {
+        TOC += <span class="hljs-string"><span class="hljs-string">"&lt;ul&gt;</span><span class="hljs-subst"><span class="hljs-string">\n</span></span><span class="hljs-string">"</span></span>;
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number"><span class="hljs-number">0</span></span>; i &lt; n; i++) {
+            Cdfs(v-&gt;ch[i], index + to_string(i + <span class="hljs-number"><span class="hljs-number">1</span></span>) + <span class="hljs-string"><span class="hljs-string">"."</span></span>);
+        }
+        TOC += <span class="hljs-string"><span class="hljs-string">"&lt;/ul&gt;</span><span class="hljs-subst"><span class="hljs-string">\n</span></span><span class="hljs-string">"</span></span>;
+    }
+    TOC += <span class="hljs-string"><span class="hljs-string">"&lt;/li&gt;</span><span class="hljs-subst"><span class="hljs-string">\n</span></span><span class="hljs-string">"</span></span>;
+}
+</code></pre><h4 id="3-8-">3.8 关键构造逻辑</h4>
+<p>有了上面的基本操作的铺垫，下面我们来开始实现关键性的构造函数：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// 构造函数</span></span>
+MarkdownTransform(<span class="hljs-keyword"><span class="hljs-keyword">const</span></span> <span class="hljs-built_in">std</span>::<span class="hljs-built_in">string</span> &amp;filename) {
+    <span class="hljs-comment"><span class="hljs-comment">// 首先为文档的树结构进行初始化，并将当前指针 not 指向根节点</span></span>
+    Croot = <span class="hljs-keyword"><span class="hljs-keyword">new</span></span> Cnode(<span class="hljs-string"><span class="hljs-string">""</span></span>);
+    root = <span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(nul);
+    now = root;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 从文件流中读取文件</span></span>
+    <span class="hljs-built_in">std</span>::<span class="hljs-function">ifstream <span class="hljs-title">fin</span><span class="hljs-params">(filename)</span></span>;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 默认不是新段落、默认不在代码块内</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">bool</span></span> newpara = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+    <span class="hljs-keyword"><span class="hljs-keyword">bool</span></span> inblock = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+
+    <span class="hljs-comment"><span class="hljs-comment">// 直到读取到 eof 为止</span></span>
+    <span class="hljs-keyword"><span class="hljs-keyword">while</span></span> (!fin.eof()) {
+        <span class="hljs-comment"><span class="hljs-comment">// 从文件中获取一行</span></span>
+        fin.getline(s, maxLength);
+
+        <span class="hljs-comment"><span class="hljs-comment">// 处理不在代码块且需要换行的情况</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (!inblock &amp;&amp; isCutline(s)) {
+            now = root;
+            now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(hr));
+            newpara = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+            <span class="hljs-keyword"><span class="hljs-keyword">continue</span></span>;
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// std::pair 实质上是一个结构体, 可以将两个数据组合成一个数据</span></span>
+        <span class="hljs-comment"><span class="hljs-comment">// 计算一行中开始的空格和 Tab 数</span></span>
+        <span class="hljs-built_in">std</span>::pair&lt;<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>, <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *&gt; ps = start(s);
+
+        <span class="hljs-comment"><span class="hljs-comment">// 如果没有位于代码块中, 且没有统计到空格和 Tab, 则直接读取下一行</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (!inblock &amp;&amp; ps.second == <span class="hljs-literal">nullptr</span>) {
+            now = root;
+            newpara = <span class="hljs-keyword"><span class="hljs-literal">true</span></span>;
+            <span class="hljs-keyword"><span class="hljs-keyword">continue</span></span>;
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 分析该行文本的类型</span></span>
+        <span class="hljs-built_in">std</span>::pair&lt;<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>, <span class="hljs-keyword"><span class="hljs-keyword">char</span></span> *&gt; tj = JudgeType(ps.second);
+
+        <span class="hljs-comment"><span class="hljs-comment">// 如果是代码块类型</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (tj.first == blockcode) {
+            <span class="hljs-comment"><span class="hljs-comment">// 如果位于代码块中, 则 push 一个空类型的节点</span></span>
+            inblock ? now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(nul)) : now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(blockcode));
+            inblock = !inblock;
+            <span class="hljs-keyword"><span class="hljs-keyword">continue</span></span>;
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 如果在代码块中, 直接将内容拼接到当前节点中</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (inblock) {
+            now-&gt;ch.back()-&gt;elem[<span class="hljs-number"><span class="hljs-number">0</span></span>] += <span class="hljs-built_in">string</span>(s) + <span class="hljs-string"><span class="hljs-string">'\n'</span></span>;
+            <span class="hljs-keyword"><span class="hljs-keyword">continue</span></span>;
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 如果是普通段落</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (tj.first == paragraph) {
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (now == root) {
+                now = findnode(ps.first);
+                now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(paragraph));
+                now = now-&gt;ch.back();
+            }
+            <span class="hljs-keyword"><span class="hljs-keyword">bool</span></span> flag = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (newpara &amp;&amp; !now-&gt;ch.<span class="hljs-keyword">empty</span>()) {
+                node* ptr = <span class="hljs-literal">nullptr</span>;
+                <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (<span class="hljs-keyword">auto</span> i: now-&gt;ch) {
+                    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (i-&gt;type == nul)
+                        ptr = i;
+                }
+                <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ptr != <span class="hljs-literal">nullptr</span>)
+                    mkpara(ptr);
+                flag = <span class="hljs-keyword"><span class="hljs-literal">true</span></span>;
+            }
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (flag) {
+                now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(paragraph));
+                now = now-&gt;ch.back();
+            }
+            now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(nul));
+            insert(now-&gt;ch.back(), <span class="hljs-built_in">string</span>(tj.second));
+            newpara = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+            <span class="hljs-keyword"><span class="hljs-keyword">continue</span></span>;
+        }
+
+        now = findnode(ps.first);
+
+        <span class="hljs-comment"><span class="hljs-comment">// 如果是标题行, 则向其标签中插入属性 tag</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (tj.first &gt;= h1 &amp;&amp; tj.first &lt;= h6) {
+            now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(tj.first));
+            now-&gt;ch.back()-&gt;elem[<span class="hljs-number"><span class="hljs-number">0</span></span>] = <span class="hljs-string"><span class="hljs-string">"tag"</span></span> + to_string(++cntTag);
+            insert(now-&gt;ch.back(), <span class="hljs-built_in">string</span>(tj.second));
+            Cins(Croot, tj.first - h1 + <span class="hljs-number"><span class="hljs-number">1</span></span>, <span class="hljs-built_in">string</span>(tj.second), cntTag);
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 如果是无序列表</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (tj.first == ul) {
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (now-&gt;ch.<span class="hljs-keyword">empty</span>() || now-&gt;ch.back()-&gt;type != ul) {
+                now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(ul));
+            }
+            now = now-&gt;ch.back();
+            <span class="hljs-keyword"><span class="hljs-keyword">bool</span></span> flag = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (newpara &amp;&amp; !now-&gt;ch.<span class="hljs-keyword">empty</span>()) {
+                node* ptr = <span class="hljs-literal">nullptr</span>;
+                <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (<span class="hljs-keyword">auto</span> i: now-&gt;ch) {
+                    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (i-&gt;type == li) ptr = i;
+                }
+                <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ptr != <span class="hljs-literal">nullptr</span>) mkpara(ptr);
+                flag = <span class="hljs-keyword"><span class="hljs-literal">true</span></span>;
+            }
+            now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(li));
+            now = now-&gt;ch.back();
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (flag) {
+                now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(paragraph));
+                now = now-&gt;ch.back();
+            }
+            insert(now, <span class="hljs-built_in">string</span>(tj.second));
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 如果是有序列表</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (tj.first == ol) {
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (now-&gt;ch.<span class="hljs-keyword">empty</span>() || now-&gt;ch.back()-&gt;type != ol) {
+                now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(ol));
+            }
+            now = now-&gt;ch.back();
+            <span class="hljs-keyword"><span class="hljs-keyword">bool</span></span> flag = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (newpara &amp;&amp; !now-&gt;ch.<span class="hljs-keyword">empty</span>()) {
+                node* ptr = <span class="hljs-literal">nullptr</span>;
+                <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (<span class="hljs-keyword">auto</span> i: now-&gt;ch) {
+                    <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (i-&gt;type == li) ptr = i;
+                }
+                <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (ptr != <span class="hljs-literal">nullptr</span>) mkpara(ptr);
+                flag = <span class="hljs-keyword"><span class="hljs-literal">true</span></span>;
+            }
+            now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(li));
+            now = now-&gt;ch.back();
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (flag) {
+                now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(paragraph));
+                now = now-&gt;ch.back();
+            }
+            insert(now, <span class="hljs-built_in">string</span>(tj.second));
+        }
+
+        <span class="hljs-comment"><span class="hljs-comment">// 如果是引用</span></span>
+        <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (tj.first == quote) {
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (now-&gt;ch.<span class="hljs-keyword">empty</span>() || now-&gt;ch.back()-&gt;type != quote) {
+                now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(quote));
+            }
+            now = now-&gt;ch.back();
+            <span class="hljs-keyword"><span class="hljs-keyword">if</span></span> (newpara || now-&gt;ch.<span class="hljs-keyword">empty</span>()) now-&gt;ch.push_back(<span class="hljs-keyword"><span class="hljs-keyword">new</span></span> node(paragraph));
+            insert(now-&gt;ch.back(), <span class="hljs-built_in">string</span>(tj.second));
+        }
+
+        newpara = <span class="hljs-keyword"><span class="hljs-literal">false</span></span>;
+
+    }
+
+    <span class="hljs-comment"><span class="hljs-comment">// 文件读取分析完毕</span></span>
+    fin.close();
+
+    <span class="hljs-comment"><span class="hljs-comment">// 深入优先遍历整个语法树</span></span>
+    dfs(root);
+
+    <span class="hljs-comment"><span class="hljs-comment">// 构造目录</span></span>
+    TOC += <span class="hljs-string"><span class="hljs-string">"&lt;ul&gt;"</span></span>;
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span> i = <span class="hljs-number"><span class="hljs-number">0</span></span>; i &lt; (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>)Croot-&gt;ch.size(); i++)
+        Cdfs(Croot-&gt;ch[i], to_string(i + <span class="hljs-number"><span class="hljs-number">1</span></span>) + <span class="hljs-string"><span class="hljs-string">"."</span></span>);
+    TOC += <span class="hljs-string"><span class="hljs-string">"&lt;/ul&gt;"</span></span>;
+}
+</code></pre><h4 id="3-9-">3.9 销毁逻辑</h4>
+<p>我们在创建整个语法树的过程中，都是使用了动态创建的手段，因此我们必须在析构函数中释放相关的内存。我们有 Cnode 和 node 两个结构，就意味着我们需要事先两套不同的释放机制吗？事实上并不需要，利用模板我们可以在一个函数内解决这个问题，这得益于我们在实现这两个结构的时候，都使用了同样的成员<code>ch</code>：</p><pre><code class="hljs cpp"><span class="hljs-comment"><span class="hljs-comment">// </span></span>
+<span class="hljs-comment"><span class="hljs-comment">// mdtransform.hpp</span></span>
+<span class="hljs-comment"><span class="hljs-comment">//</span></span>
+
+<span class="hljs-comment"><span class="hljs-comment">// 递归销毁数节点</span></span>
+<span class="hljs-keyword"><span class="hljs-keyword">template</span></span> &lt;<span class="hljs-keyword"><span class="hljs-keyword">typename</span></span> T&gt;
+<span class="hljs-function"><span class="hljs-keyword"><span class="hljs-function"><span class="hljs-keyword">void</span></span></span><span class="hljs-function"> </span><span class="hljs-title"><span class="hljs-function"><span class="hljs-title">destroy</span></span></span><span class="hljs-params"><span class="hljs-function"><span class="hljs-params">(T *v)</span></span></span><span class="hljs-function"> </span></span>{
+    <span class="hljs-keyword"><span class="hljs-keyword">for</span></span> (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span> i = <span class="hljs-number"><span class="hljs-number">0</span></span>; i &lt; (<span class="hljs-keyword"><span class="hljs-keyword">int</span></span>)v-&gt;ch.size(); i++) {
+        destroy(v-&gt;ch[i]);
+    }
+    <span class="hljs-keyword"><span class="hljs-keyword">delete</span></span> v;
+}
+</code></pre><p>至此，我们已经实现了上一节实验中设计的测试驱动的全部需求，我们可以通过</p><pre><code class="hljs bash">g++ main<span class="hljs-selector-class">.cpp</span> -std=c++<span class="hljs-number">11</span>
+./<span class="hljs-selector-tag">a</span>.out
+</code></pre><p>这样的话，我们就可以打开 <code>index.html</code> 来查看最后生成的效果了：</p><p><img src="./实现 - 实验楼_files/wm(1)" alt="此处输入图片的描述"></p><p>同时，我们可以点击目录中的标签，跳转到相应的内容位置。</p><checker style="display: none">[{"name":"check if file main.cpp exist","script":"#!/bin/bash\nls /home/shiyanlou/MarkdownParser/mdtransform.hpp\n","error":"file mdtransform.hpp not exist!","timeout":3}]</checker><h2 id="labdoc-header-3">四、实验总结</h2>
+<p>本次项目我们实现了一个简单的 Markdown 解析器，通过对 Markdown 文件的解析，并生成需要的 <code>html</code>，整个项目的结构如下：</p><pre><code class="hljs css"><span class="hljs-selector-tag">src</span>
+├── <span class="hljs-selector-tag"><span class="hljs-selector-tag">a</span></span><span class="hljs-selector-class"><span class="hljs-selector-class">.out</span></span>
+├── <span class="hljs-selector-tag">main</span><span class="hljs-selector-class"><span class="hljs-selector-class">.cpp</span></span>
+├── <span class="hljs-selector-tag">mdtransform</span><span class="hljs-selector-class"><span class="hljs-selector-class">.hpp</span></span>
+├── <span class="hljs-selector-tag">output</span>
+│   ├── <span class="hljs-selector-tag">github-markdown</span><span class="hljs-selector-class"><span class="hljs-selector-class">.css</span></span>
+│   └── <span class="hljs-selector-tag">index</span><span class="hljs-selector-class"><span class="hljs-selector-class">.html</span></span>
+└── <span class="hljs-selector-tag">test</span><span class="hljs-selector-class">.md</span>
+</code></pre><p>为了方便起见，这里提供了整套代码的下载，可以供你参考：</p><pre><code class="hljs ruby"><span class="hljs-symbol">http:</span><span class="hljs-regexp">/<span class="hljs-regexp">/</span></span><span class="hljs-regexp">labfile.oss.aliyuncs.com</span><span class="hljs-regexp"><span class="hljs-regexp">/courses</span><span class="hljs-regexp">/</span></span><span class="hljs-number"><span class="hljs-regexp">569</span></span><span class="hljs-regexp"><span class="hljs-regexp">/md</span>-parser.zip</span>
+</code></pre><p>你可以使用 <code>wget</code> 来获取。</p><p>这个项目里面实现的 Markdown 语法只是实际所支持语法的一部分，有兴趣的同学可以继续实现剩余的其他部分的语法，比如对于列表而言，还有 <code>*</code> 和 <code>+</code> 这两种增加无序列表的语法，只需要进行不到十行的改动，就能实现这个功能。</p><p>如果你对 Markdown 本身希望做一个更加深入的了解，可以在参考资料中查看详尽的 Markdown 语法。</p><p>此外，Markdown 语法还有很多变种，比如 GitHub 在 Markdown 本身上做了一定程度的扩展，更加适合使用。</p><h2 id="labdoc-header-4">参考资料</h2>
+<ol>
+<li><a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown 官方语法说明</a></li>
+</ol>
+</div><div class="labdoc-copyright">*本课程内容，由作者授权实验楼发布，未经允许，禁止转载、下载及非法传播。</div></div>
+    
+    
+    <a class="pull-left labdoc-page" href="https://www.shiyanlou.com/courses/569/labs/1958/document">
+        上一节：基本设计
+    </a>
+    
+    
+</div>
+
+</div>
+
+
+        
+        
+
+        
+        
+        </div>
+
+        <div class="modal fade" id="flash-message" tabindex="-1" role="dialog">
+            <div class="modal-dialog" rolw="document">
+            </div>
+        </div>
+        <div class="modal fade" id="modal-message" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">注意</h4>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary confirm" data-dismiss="modal">确定</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div class="new-loading new-loading-modal" id="new-loading-modal">
+            <div class="loading-wrapper">
+                <p class="loading-icon-lion">
+                    <img src="./实现 - 实验楼_files/icon_loading.png" alt="">
+                </p>
+                <div class="progress">
+                    <div class="progress-bar load-progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0;">
+                        <span class="sr-only">0% Complete</span>
+                    </div>
+                </div>
+              <p class="loading-txt">
+                    加载中，精彩就在后面...
+              </p>
+              <p class="progress-reload">
+                  <a href="javascript:;" type="button" class="btn-progress-reload" title="">卡住了？点击重试</a>
+              </p>
+            </div>
+        </div>
+
+        
+<div class="modal fade" id="start-newlab">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始新实验</h3>
+			</div>
+			<div class="modal-body">
+                <p>一个实验正在进行，是否停止它，开始新实验？</p>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-newlab-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="start-evaluation-course">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>开始评估课实验</h3>
+			</div>
+			<div class="modal-body">
+                <div>
+                    <p>为了让评估结果更加准确，请注意以下操作：</p>
+                    <ul>
+                        <li>完成实验后点击「停止实验」按钮</li>
+                        <li>将代码提交到代码库</li>
+                        <li>尽可能详尽的撰写实验报告</li>
+                        <li>尽可能在实验操作的关键步骤截图</li>
+                        <li>尽可能减少无用操作</li>
+                        <li>尽可能高效的利用内存/CPU资源</li>
+                    </ul>
+                    <p>评估课还在不断完善中，我们真挚希望你能通过我们提供的这个平台，找到更好的发展机会。</p>
+                </div>
+                <br>
+                <div class="start-newlab"></div>
+			</div>
+			<div class="modal-footer">
+                <button class="btn" data-dismiss="modal" aria-hidden="true">关闭</button>
+                <a class="btn btn-primary start-confirm">确定</a>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+<div class="modal fade" id="vip-startlab-modal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4>请选择想使用的环境</h4>
+			</div>
+			<div class="modal-body">
+                <div class="start-newlab"></div>
+                
+                <div class="use-saved-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 oldvm">已保存的环境</button>
+                    <small class="last-saved-vm">
+                        最近保存：开发环境和剖析第一个 C 语言
+                    </small>
+                </div>
+                
+                <div class="use-tmp-vm">
+                    <button type="button" class="btn btn-primary col-lg-12 newvm">该实验默认环境</button>
+                </div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade askquestion-modal" id="askquestion" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                <h4 class="modal-title">发帖</h4>
+            </div>
+            <div class="modal-body words-ctrl">
+                <form class="form-horizontal" action="https://www.shiyanlou.com/questions/">
+                    <input name="_csrf_token" type="hidden" value="IjA5MGVlMzQ4MTQ2MDVmODg4OTE5OWEyYzM0MmY0OTZlYzA3OGNlMjMi.DqyrFw.CDARK1-geNu3gEcfiGHNZdp26Bg">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">标题</label>
+                        <div class="col-md-10">
+                            <input type="text" name="title" min="5" max="100" class="form-control syl-input" placeholder="至少输入5个字" value="">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">描述</label>
+                        <div class="col-md-10">
+                              
+<div class="tabpanel mkeditor">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+            <a href="https://www.shiyanlou.com/courses/569/labs/1959/document#mkeditor-editor" role="tab" data-toggle="tab">编辑</a>
+        </li>
+        <li role="presentation">
+            <a class="mkeditor-btn-view" href="https://www.shiyanlou.com/courses/569/labs/1959/document#mkeditor-viewer" role="tab" data-toggle="tab">预览</a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active mkeditor-editor" id="mkeditor-editor" role="tabpanel">
+            
+            <div class="btn-group" role="group">
+            
+                <button type="button" class="btn btn-default mkeditor-btn-bold">
+                    <i class="fa fa-bold"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-italic">
+                    <i class="fa fa-italic"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-link">
+                    <i class="fa fa-link"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-quote">
+                    <i class="fa fa-quote-left"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-code">
+                    <i class="fa fa-code"></i>
+                </button>
+                <button type="button" style="display: none;position: relative;outline: 0;" class="btn btn-default question-btn-img">
+                    <i class="fa fa-image"></i>
+                    <div class="img-btn-container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div type="button" class="btn btn-default screenshot-btn">
+                                    <i class="fa fa-cut"></i> 截取实验桌面
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="btn btn-default upload-image-btn">
+                                    <i class="fa fa-upload"></i> 上传本地图片
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </button>
+                <button id="mkeditor-pickfile" type="button" class="btn btn-default mkeditor-btn-img" style="z-index: 1;">
+                    <i class="fa fa-image"></i>
+                </button>
+                
+                <button type="button" class="btn btn-default mkeditor-btn-listol">
+                    <i class="fa fa-list-ol"></i>
+                </button>
+                <button type="button" class="btn btn-default mkeditor-btn-listul">
+                    <i class="fa fa-list-ul"></i>
+                </button>
+            <div id="html5_1cq8lo10oacei721v8cqk4oqi3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 0px; height: 0px; overflow: hidden; z-index: 0;"><input id="html5_1cq8lo10oacei721v8cqk4oqi3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept=""></div></div>
+            <div class="btn-group pull-right" role="group">
+                <a style="font-size:12px; color:#666; text-decoration:underline;" href="https://www.shiyanlou.com/questions/764" target="_blank">
+                    <i class="fa fa-question-circle"></i>Markdown 语法
+                </a>
+            </div>
+            <textarea name="content" class="form-control syl-input content" min="0" max="20000" placeholder="推荐使用 Markdown 语法，至少输入 5 个字"></textarea>
+            <div class="help-block"></div>
+        </div>
+        <div class="tab-pane mkeditor-viewer markdown-body" id="mkeditor-viewer" role="tabpanel">
+            <div></div>
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="display:none;">
+                        <label class="col-md-2 control-label">板块</label>
+                        <div class="col-md-10">
+                            <div class="q-types" data-type="">
+                            </div>
+                        </div>
+                    </div>
+                      
+                </form>
+            </div>
+            <div class="modal-footer">
+                <span class="bottom-link" style="display:none;color:#999;background:#FFFFFF;font-size:14px;;border:none;float:left;padding-left:0;">
+                    😀 若纠错被确认，您将得到 3 个实验豆作为奖励
+                    <a type="button" href="https://www.shiyanlou.com/questions/16351" target="_blank" style="color:#00CC99;">
+                        了解详情
+                    </a>
+                </span>
+                <button type="button" class="btn syl-btn-default no-bg" data-dismiss="modal">取消</button>
+                <button type="button" class="submit-question btn syl-btn-primary">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+        
+        
+        
+        
+        
+
+        
+        <div class="modal fade" id="invite-user" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">邀请好友，双方都可获赠实验豆！</h4>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <div class="form-label">
+                            分享专属链接给好友，或粘贴到QQ群/微博/论坛，好友注册后，您和好友将分别获赠3个实验豆！
+                        </div>
+                        <input type="text" id="bstext" class="form-invite" value="https://www.shiyanlou.com/register?inviter=NTY0MzE5NjY5MzY4">
+                        
+                        <div id="msg-modal"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade invite-vip-modal" id="invite-vip-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <img src="./实现 - 实验楼_files/invite-vip-title.png" style="width:100%;">
+                    </div>
+                    <div class="modal-body">
+                        <div class="invite-vip-content">好友输入你的邀请码开通会员后，您将获赠30天标准会员兑换卡一张，多邀多得。好友可享受30元优惠！</div>
+                        <div class="invite-vip-code">
+                            您的专属邀请码：<span>8862XMF</span>
+                            <input style="position:fixed;left:10000px" type="text" id="copy-input" value="输入我的邀请码加入实验楼会员，可享受30元优惠！邀请码：8862XMF。3000多个编程实验在线实践，开始学习：https://www.shiyanlou.com/vip">
+                            <button class="btn btn-primary invite-vip-copy" data-clipboard-target="#copy-input">复制</button>
+                            <div class="invite-vip-copied">
+                                复制成功！
+                            </div>
+                        </div>
+                        <div class="invite-vip-share">
+                            <span>或分享到</span>
+                            <a href="https://www.shiyanlou.com/courses/569/labs/1959/document#" class="invite-vip-weibo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#F47166"></circle>
+                                        <path fill="#FFF" d="M11.811 18C8.601 18 6 16.403 6 14.434c0-1.97 3.897-5.08 5.387-5.08.626 0 1.852.444.994 1.848-.06.098 1.935-.816 3.026-.215 1.091.602 0 1.568 0 1.676 0 .107 2.19.107 2.19 1.77 0 1.97-2.576 3.567-5.786 3.567zm5.019-7.872c.678.58.391 1.611.391 1.611a.353.353 0 0 1-.338.28h-.22c-.161 0-.247-.119-.2-.264 0 0 .277-.639-.085-1.047-.361-.408-1.098-.314-1.098-.314a.268.268 0 0 1-.282-.263v-.057c0-.159.124-.294.276-.315 0 0 .879-.211 1.556.369zm1.265-1.16c1.242 1.117.843 3.088.843 3.088-.024.22-.244.413-.48.413h-.14c-.235 0-.397-.185-.36-.414 0 0 .317-1.24-.428-2.257-.745-1.017-2.495-.844-2.495-.844a.405.405 0 0 1-.412-.407v-.111c0-.237.185-.424.412-.429 0 0 1.818-.156 3.06.961zm-5.861 8.437c2.05-.288 3.568-1.55 3.39-2.817-.178-1.268-1.985-2.062-4.035-1.774-2.05.288-3.569 1.55-3.39 2.817.178 1.268 1.984 2.062 4.035 1.774zm-.367-.448c-1.22.237-2.36-.354-2.549-1.32-.188-.967.649-1.943 1.868-2.18 1.22-.237 2.361.354 2.549 1.32.188.967-.649 1.943-1.868 2.18zm-.243-2.166c.207 0 .375-.16.375-.357a.366.366 0 0 0-.375-.357.366.366 0 0 0-.375.357c0 .197.168.357.375.357zm-.72 1.079c.376-.175.579-.534.454-.802-.125-.268-.53-.343-.906-.168-.375.175-.578.534-.453.802.125.267.53.343.905.168z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a href="https://www.shiyanlou.com/courses/569/labs/1959/document#" class="invite-vip-qq">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <circle cx="12.5" cy="12.5" r="12.5" fill="#76C1FF"></circle>
+                                        <path fill="#FFF" d="M8.293 11.189c-.061.17.028.277 0 .924-.008.174-.718.962-1 1.78-.279.812-.317 1.66.114 1.993.432.334.833-1.109.886-.9.022.092.051.188.085.286.138.393.37.828.706 1.235.068.083-.416.234-.706.756s.083 1.471 1.526 1.471c1.861 0 2.278-.692 2.315-.689.14.011.149 0 .296 0 .18 0 .105.016.272 0 .09-.008.995.829 2.247.69 2.134-.238 1.808-.994 1.64-1.472-.175-.498-.793-.731-.766-.763.512-.598.593-.964.766-1.513.071-.226.566 1.24.948.9.159-.143.476-.736.159-1.994-.318-1.257-.933-1.544-.92-1.78.029-.49.012-.835-.011-.924-.113-.432-.35-.337-.35-.432 0-2.49-1.77-4.507-3.953-4.507s-3.953 2.018-3.953 4.507c0 .197-.165.051-.301.432z"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a class="qq-zone invite-vip-qzone" href="https://www.shiyanlou.com/courses/569/labs/1959/document#">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path fill="#FFDB59" d="M12.5 0C19.403 0 25 5.597 25 12.5S19.403 25 12.5 25 0 19.403 0 12.5 5.597 0 12.5 0"></path>
+                                        <path fill="#FFF" d="M12.5 17.417s-4.606 2.785-4.89 2.558c-.285-.228.934-5.418.934-5.418S4.419 11.14 4.588 10.72c.17-.42 5.468-.79 5.468-.79S12.023 5 12.5 5c.477 0 2.445 4.93 2.445 4.93s5.322.372 5.468.79c.145.417-3.956 3.837-3.956 3.837s.05.332.11.579c.004.017-1.916.06-3.489 0-.825-.03-1.82-.184-1.82-.184l4.553-3.23s-1.646-.295-3.31-.354c-1.824-.065-3.69.11-3.957.177-.168.042 1.178.038 2.714.176 1.076.098 2.491.355 2.491.355L9.196 15.45s1.95.117 3.698.105c1.969-.013 3.746-.256 3.757-.21.343 1.477.975 4.392.74 4.63-.32.325-4.89-2.557-4.89-2.557"></path>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        <div id="base-data" data-flash="false" data-is-login="true" data-jwt-token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOiI2NTY2OTMiLCJpc3MiOiJzaGl5YW5sb3U6d2ViOmFwcCIsInVuYW1lIjoiXHU2NTcwXHU2MzZlXHU1MjA2XHU2NzkwXHU1ZTA4IiwiaXNfYWRtaW4iOmZhbHNlLCJleHAiOjE1NDAxMjM0MTUsImlhdCI6MTU0MDAzNzAxNX0.veiPMRWhPxk5YMhGV_gKVOuLSlCEX3i6AsL6SCugml4" data-user-id="656693" data-is-jwt="true" data-socket-url="wss://comet.shiyanlou.com" data-msg-user="" data-msg-system="" data-invite-code="8862XMF"></div>
+
+        <!-- 不带 CSS 的库 -->
+        <script async="" src="./实现 - 实验楼_files/analytics.js.下载"></script><script src="./实现 - 实验楼_files/polyfill.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/manifest.js.下载"></script>
+        <script src="./实现 - 实验楼_files/vendor.js.下载"></script>
+
+        <script src="./实现 - 实验楼_files/jquery.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/jquery.form.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/jquery.menu-aim.js.下载"></script>
+        <script src="./实现 - 实验楼_files/jquery.qrcode.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/html2canvas.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/jspdf.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/clipboard.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/qiniu.js.下载"></script>
+        <script src="./实现 - 实验楼_files/plupload.full.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/echarts.min.js.下载"></script>
+        <!-- 不带 CSS 的库 end -->
+
+        <!-- 带有 CSS 的库 -->
+        <script src="./实现 - 实验楼_files/bootstrap.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/bootstrap-switch.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/bootstrap-tour.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/bootstrap-table.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/bootstrap-table-zh-CN.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/bootstrap-table-filter-control.min.js.下载"></script>
+
+        <script src="./实现 - 实验楼_files/ace.js.下载"></script>
+        <script src="./实现 - 实验楼_files/video.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/videojs-flash.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/katex.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/highlight.min.js.下载"></script>
+        <!-- 带有 CSS 的库 end -->
+
+        <script src="./实现 - 实验楼_files/d3.min.js.下载"></script>
+        <script src="./实现 - 实验楼_files/moment.min.js.下载" charset="utf-8"></script>
+        <script src="./实现 - 实验楼_files/calendar-heatmap.js.下载"></script>
+
+        <script src="./实现 - 实验楼_files/raven.min.js.下载" crossorigin="anonymous"></script>
+        <script>
+            Raven.config('https://7748db6c507a45cca1ba53ccb7dc0d51@sentry.shiyanlou.com/5', {
+                whitelistUrls: [/console/, /running/]
+            }).install();
+        </script>
+
+        
+        
+
+        
+<div id="jinja-data" data-qiniu-token-url="/api/qiniu/token" data-labid="1959" data-is-authenticated="true" data-tencent-labid="[877]" data-course-detail="/courses/569" data-left-time="0" data-course-id="569" data-userlab-id="None" data-question-form="/questions/meta" data-start-newlab-url="/courses/clear" data-courses-doc="/courses/labs/1959/document"></div>
+<script src="./实现 - 实验楼_files/labDoc.js.下载"></script><div class="showTimeOut" style="display: none; position: fixed; top: 0px; left: 0px; right: 0px; bottom: 0px; background: rgba(0, 0, 0, 0.8); text-align: center; z-index: 1600;"><i class="fa fa-spinner fa-pulse" style="margin-top: 326.8px; color: rgb(255, 255, 255); font-size: 35px;"></i></div>
+
+
+
+        
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-89338452-1', 'auto');
+    ga('send', 'pageview');
+    </script>
+
+    
+</body></html>
